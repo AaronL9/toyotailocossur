@@ -6,7 +6,7 @@
     <nav class="max-w-340 w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between">
         <a class="flex-none text-xl font-semibold dark:text-white focus:outline-hidden focus:opacity-80" href="#"
             aria-label="Brand">
-            <img class="w-40 h-auto" src="/assets/ilocos-sur-white-DHIjoD-c.png" alt="Logo" />
+            <img class="w-40 h-auto" src="/img/ilocos-sur-white-DHIjoD-c.png" alt="Logo" />
         </a>
         <div class="sm:order-3 flex items-center gap-x-2">
             <button type="button"
@@ -96,7 +96,7 @@
         <!-- Left: Vehicle Image -->
         <div class="w-full flex justify-center">
             <div class="w-full max-w-4xl aspect-21/9 lg:aspect-video">
-                <img src="/assets/fortuner1-Q3IeaT8B.webp" class="w-full h-full object-contain" alt="" />
+                <img src="/img/fortuner1-Q3IeaT8B.webp" class="w-full h-full object-contain" alt="" />
             </div>
         </div>
 
@@ -178,7 +178,7 @@
     <!-- Featured Variant -->
     <div class="border rounded-2xl p-8 mb-16 bg-gray-50">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <img src="/assets/fortuner1-Q3IeaT8B.webp" alt="" class="w-full max-w-xl mx-auto" />
+            <img src="/img/fortuner1-Q3IeaT8B.webp" alt="" class="w-full max-w-xl mx-auto" />
 
             <div class="space-y-6">
                 <h3 class="text-2xl font-semibold">GR-S 4x4 AT</h3>
@@ -209,7 +209,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <!-- Card -->
         <div class="space-y-4">
-            <img src="/assets/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
+            <img src="/img/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
 
             <div>
                 <h4 class="font-bold text-xl">2.8 LTD 4x4 AT</h4>
@@ -243,7 +243,7 @@
 
         <!-- Repeat -->
         <div class="space-y-4">
-            <img src="/assets/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
+            <img src="/img/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
 
             <div>
                 <h4 class="font-bold text-xl">2.8 LTD 4x4 AT</h4>
@@ -276,7 +276,7 @@
         </div>
 
         <div class="space-y-4">
-            <img src="/assets/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
+            <img src="/img/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
 
             <div>
                 <h4 class="font-bold text-xl">2.8 LTD 4x4 AT</h4>
@@ -309,7 +309,7 @@
         </div>
 
         <div class="space-y-4">
-            <img src="/assets/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
+            <img src="/img/fortuner1-Q3IeaT8B.webp" class="w-full" alt="" />
 
             <div>
                 <h4 class="font-bold text-xl">2.8 LTD 4x4 AT</h4>
@@ -558,7 +558,7 @@
     <div class="max-w-7xl mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 items-start gap-6">
             <div>
-                <img src="/assets/ilocos-sur-white-DHIjoD-c.png" class="h-10 bg-center w-auto" />
+                <img src="/img/ilocos-sur-white-DHIjoD-c.png" class="h-10 bg-center w-auto" />
                 <p class="text-gray-300 text-sm pt-8">
                     Langlangca 2nd, Candon City, Ilocos sur
                 </p>
