@@ -1,0 +1,17 @@
+{
+  "src/admin.ts": {
+    "file": "assets/admin-l0sNRNKZ.js",
+    "name": "admin",
+    "src": "src/admin.ts",
+    "isEntry": true
+  },
+  "src/main.ts": {
+    "file": "assets/main-DyOZi00z.js",
+    "name": "main",
+    "src": "src/main.ts",
+    "isEntry": true,
+    "css": [
+      "assets/main-B_6Ike1u.css"
+    ]
+  }
+}

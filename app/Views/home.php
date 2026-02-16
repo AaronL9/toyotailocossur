@@ -5,7 +5,7 @@
     <nav class="max-w-340 w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between">
         <a class="flex-none text-xl font-semibold dark:text-white focus:outline-hidden focus:opacity-80" href="#"
             aria-label="Brand">
-            <img class="w-40 h-auto" class="p-10" src="/assets/ilocos-sur-white-DHIjoD-c.png" alt="Logo" />
+            <img class="w-40 h-auto" class="p-10" src="/img/ilocos-sur-white-DHIjoD-c.png" alt="Logo" />
         </a>
         <div class="sm:order-3 flex items-center gap-x-2">
             <button type="button"
@@ -60,22 +60,22 @@
             class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
             <!-- Slide 1 -->
             <div class="hs-carousel-slide relative">
-                <img src="/assets/carousel1-xmi8Hsyg.jpg" class="w-full h-full object-cover" alt="Toyota Service" />
+                <img src="/img/carousel1-xmi8Hsyg.jpg" class="w-full h-full object-cover" alt="Toyota Service" />
             </div>
 
             <!-- Slide 2 -->
             <div class="hs-carousel-slide relative">
-                <img src="/assets/carousel2-ExbEmYc-.jpg" class="w-full h-full object-cover" alt="Toyota Cars" />
+                <img src="/img/carousel2-ExbEmYc-.jpg" class="w-full h-full object-cover" alt="Toyota Cars" />
             </div>
 
             <!-- Slide 3 -->
             <div class="hs-carousel-slide relative">
-                <img src="/assets/carousel3-DnPtD492.jpg" class="w-full h-full object-cover" alt="Toyota Showroom" />
+                <img src="/img/carousel3-DnPtD492.jpg" class="w-full h-full object-cover" alt="Toyota Showroom" />
             </div>
 
             <!-- Slide 4 -->
             <div class="hs-carousel-slide relative">
-                <img src="/assets/carousel3-DnPtD492.jpg" class="w-full h-full object-cover" alt="Toyota Showroom" />
+                <img src="/img/carousel3-DnPtD492.jpg" class="w-full h-full object-cover" alt="Toyota Showroom" />
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="group flex flex-col overflow-hidden bg-gray-100 shadow-lg">
                 <div class="relative overflow-hidden bg-gray-100">
-                    <img src="/assets/fortuner1-Q3IeaT8B.webp" class="w-full h-64 object-contain" />
+                    <img src="/img/fortuner1-Q3IeaT8B.webp" class="w-full h-64 object-contain" />
                     <div class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white">
                         <h3 class="text-2xl font-semibold mb-2">Fortuner</h3>
                         <div class="space-y-1 mb-4">
@@ -151,7 +151,7 @@
             <!-- Vehicle Card 2 -->
             <div class="group flex flex-col rounded-xl overflow-hidden bg-gray-100 shadow-lg">
                 <div class="relative overflow-hidden bg-gray-100">
-                    <img src="/assets/corollaCross-D7_CYBOE.png" class="w-full h-64 object-contain" />
+                    <img src="/img/corollaCross-D7_CYBOE.png" class="w-full h-64 object-contain" />
                     <div class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white">
                         <h3 class="text-2xl font-semibold mb-2">Corolla Cross</h3>
                         <div class="space-y-1 mb-4">
@@ -183,7 +183,7 @@
             <!-- Vehicle Card 3 -->
             <div class="group flex flex-col rounded-xl overflow-hidden bg-gray-100 shadow-lg">
                 <div class="relative overflow-hidden bg-gray-100">
-                    <img src="/assets/commuterDelux-P1xL9xdx.png" class="w-full h-64 object-contain" />
+                    <img src="/img/commuterDelux-P1xL9xdx.png" class="w-full h-64 object-contain" />
                     <div class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white">
                         <h3 class="text-2xl font-semibold mb-2">Commuter Deluxe</h3>
                         <div class="space-y-1 mb-4">
@@ -215,7 +215,7 @@
             <!-- Vehicle Card 4-->
             <div class="group flex flex-col rounded-xl overflow-hidden bg-gray-100 shadow-lg">
                 <div class="relative overflow-hidden bg-gray-100">
-                    <img src="/assets/alphard-fdE3fjRk.png" class="w-full h-64 object-contain" />
+                    <img src="/img/alphard-fdE3fjRk.png" class="w-full h-64 object-contain" />
                     <div class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white">
                         <h3 class="text-2xl font-semibold mb-2">Alphard</h3>
                         <div class="space-y-1 mb-4">
@@ -267,7 +267,7 @@
 <!-- HERO SECTION -->
 <section class="relative lg:grid lg:h-screen lg:place-content-center">
     <div class="absolute inset-0 -z-10">
-        <img src="/assets/banner2-DKS0BEOM.jpg" class="h-full w-full object-cover" alt="" />
+        <img src="/img/banner2-DKS0BEOM.jpg" class="h-full w-full object-cover" alt="" />
         <div class="absolute inset-0 bg-black/60"></div>
     </div>
     <div
@@ -355,7 +355,7 @@
             <!-- Right -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="/assets/maintenance-GiBGTARx.jpg" alt="Toyota Service Center"
+                    <img src="/img/maintenance-GiBGTARx.jpg" alt="Toyota Service Center"
                         class="w-full h-auto object-cover" />
                 </div>
             </div>
@@ -371,7 +371,7 @@
             <!-- Card 1 -->
             <div class="group relative overflow-hidden rounded-2xl shadow-xl cursor-pointer">
                 <img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    src="/assets/employee9-B5EfZgH9.png" alt="Team Member 1" />
+                    src="/img/employee9-B5EfZgH9.png" alt="Team Member 1" />
                 <div
                     class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 via-black/60 to-transparent p-4">
                     <h3 class="text-white font-semibold text-lg mb-1">
@@ -420,7 +420,7 @@
             <!-- Card 2 -->
             <div class="group relative overflow-hidden rounded-2xl shadow-xl cursor-pointer mt-12">
                 <img class="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
-                    src="/assets/employee8-CVNAixpJ.png" alt="Team Member 2" />
+                    src="/img/employee8-CVNAixpJ.png" alt="Team Member 2" />
                 <div
                     class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 via-black/60 to-transparent p-4">
                     <h3 class="text-white font-semibold text-lg mb-1">
@@ -469,7 +469,7 @@
             <!-- Card 3 -->
             <div class="group relative overflow-hidden rounded-2xl shadow-xl cursor-pointer">
                 <img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    src="/assets/employee7-BK6GwSxi.png" alt="Team Member 3" />
+                    src="/img/employee7-BK6GwSxi.png" alt="Team Member 3" />
                 <div
                     class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 via-black/60 to-transparent p-4">
                     <h3 class="text-white font-semibold text-lg mb-1">
@@ -518,7 +518,7 @@
             <!-- Card 4 -->
             <div class="group relative overflow-hidden rounded-2xl shadow-xl cursor-pointer mt-12">
                 <img class="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
-                    src="/assets/employee2-Bl7UKlja.png" alt="Team Member 4" />
+                    src="/img/employee2-Bl7UKlja.png" alt="Team Member 4" />
                 <div
                     class="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/90 via-black/60 to-transparent p-4">
                     <h3 class="text-white font-semibold text-lg mb-1">
@@ -593,7 +593,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 items-start gap-6">
             <!-- Logo -->
             <div>
-                <img src="/assets/ilocos-sur-white-DHIjoD-c.png" class="h-10 bg-center w-auto" />
+                <img src="/img/ilocos-sur-white-DHIjoD-c.png" class="h-10 bg-center w-auto" />
                 <p class="text-gray-300 text-sm pt-8">
                     Langlangca 2nd, Candon City, Ilocos sur
                 </p>
