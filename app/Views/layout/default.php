@@ -38,10 +38,10 @@
                     <span class="sr-only">Toggle</span>
                 </button>
 
-                <button
+                <a href="/schedule"
                     class="text-sm uppercase font-semibold group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md border border-red-600 bg-red-600 px-2 *:font-medium text-white">
                     Schedule Now
-                </button>
+                </a>
             </div>
             <div id="hs-navbar-alignment"
                 class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2"
@@ -55,9 +55,6 @@
                         href="#">ABOUT US</a>
                     <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
                         href="/contact">CONTACT US</a>
-
-                    <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
-                        href="#">CSR</a>
                 </div>
             </div>
         </nav>
