@@ -54,7 +54,7 @@
                     <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
                         href="#">ABOUT US</a>
                     <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
-                        href="#">CONTACT US</a>
+                        href="/contact">CONTACT US</a>
 
                     <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
                         href="#">CSR</a>
