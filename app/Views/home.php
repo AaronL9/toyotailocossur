@@ -83,7 +83,7 @@
                                 PHP 32,265<span class="text-sm">*</span> / month
                             </p>
                         </div>
-                        <button
+                        <a href="/vehicle"
                             class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-red-600 px-6 font-medium text-neutral-200">
                             <span>Full Specs</span>
                             <div
@@ -95,7 +95,7 @@
                                         fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                                 PHP 32,265<span class="text-sm">*</span> / month
                             </p>
                         </div>
-                        <button
+                        <a href="/vehicle"
                             class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-red-600 px-6 font-medium text-neutral-200">
                             <span>Full Specs</span>
                             <div
@@ -127,7 +127,7 @@
                                         fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                                 PHP 32,265<span class="text-sm">*</span> / month
                             </p>
                         </div>
-                        <button
+                        <a href="/vehicle"
                             class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-red-600 px-6 font-medium text-neutral-200">
                             <span>Full Specs</span>
                             <div
@@ -159,7 +159,7 @@
                                         fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -179,7 +179,7 @@
                                 PHP 32,265<span class="text-sm">*</span> / month
                             </p>
                         </div>
-                        <button
+                        <a href="/vehicle"
                             class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-red-600 px-6 font-medium text-neutral-200">
                             <span>Full Specs</span>
                             <div
@@ -191,13 +191,13 @@
                                         fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="flex justify-center md:justify-end mb-8 p-6">
-            <button
+            <a href="/showroom"
                 class="group relative inline-flex h-14 items-center justify-center rounded-full bg-red-600 py-1 pl-6 pr-14 font-medium text-white">
                 <span class="z-10 pr-2 transition-colors group-hover:text-red-600">View All Vehicles</span>
                 <div
@@ -211,7 +211,7 @@
                         </svg>
                     </div>
                 </div>
-            </button>
+            </a>
         </div>
     </div>
 </section>
@@ -287,7 +287,7 @@
                     </li>
                 </ul>
 
-                <button
+                <a href="/schedule"
                     class="group relative inline-flex h-14 items-center justify-center rounded-full bg-red-600 py-1 pl-6 pr-14 font-medium text-white">
                     <span class="z-10 pr-2 transition-colors group-hover:text-red-600">Schedule Maintenance</span>
                     <div
@@ -301,7 +301,7 @@
                             </svg>
                         </div>
                     </div>
-                </button>
+                </a>
             </div>
 
             <!-- Right -->
@@ -530,10 +530,10 @@
                 drivers with the innovation and reliability of Toyota Motor
                 Corporation through campaigns that inspire trust and loyalty.
             </p>
-            <button
+            <a href="/contact"
                 class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-red-600 bg-red-600 px-6 font-medium text-white transition-all duration-100 [box-shadow:5px_5px_rgb(153_27_27)] active:translate-x-0.75 active:translate-y-0.75 active:[box-shadow:0px_0px_rgb(153_27_27)]">
                 Contact Us
-            </button>
+            </a>
         </div>
     </div>
 </section>
