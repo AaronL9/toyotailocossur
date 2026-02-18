@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico">
     <base href="<?= base_url() ?>">
+    <?= vite_css("src/main.ts") ?>
 </head>
 
 <body class=" flex flex-col min-h-screen">
