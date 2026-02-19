@@ -44,18 +44,25 @@
                     Schedule Now
                 </a>
             </div>
+
+
+
             <div id="hs-navbar-alignment"
                 class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2"
                 aria-labelledby="hs-navbar-alignment-collapse">
                 <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
-                    <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
-                        href="#">HOME</a>
-                    <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
-                        href="/showroom">SHOWROOM</a>
-                    <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
-                        href="#">ABOUT US</a>
-                    <a class="font-medium text-white focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
-                        href="/contact">CONTACT US</a>
+                    <?php $links = [
+                        "home" => "/",
+                        "showroom" => "/showroom",
+                        "about us" => "#team",
+                        "contact us" => "/contact"
+                    ] ?>
+
+                    <?php foreach ($links as $key => $value): ?>
+                        <?php $isActive = url_is($value) ?>
+                        <a class="<?= $isActive ? "underline decoration-red-600 " : "" ?> uppercase text-white font-medium focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
+                            href="<?= $value ?>"><?= $key ?></a>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </nav>

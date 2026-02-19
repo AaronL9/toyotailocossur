@@ -2,14 +2,24 @@
 
 namespace App\Controllers;
 
+use App\Models\VehicleModel;
+
 class Home extends BaseController
 {
+    protected $vehicleModel;
+
+    public function __construct()
+    {
+        $this->vehicleModel = model(VehicleModel::class);
+    }
+
     public function getIndex(): string
     {
-        return view('home');
-    }
-    public function getShowroom(): string
-    {
-        echo "hellow worlds";
+        $db = db_connect();
+        $data["banners"] = $db->table("banners")->select()->get()->getResult();
+        $data["vehicles"] = $this->vehicleModel->getVehiclePhotos();
+        $data["agents"] = $db->table("agents")->select()->get("4")->getResult();
+
+        return view('home', $data);
     }
 }
