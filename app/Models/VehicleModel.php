@@ -28,7 +28,7 @@ class VehicleModel extends Model
             ->select("vehicles.vehicle_title ,photos.*")
             ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
             ->join("photos", "photos.variant_no = variants.variant_no", "left")
-            ->findAll();
+            ->findAll(4);
 
         return $data;
     }

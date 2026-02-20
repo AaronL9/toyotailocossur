@@ -45,8 +45,6 @@
                 </a>
             </div>
 
-
-
             <div id="hs-navbar-alignment"
                 class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2"
                 aria-labelledby="hs-navbar-alignment-collapse">
