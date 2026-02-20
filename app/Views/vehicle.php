@@ -1,6 +1,7 @@
 <?= $this->extend("layout/default"); ?>
 <?= $this->section("mainContent"); ?>
 <?= $this->include("partials/breadcrumb"); ?>
+
 <!-- Main Layout -->
 <main class="flex-1 max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
@@ -349,6 +350,11 @@
         </div>
     </div>
 </section>
+<span class="flex items-center">
+    <span class="h-px flex-1 bg-linear-to-r from-transparent to-gray-300"></span>
+
+    <span class="h-px flex-1 bg-linear-to-l from-transparent to-gray-300"></span>
+</span>
 
 <!-- Gallery Section -->
 <section class="py-16 md:py-24 px-4 md:px-8" aria-labelledby="gallery-heading">
@@ -366,7 +372,7 @@
             </p>
         </header>
 
-        <!-- Preline Tabs: Exterior | Interior -->
+        <!-- Exterior | Interior -->
         <div id="vehicle-gallery-tabs" class="mb-10">
             <nav class="flex flex-wrap gap-2 justify-center border-b border-white/10 pb-px" aria-label="Gallery views"
                 role="tablist" data-hs-tabs='{"defaultSelected": "exterior-tab"}'>
@@ -463,6 +469,56 @@
         </div>
     </div>
 </section>
+
+<!-- Divider -->
+<span class="mb-8 flex items-center">
+    <span class="h-px flex-1 bg-linear-to-r from-transparent to-gray-300"></span>
+
+    <span class="h-px flex-1 bg-linear-to-l from-transparent to-gray-300"></span>
+</span>
+
+<!-- Contact form -->
+<div
+    class="mb-6 mx-4 sm:mx-auto w-auto sm:w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+    <h3 class="text-slate-800 font-semibold text-xl text-center uppercase tracking-wider mb-6">
+        Inquire About This Vehicle
+    </h3>
+    <form class="space-y-5" action="#" method="post">
+        <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+                <label for="contact-name" class="block text-sm font-medium text-slate-700 mb-1.5">Name</label>
+                <input type="text" id="contact-name" name="name" required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600 outline-none transition"
+                    placeholder="Your name" />
+            </div>
+            <div>
+                <label for="contact-email" class="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+                <input type="email" id="contact-email" name="email" required
+                    class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600 outline-none transition"
+                    placeholder="you@example.com" />
+            </div>
+        </div>
+        <div>
+            <label for="contact-phone" class="block text-sm font-medium text-slate-700 mb-1.5">Phone</label>
+            <input type="tel" id="contact-phone" name="phone"
+                class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-red-600 focus:ring-2 focus:ring-red-600 outline-none transition"
+                placeholder="+63 123 456 7890" />
+        </div>
+        <div>
+            <label for="contact-message" class="block text-sm font-medium text-slate-700 mb-1.5">Message</label>
+            <textarea id="contact-message" name="message" rows="4" required
+                class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-slate-800 placeholder-slate-400 focus:border-red-500 focus:ring-2 focus:ring-red-500 outline-none transition resize-y"
+                placeholder="How can we help?"></textarea>
+        </div>
+        <div class="lg:flex lg:justify-center">
+            <button type="submit"
+                class="items-center w-full sm:w-auto px-8 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors">
+                Send message
+            </button>
+        </div>
+
+    </form>
+</div>
 
 
 
