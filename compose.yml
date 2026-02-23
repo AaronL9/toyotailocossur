@@ -14,7 +14,6 @@ services:
       # Run CodeIgniter 4 dev server, accessible from any host
 
   client:
-    user: "${UID}:${GID}"
     build:
       context: ./ # Same build context (current folder)
       target: client-dev # Target stage for client-side dev build

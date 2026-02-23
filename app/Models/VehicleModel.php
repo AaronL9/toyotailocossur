@@ -11,6 +11,7 @@ class VehicleModel extends Model
     protected $returnType       = 'object';
     protected $allowedFields    = [
         "vehicle_no",
+        "vcat_no",
         "variant_model",
         "variant_price",
         "variant_price_month",
