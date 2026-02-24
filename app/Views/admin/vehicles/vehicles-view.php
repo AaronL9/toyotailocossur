@@ -8,7 +8,7 @@
     <div class="mb-5 flex justify-between">
       <div class="relative max-w-xs">
         <label for="hs-table-search" class="sr-only">Search</label>
-        <input type="text" name="hs-table-search" id="hs-table-search" class="py-1.5 sm:py-2 px-3 ps-9 block w-full bg-layer border-layer-line shadow-2xs rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:z-10 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" placeholder="Search for hotlines">
+        <input type="text" name="hs-table-search" id="hs-table-search" class="py-1.5 sm:py-2 px-3 ps-9 block w-full bg-layer border-layer-line shadow-2xs rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:z-10 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" placeholder="Search for vehicles">
         <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
           <svg class="size-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8" />
@@ -32,12 +32,42 @@
               <tr>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"></th>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Username</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Tagline</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Price</th>
                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
               </tr>
             </thead>
-            <tbody x-data="">
+            <tbody x-data="carsTable">
+              <template x-if="loading">
+                <tr>
+                  <td colspan="3">Loading...</td>
+                </tr>
+              </template>
 
+              <template x-for="car in cars" :key="car.vehicle_no">
+                <tr class="odd:bg-white even:bg-gray-100">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <label class="relative inline-block w-11 h-6 cursor-pointer">
+                      <input type="checkbox" class="peer sr-only">
+                      <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary -600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                      <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+                    </label>
+                  </td>
+                  <td x-text="car.vehicle_title" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"></td>
+                  <td x-text="car.vcat_title" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">100,000</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                    <div class="inline-flex gap-x-2">
+                      <a class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 focus:outline-hidden">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </a>
+                      <button type="button" data-action="delete" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 focus:outline-hidden del-btn">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </template>
             </tbody>
           </table>
         </div>

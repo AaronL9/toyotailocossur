@@ -25,14 +25,12 @@ class Vehicle extends ResourceController
      */
     public function index()
     {
-        $data["vehicle"] = $this->model
+        $data = $this->model
             ->select()
             ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no")
             ->findAll();
 
-        return $this->respond([
-            "data" => $data
-        ]);
+        return $this->respond($data);
     }
 
     /**
