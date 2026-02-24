@@ -349,6 +349,7 @@
             </div>
         </div>
     </div>
+
 </section>
 <span class="flex items-center">
     <span class="h-px flex-1 bg-linear-to-r from-transparent to-gray-300"></span>
