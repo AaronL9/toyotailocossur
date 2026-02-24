@@ -24,7 +24,9 @@ class Showroom extends BaseController
         $data["vehicles_category"] = $this->vehiclesCategoryModel->findAll();
         $data["vehicles"] = $this->vehicleModel
             ->select()
-            ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no")
+            ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no", "left")
+            ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
+            ->join("photos", "photos.variant_no = variants.variant_no", "left")
             ->findAll();
 
         return view("showroom", $data);
