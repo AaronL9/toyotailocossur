@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Preline UI */
+@source "../node_modules/preline/dist/*.js";
+@import "../node_modules/preline/variants.css";
+
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+/* Preline Themes */
+@import "./themes/themes.css";
+
+@theme inline {
+  --color-primary-50: #fff0f1;
+  --color-primary-100: #ffdee1;
+  --color-primary-200: #ffc3c8;
+  --color-primary-300: #ff99a2;
+  --color-primary-400: #ff5f6d;
+  --color-primary-500: #ff2d40;
+  --color-primary-600: #eb0a1e;
+  --color-primary-700: #ce0719;
+  --color-primary-800: #aa0a18;
+  --color-primary-900: #8c101b;
+  --color-primary-950: #4d0209;
+}
+
+@source '../../backend-views/**/*.php';

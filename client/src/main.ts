@@ -1,6 +1,5 @@
 import 'preline';
-import './style.css'
-
+import './style.css';
 
 import Showroom from './pages/showroom';
 
