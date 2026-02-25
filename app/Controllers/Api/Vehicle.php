@@ -25,12 +25,21 @@ class Vehicle extends ResourceController
      */
     public function index()
     {
+        $page = $this->request->getGet("page") ?? 1;
+        $search = $this->request->getGet("search") ?? "";
+
         $data = $this->model
             ->select()
             ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no")
-            ->findAll();
+            ->like("vehicle_title", $search, "both")
+            ->paginate(10, "default", $page);
 
-        return $this->respond($data);
+        $pageDetails = $this->model->pager->getDetails();
+
+        return $this->respond([
+            "pageDetails" => $pageDetails,
+            "vehicles" => $data
+        ]);
     }
 
     /**

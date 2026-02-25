@@ -1,8 +1,8 @@
 import 'preline';
 import './admin.css'
 import '@fortawesome/fontawesome-free/css/all.css';
-import Alpine from 'alpinejs';
 
+import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
 import UsersPage from './pages/admin/UsersPage';
@@ -19,4 +19,4 @@ if (page && routes[page]) {
   routes[page]();
 }
 
-Alpine.start()
+Alpine.start();
