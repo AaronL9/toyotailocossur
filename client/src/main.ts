@@ -1,7 +1,7 @@
 import 'preline';
 import './style.css';
 
-import Showroom from './pages/showroom';
+import Showroom from './Pages/showroom';
 
 const page = document.documentElement.dataset.page;
 

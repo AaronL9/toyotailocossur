@@ -18,6 +18,7 @@ type VehiclesArray = z.infer<typeof VehiclesApi>["vehicles"];
 type pageDetails = z.infer<typeof VehiclesApi>["pageDetails"];
 
 export default function VehiclesPage() {
+  console.log(location.pathname)
   Alpine.data('vehiclesData', () => ({
     vehicles: [] as VehiclesArray,
     pageDetails: {

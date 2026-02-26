@@ -1,4 +1,3 @@
-
 import * as z from "zod";
 
 const Vehicles = z.object({

@@ -9,6 +9,7 @@ use CodeIgniter\RESTful\ResourceController;
 class Vehicle extends ResourceController
 {
     protected $modelName = VehicleModel::class;
+    protected $format = 'json';
 
     /**
      * @var CLIRequest|IncomingRequest
@@ -71,7 +72,28 @@ class Vehicle extends ResourceController
      */
     public function create()
     {
-        //
+        $json = json_decode($this->request->getBody(), true);
+
+        // return $this->respond(["data from server" => $json]);
+
+        $rules = [
+            'title' => 'required',
+            'tagline' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully add vehicle",
+            "errors" => null,
+        ]);
     }
 
     /**

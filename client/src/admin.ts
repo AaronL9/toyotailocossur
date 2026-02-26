@@ -1,22 +1,25 @@
 import 'preline';
+
 import './admin.css'
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
-import UsersPage from './pages/admin/UsersPage';
-import VehiclesPage from './pages/admin/VehiclesPage';
+import UsersPage from './Pages/Admin/UsersPage';
+import VehiclesPage from './Pages/Admin/Vehicles/VehiclesPage';
+import VehiclesCreatePage from './Pages/Admin/Vehicles/VehiclesCreatePage';
 
-const page = document.documentElement.dataset.page;
+const path = location.pathname;
 
 const routes: Record<string, () => void> = {
   'users': UsersPage,
-  'vehicles': VehiclesPage
+  '/admin/vehicles': VehiclesPage,
+  '/admin/vehicles/create': VehiclesCreatePage
 };
 
-if (page && routes[page]) {
-  routes[page]();
+if (path && routes[path]) {
+  routes[path]();
 }
 
 Alpine.start();

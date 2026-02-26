@@ -170,12 +170,9 @@
 <?= $this->section('adminContent') ?>
 
 <main class="lg:ml-[255px] flex flex-col items-center">
-  <div class="w-full p-5 sm:p-8 bg-white border-b border-gray-200">
-    <div class="flex items-center justify-end gap-x-3">
-      <img src="img/black-toyotailocossur-logo.png" alt="Logo" width="150" height="150">
-      <h1 class="text-2xl font-semibold text-gray-800"><?= $this->renderSection("navbar-title") ?></h1>
-    </div>
-    <p class="text-sm text-gray-600"><?= $this->renderSection("navbar-description") ?></p>
+  <div class="w-full py-4 px-8 bg-white border-b border-gray-200 flex justify-between">
+    <?= $this->renderSection("breadcrump"); ?>
+    <img src="img/black-toyotailocossur-logo.png" alt="Logo" width="150" height="150">
   </div>
 
   <section class="w-full px-6 py-6">

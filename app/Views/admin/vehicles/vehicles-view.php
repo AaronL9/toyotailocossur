@@ -1,5 +1,9 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
+<?= $this->section("breadcrump") ?>
+
+<?= $this->endSection() ?>
+
 <?= $this->section("page") ?>
 <div class="w-full mx-auto">
   <div x-data="vehiclesData" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto min-h-[calc(100vh-250px)]">
@@ -16,7 +20,7 @@
         </div>
       </div>
 
-      <a href="<?= base_url('admin/users/create') ?>" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-governance-form-modal" data-hs-overlay="#hs-governance-form-modal">
+      <a href="/admin/vehicles/create" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-governance-form-modal" data-hs-overlay="#hs-governance-form-modal">
         Add
       </a>
     </div>

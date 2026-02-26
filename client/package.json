@@ -16,9 +16,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.2.0",
+    "@preline/select": "^4.1.0",
     "@tailwindcss/vite": "^4.1.18",
     "alpinejs": "^3.15.8",
+    "axios": "^1.13.5",
     "preline": "^4.0.1",
+    "sweetalert2": "^11.26.20",
     "tailwindcss": "^4.1.18",
     "zod": "^4.3.6"
   }

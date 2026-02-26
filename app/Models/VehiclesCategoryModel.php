@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class VehiclesCategoryModel extends Model
 {
     protected $table            = 'vehicles_category';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'vcat_no';
     protected $returnType       = 'object';
     protected $allowedFields    = [
         "vcat_no",
