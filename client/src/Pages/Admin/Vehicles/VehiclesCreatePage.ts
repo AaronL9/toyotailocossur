@@ -33,75 +33,31 @@ export default function VehiclesCreatePage() {
           headers: { "Content-Type": "application/json" }
         });
 
+        const result = VehiclePostApi.safeParse(data);
+
+        if (!result.success) return console.log(result.error);
+
         Swal.fire({
           title: 'Added',
-          text: "added",
+          text: result.data.message,
           icon: 'success'
         });
+
+        this.csrf_token = result.data.csrf_token;
+        form.reset();
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {
-          const res = error.response.data;
-          console.log(res);
+          const data = error.response.data;
+          const result = VehiclePostApi.safeParse(data);
+
+          if (!result.success) {
+            return console.log(result.error)
+          }
+
+          this.validation = result.data.errors;
+          this.csrf_token = result.data.csrf_token;
         }
       }
-
-      // const data = getFormValues(form);
-      // const result = VehicleSchema.safeParse(data);
-
-      // if (!result.success) return console.log(result.error);
-
-      // axios.post('/api/vehicle', result.data).then((response) => {
-      //   console.log(response.data);
-      // }).catch((reason) => {
-      //   console.log(reason.response);
-      // });
-
-      // const res = await fetch("/api/vehicle", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify(result.data),
-      // });
-
-      // const json = await res.json();
-      // console.log(json);
-
-      // try {
-      //   const res = await fetch("/api/vehicle", {
-      //     method: "POST",
-
-      //     body: JSON.stringify(result.data),
-      //   });
-
-      //   const json = await res.json();
-
-      //   // Validate data from an API
-      //   const jsonResult = VehiclePostApi.safeParse(json);
-      //   if (!jsonResult.success) return console.log(jsonResult.error);
-
-      //   if (!res.ok) {
-      //     switch (res.status) {
-      //       case 422:
-      //         this.validation = jsonResult.data.errors;
-      //         this.csrf_token = jsonResult.data.csrf_token;
-      //         break;
-      //     }
-
-
-      //     throw new Error(res.statusText);
-      //   }
-
-      //   Swal.fire({
-      //     title: 'Added',
-      //     text: jsonResult.data.message,
-      //     icon: 'success'
-      //   });
-      // } catch (error) {
-      //   if (error instanceof Error) {
-      //     console.log(error.message);
-      //   }
-      // }
     },
   }));
 }

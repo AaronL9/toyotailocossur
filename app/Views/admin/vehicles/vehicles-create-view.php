@@ -42,8 +42,8 @@
       </div>
 
       <div>
-        <label for="vehicle-category" class="block text-sm font-medium mb-2">Vehicle Category</label>
-        <select id="vehicle-category" name="vehicle-category" data-hs-select='{
+        <label for="vehicle_category" class="block text-sm font-medium mb-2">Vehicle Category</label>
+        <select id="vehicle_category" name="vehicle_category" data-hs-select='{
     "placeholder": "Select option...",
     "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
     "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-layer border border-layer-line text-layer-foreground rounded-lg text-start text-sm hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus",

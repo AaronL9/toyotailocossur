@@ -10,17 +10,13 @@ class VehicleModel extends Model
     protected $primaryKey       = 'vehicle_no';
     protected $returnType       = 'object';
     protected $allowedFields    = [
-        "vehicle_no",
         "vcat_no",
-        "variant_model",
-        "variant_price",
-        "variant_price_month",
-        "variant_isshowprice",
-        "variant_isdefault",
-        "variant_encode",
-        "variant_encode_date",
-        "variant_inactive",
-        "variant_delete"
+        "vehicle_title",
+        "vehicle_tagline",
+        "vehicle_encode",
+        "vehicle_encode_date",
+        "vehicle_inactive",
+        "vehicle_delete"
     ];
 
     public function getVehiclePhotos()

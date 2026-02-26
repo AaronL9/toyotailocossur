@@ -78,7 +78,6 @@ class Vehicle extends ResourceController
 
         $rules = [
             'title' => 'required',
-            'tagline' => 'required'
         ];
 
         if (!$this->validate($rules)) {
@@ -87,6 +86,20 @@ class Vehicle extends ResourceController
                 "message" => "Validation Error",
                 "errors" => $this->validator->getErrors()
             ], 422);
+        }
+
+        $data["vehicle_title"] = $json["title"];
+        $data["vehicle_tagline"] = $json["tagline"] ?: null;
+        $data["vcat_no"] = $json["vehicle_category"];
+
+        $isInserted = $this->model->insert($data, false);
+
+        if (!$isInserted) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "You have successfully add vehicle",
+                "errors" => $this->model->errors(),
+            ]);
         }
 
         return $this->respond([
