@@ -1,14 +1,6 @@
 import * as z from "zod";
 import Swal from "sweetalert2";
-import { getFormValues } from "../../../utils/form.utils";
-import axios, { Axios } from "axios";
-
-const VehicleSchema = z.object({
-  csrf_token: z.string(),
-  tagline: z.string(),
-  title: z.string(),
-  "vehicle-category": z.string()
-})
+import axios from "axios";
 
 const VehiclePostApi = z.object({
   message: z.string(),
