@@ -57,14 +57,14 @@
         <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Vehicles</p>
         <ul class="space-y-0.5">
           <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= url_is("admin/vehicles") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles") ?>">
-              <i class="fa-solid fa-car w-5 text-center <?= url_is("admin/vehicles") ? "text-primary-600" : "text-gray-500" ?>"></i>
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= preg_match('#^admin/vehicles($|/)#', uri_string()) ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles") ?>">
+              <i class="fa-solid fa-car w-5 text-center <?= preg_match('#^admin/vehicles($|/)#', uri_string()) ? "text-primary-600" : "text-gray-500" ?>"></i>
               Vehicles
             </a>
           </li>
           <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= url_is("/admin/vehicles-category") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles-category") ?>">
-              <i class="fa-solid fa-sitemap w-5 text-center <?= url_is("/admin/vehicles-category") ? "text-primary-600" : "text-gray-500" ?>"></i>
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= preg_match('#^admin/vehicles-category($|/)#', uri_string()) ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles-category") ?>">
+              <i class="fa-solid fa-sitemap w-5 text-center <?= preg_match('#^admin/vehicles-category($|/)#', uri_string()) ? "text-primary-600" : "text-gray-500" ?>"></i>
               Category
             </a>
           </li>

@@ -10,7 +10,6 @@ class VehiclesCategoryModel extends Model
     protected $primaryKey       = 'vcat_no';
     protected $returnType       = 'object';
     protected $allowedFields    = [
-        "vcat_no",
         "vcat_title",
         "vcat_order",
         "vcat_encode",

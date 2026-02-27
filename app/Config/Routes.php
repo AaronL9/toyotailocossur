@@ -9,4 +9,5 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->group("api", function ($routes) {
   $routes->resource('vehicle', ['controller' => '\App\Controllers\Api\Vehicle']);
+  $routes->resource('vehicles-category', ['controller' => '\App\Controllers\Api\VehiclesCategoryApi']);
 });
