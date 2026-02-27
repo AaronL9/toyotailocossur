@@ -54,18 +54,18 @@
 
       <!-- Main Section -->
       <div class="mb-4">
-        <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</p>
+        <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Vehicles</p>
         <ul class="space-y-0.5">
           <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/users") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/users") ?>">
-              <i class="fa-solid fa-user-tie w-5 text-center <?= str_contains(uri_string(), "admin/users") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Users
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= url_is("admin/vehicles") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles") ?>">
+              <i class="fa-solid fa-car w-5 text-center <?= url_is("admin/vehicles") ? "text-primary-600" : "text-gray-500" ?>"></i>
+              Vehicles
             </a>
           </li>
           <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/vehicles") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles") ?>">
-              <i class="fa-solid fa-car w-5 text-center <?= str_contains(uri_string(), "admin/vehicles") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Vehicles
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= url_is("/admin/vehicles-category") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles-category") ?>">
+              <i class="fa-solid fa-sitemap w-5 text-center <?= url_is("/admin/vehicles-category") ? "text-primary-600" : "text-gray-500" ?>"></i>
+              Category
             </a>
           </li>
           <li>
@@ -78,6 +78,13 @@
             <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/banner") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/banner") ?>">
               <i class="fa-solid fa-panorama w-5 text-center <?= str_contains(uri_string(), "admin/banner") ? "text-primary-600" : "text-gray-500" ?>"></i>
               Banner
+            </a>
+          </li>
+
+          <li>
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/users") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/users") ?>">
+              <i class="fa-solid fa-user-tie w-5 text-center <?= str_contains(uri_string(), "admin/users") ? "text-primary-600" : "text-gray-500" ?>"></i>
+              Users
             </a>
           </li>
         </ul>
