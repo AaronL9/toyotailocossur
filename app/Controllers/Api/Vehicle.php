@@ -91,6 +91,7 @@ class Vehicle extends ResourceController
         $data["vehicle_title"] = $json["title"];
         $data["vehicle_tagline"] = $json["tagline"] ?: null;
         $data["vcat_no"] = $json["vehicle_category"];
+        $data["vehicle_encode"] = session()->get("admin")["user_no"] ?? null;
 
         $isInserted = $this->model->insert($data, false);
 

@@ -3,22 +3,29 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\VehicleModel;
 use App\Models\VehiclesCategoryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Vehicles extends BaseController
 {
     protected $vehiclesCategoryModel;
+    protected $vehiclesModel;
 
     public function __construct()
     {
         $this->vehiclesCategoryModel = model(VehiclesCategoryModel::class);
+        $this->vehiclesModel = model(VehicleModel::class);
     }
 
-    public function getIndex()
+    public function getIndex($id = null)
     {
-        $data["page"] = "vehicles";
-        return view("admin/vehicles/vehicles-view", $data);
+        if ($id) {
+            $data["cc"] = $this->vehiclesModel->find($id);
+            return view("admin/vehicles/vehicles-show-view", $data);
+        }
+
+        return view("admin/vehicles/vehicles-view");
     }
 
     public function getCreate()

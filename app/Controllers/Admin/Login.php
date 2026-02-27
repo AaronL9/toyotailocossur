@@ -43,6 +43,7 @@ class Login extends BaseController
 
         $newdata = [
             'name'  => "{$user->user_fname} {$user->user_lname}",
+            'user_no' => $user->user_no,
             'logged_in' => true,
         ];
 
