@@ -2,7 +2,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import * as z from "zod";
 
-const VehiclesCategoryApi = z.object({
+const VariantsApi = z.object({
   pagination: z.object({
     total: z.number(),
     currentPage: z.number(),
@@ -10,10 +10,12 @@ const VehiclesCategoryApi = z.object({
     next: z.nullable(z.string()),
     previous: z.nullable(z.string()),
   }),
-  vehicle_categories: z.array(z.object({
-    vcat_no: z.string(),
-    vcat_title: z.string(),
-    vcat_order: z.string()
+  variants: z.array(z.object({
+    vehicle_title: z.string(),
+    variant_no: z.string(),
+    variant_model: z.nullable(z.string()),
+    variant_price: z.nullable(z.string()),
+    variant_isdefault: z.string(),
   }))
 })
 
@@ -23,8 +25,8 @@ const VehicleCategoryDeleteApi = z.object({
   errors: z.nullable(z.record(z.string(), z.string()))
 })
 
-type VehiclesCategory = z.infer<typeof VehiclesCategoryApi>["vehicle_categories"];
-type Pagination = z.infer<typeof VehiclesCategoryApi>["pagination"];
+type VehiclesCategory = z.infer<typeof VariantsApi>["variants"];
+type Pagination = z.infer<typeof VariantsApi>["pagination"];
 
 export default function VehicleCategoryPage() {
   Alpine.data('VehicleCategoryTable', (csrf_token: string = '') => ({
@@ -39,22 +41,24 @@ export default function VehicleCategoryPage() {
     loading: true,
     csrf_token,
 
-    async init(uri = "/api/vehicles-category") {
-      axios.get(uri)
-        .then((res) => {
-          const result = VehiclesCategoryApi.safeParse(res.data);
+    async init(uri = '/api/variants') {
+      try {
+        const response = await axios.get(uri);
 
-          if (!result.success) {
-            console.log(result.error);
-          } else {
-            this.data = result.data.vehicle_categories;
-            this.pagination = result.data.pagination;
-            this.loading = false
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        const result = VariantsApi.safeParse(response.data);
+
+        if (!result.success) {
+          console.log(result.error);
+        } else {
+          this.data = result.data.variants;
+          this.pagination = result.data.pagination;
+          this.loading = false
+        }
+
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     async next(e: Event) {
@@ -82,7 +86,7 @@ export default function VehicleCategoryPage() {
 
       if (!(target instanceof HTMLInputElement)) return;
 
-      const uri = new URL("/api/vehicles-category", location.origin);
+      const uri = new URL("/api/variants", location.origin);
       uri.searchParams.append("search", target.value);
 
       this.init(uri.toString());

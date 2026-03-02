@@ -1,6 +1,7 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("page") ?>
+
 <div x-data="VehicleCategoryCreate('<?= csrf_hash() ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
   <template x-if="validation">
     <div class="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 max-h-fit" role="alert" tabindex="-1" aria-labelledby="hs-with-list-label">
@@ -28,21 +29,22 @@
     </div>
   </template>
 
-  <form @submit.prevent="update($event)" id="vehicle-add-form" method="post" class="w-full max-w-3xl">
+  <form @submit.prevent="update($event)" id="vehicle-update-form" action="/api/vehicles-category/<?= $cc->vcat_no ?>" class="w-full max-w-3xl">
     <input x-model="csrf_token" type="hidden" name="csrf_token">
+
     <fieldset class="flex flex-col gap-4 bg-base-200 border-base-300 rounded-box rounded-lg border border-gray-100 px-4 py-4">
       <div>
         <label for="category_name" class="block text-sm font-medium mb-2">Category Name</label>
-        <input type="text" id="category_name" name="category_name" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+        <input type="text" id="category_name" name="category_name" value="<?= $cc->vcat_title ?>" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
 
       <div>
         <label for="order" class="block text-sm font-medium mb-2">Order</label>
-        <input type="number" id="order" name="order" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+        <input type="number" id="order" name="order" value="<?= $cc->vcat_order ?>" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
 
       <div class="flex justify-end">
-        <button :disabled="loading" type="submit" class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
+        <button :disabled="loading" type="submit" class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
           <span x-show="loading" class="animate-spin inline-block size-4 border-3 border-current border-t-transparent rounded-[999px] text-primary-foreground" role="status" aria-label="loading"></span>
           <span x-text="loading ? 'Loading...' : 'Update'"></span>
         </button>

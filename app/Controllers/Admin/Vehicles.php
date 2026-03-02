@@ -25,11 +25,13 @@ class Vehicles extends BaseController
             return view("admin/vehicles/vehicles-show-view", $data);
         }
 
-        return view("admin/vehicles/vehicles-view");
+        $data['page'] = 'vehicles';
+        return view("admin/vehicles/vehicles-view", $data);
     }
 
     public function getCreate()
     {
+        $data['page'] = 'vehicles-create';
         $data["vehiclesCategory"] = $this->vehiclesCategoryModel
             ->select("vcat_no, vcat_title",)
             ->where("vcat_delete", 0)

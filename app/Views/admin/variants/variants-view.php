@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <a href="/admin/vehicles-category/create" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-governance-form-modal" data-hs-overlay="#hs-governance-form-modal">
+      <a href="/admin/variants/create" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-governance-form-modal" data-hs-overlay="#hs-governance-form-modal">
         Add
       </a>
     </div>
@@ -34,15 +34,17 @@
             <thead>
               <tr>
                 <th scope="col" class="px-2 py-3 text-start text-xs font-medium text-gray-500 uppercase"></th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Title</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Order</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Model</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Type</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Price</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Base Model</th>
                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
               </tr>
             </thead>
             <tbody>
               <!-- Alpine for directives -->
               <template x-if="!loading">
-                <template x-for="row in data" :key="row.vcat_no">
+                <template x-for="row in data" :key="row.variant_no">
                   <tr class="odd:bg-white even:bg-gray-100">
                     <td class="px-2 py-3 whitespace-nowrap">
                       <label class="relative inline-block w-11 h-6 cursor-pointer">
@@ -51,14 +53,18 @@
                         <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
                       </label>
                     </td>
-                    <td x-text="row.vcat_title" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
-                    <td x-text="row.vcat_order" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="row.variant_model" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="row.vehicle_title" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="row.variant_price" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800">
+                      <i x-show="row.variant_isdefault === '1'" class="fa-solid fa-circle-check text-green-700"></i>
+                    </td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
-                        <a x-bind:href="`/admin/vehicles-category/${row.vcat_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
+                        <a x-bind:href="`/admin/variants/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
                           <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <button @click="deleteRow(row.vcat_no)" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
+                        <button @click="deleteRow(row.variant_no)" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
                           <i class="fa-solid fa-trash"></i>
                         </button>
                       </div>

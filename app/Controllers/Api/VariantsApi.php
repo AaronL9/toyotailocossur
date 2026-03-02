@@ -2,13 +2,13 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\VehiclesModel;
+use App\Models\VariantsModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
-class Vehicle extends ResourceController
+class VariantsApi extends ResourceController
 {
-    protected $modelName = VehiclesModel::class;
+    protected $modelName = VariantsModel::class;
     protected $format = 'json';
 
     /**
@@ -16,7 +16,7 @@ class Vehicle extends ResourceController
      */
     protected $request;
 
-    /** @var VehiclesModel */
+    /** @var Variants */
     protected $model;
 
     /**
@@ -31,15 +31,15 @@ class Vehicle extends ResourceController
 
         $data = $this->model
             ->select()
-            ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no")
+            ->join("vehicles", "variants.vehicle_no = vehicles.vehicle_no")
             ->like("vehicle_title", $search, "both")
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();
 
         return $this->respond([
-            "pageDetails" => $pageDetails,
-            "vehicles" => $data
+            "pagination" => $pageDetails,
+            "variants" => $data
         ]);
     }
 
@@ -60,10 +60,7 @@ class Vehicle extends ResourceController
      *
      * @return ResponseInterface
      */
-    public function new()
-    {
-        //
-    }
+    public function new() {}
 
     /**
      * Create a new resource object, from "posted" parameters.
@@ -77,7 +74,8 @@ class Vehicle extends ResourceController
         // return $this->respond(["data from server" => $json]);
 
         $rules = [
-            'title' => 'required',
+            'vehicle' => 'required',
+            'model' => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -88,24 +86,27 @@ class Vehicle extends ResourceController
             ], 422);
         }
 
-        $data["vehicle_title"] = $json["title"];
-        $data["vehicle_tagline"] = $json["tagline"] ?: null;
-        $data["vcat_no"] = $json["vehicle_category"];
-        $data["vehicle_encode"] = session()->get("admin")["user_no"] ?? null;
+        $data['vehicle_no'] = $json['vehicle'];
+        $data['variant_model'] = $json['model'];
+        $data['variant_price'] = $json['price'];
+        $data['variant_price_month'] = $json['price_month'];
+        $data['variant_isdefault'] = $json['isdefault'] ?? 0;
+        $data['variant_isshowprice'] = $json['isshowprice'] ?? 0;
+        $data['variant_encode'] = session()->get('admin')['user_no'] ?? null;
 
         $isInserted = $this->model->insert($data, false);
 
         if (!$isInserted) {
             return $this->respond([
                 "csrf_token" => csrf_hash(),
-                "message" => "You have successfully add vehicle",
+                "message" => "Something went wrong",
                 "errors" => $this->model->errors(),
             ]);
         }
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add vehicle",
+            "message" => "You have successfully add vehicle category",
             "errors" => null,
         ]);
     }
@@ -131,7 +132,52 @@ class Vehicle extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => $this->validator->getErrors()
+            ], 400);
+        }
+
+        $json = json_decode($this->request->getBody(), true);
+
+        $rules = [
+            'vehicle' => 'required',
+            'model' => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $data['vehicle_no'] = $json['vehicle'];
+        $data['variant_model'] = $json['model'];
+        $data['variant_price'] = $json['price'];
+        $data['variant_price_month'] = $json['price_month'];
+        $data['variant_isdefault'] = $json['isdefault'] ?? 0;
+        $data['variant_isshowprice'] = $json['isshowprice'] ?? 0;
+        $data['variant_encode'] = session()->get('admin')['user_no'] ?? null;
+
+        $isInserted = $this->model->update($id, $data, false);
+
+        if (!$isInserted) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Something went wrong",
+                "errors" => $this->model->errors(),
+            ]);
+        }
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully add vehicle category",
+            "errors" => null,
+        ]);
     }
 
     /**

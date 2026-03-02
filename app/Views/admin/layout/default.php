@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-page="<?= isset($page) ? $page : "" ?>">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,7 @@
   <?= vite_css("src/main.ts") ?>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen" data-page="<?= $page ?? "" ?>">
 
   <?= $this->renderSection("login_content") ?>
   <?= $this->renderSection("sidebar") ?>

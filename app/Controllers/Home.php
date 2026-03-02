@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\VehicleModel;
+use App\Models\VehiclesModel;
 
 class Home extends BaseController
 {
@@ -10,7 +11,7 @@ class Home extends BaseController
 
     public function __construct()
     {
-        $this->vehicleModel = model(VehicleModel::class);
+        $this->vehicleModel = model(VehiclesModel::class);
     }
 
     public function getIndex(): string

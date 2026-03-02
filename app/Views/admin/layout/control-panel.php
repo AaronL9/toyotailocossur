@@ -52,81 +52,28 @@
     <!-- Navigation -->
     <nav class="flex-1 overflow-y-auto p-4 space-y-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
 
-      <!-- Main Section -->
-      <div class="mb-4">
+      <ul class="space-y-0.5">
+        <?php foreach ($modules as $row): ?>
+          <li>
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium rounded-lg transition-colors <?= preg_match("#^{$row->mod_link}($|/)#", uri_string()) ? "bg-accent-50 text-accent-800 hover:bg-accent-50" : "hover:bg-gray-100" ?>" href="<?= $row->mod_link ?>">
+              <i class="<?= $row->mod_icon ?> w-5 text-center <?= preg_match("#^{$row->mod_link}($|/)#", uri_string()) ? "text-accent-800" : "text-gray-500" ?>"></i>
+              <?= $row->mod_title ?>
+            </a>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+
+      <!-- <div class="mb-4">
         <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Vehicles</p>
         <ul class="space-y-0.5">
           <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= preg_match('#^admin/vehicles($|/)#', uri_string()) ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles") ?>">
-              <i class="fa-solid fa-car w-5 text-center <?= preg_match('#^admin/vehicles($|/)#', uri_string()) ? "text-primary-600" : "text-gray-500" ?>"></i>
+            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium rounded-lg transition-colors <?= preg_match('#^admin/vehicles($|/)#', uri_string()) ? "bg-accent-50 text-accent-800 hover:bg-accent-50" : "hover:bg-gray-100" ?>" href="<?= base_url("admin/vehicles") ?>">
+              <i class="fa-solid fa-car w-5 text-center <?= preg_match('#^admin/vehicles($|/)#', uri_string()) ? "text-accent-800" : "text-gray-500" ?>"></i>
               Vehicles
             </a>
           </li>
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= preg_match('#^admin/vehicles-category($|/)#', uri_string()) ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/vehicles-category") ?>">
-              <i class="fa-solid fa-sitemap w-5 text-center <?= preg_match('#^admin/vehicles-category($|/)#', uri_string()) ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Category
-            </a>
-          </li>
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/inquiry") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/inquiry") ?>">
-              <i class="fa-solid fa-comment w-5 text-center <?= str_contains(uri_string(), "admin/inquiry") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Inquiry
-            </a>
-          </li>
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/banner") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/banner") ?>">
-              <i class="fa-solid fa-panorama w-5 text-center <?= str_contains(uri_string(), "admin/banner") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Banner
-            </a>
-          </li>
-
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/users") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/users") ?>">
-              <i class="fa-solid fa-user-tie w-5 text-center <?= str_contains(uri_string(), "admin/users") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Users
-            </a>
-          </li>
         </ul>
-      </div>
-
-      <!-- Management Section -->
-      <div class="mb-4">
-        <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Management</p>
-        <ul class="space-y-0.5">
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/barangays") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/barangays") ?>">
-              <i class="fa-solid fa-house-chimney w-5 text-center <?= str_contains(uri_string(), "admin/barangays") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Barangays
-            </a>
-          </li>
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/departments") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/departments") ?>">
-              <i class="fa-solid fa-building w-5 text-center <?= str_contains(uri_string(), "admin/departments") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Departments
-            </a>
-          </li>
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/documents") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/documents") ?>">
-              <i class="fa-solid fa-file-lines w-5 text-center <?= str_contains(uri_string(), "admin/documents") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Documents
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- System Section -->
-      <div>
-        <p class="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">System</p>
-        <ul class="space-y-0.5">
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors <?= str_contains(uri_string(), "admin/configurations") ? "bg-primary-50 text-primary-600 hover:bg-primary-50" : "" ?>" href="<?= base_url("admin/configurations") ?>">
-              <i class="fa-solid fa-gear w-5 text-center <?= str_contains(uri_string(), "admin/configurations") ? "text-primary-600" : "text-gray-500" ?>"></i>
-              Configurations
-            </a>
-          </li>
-        </ul>
-      </div>
+      </div> -->
     </nav>
     <!-- End Navigation -->
 

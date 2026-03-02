@@ -11,20 +11,30 @@ import VehiclesPage from './Pages/Admin/Vehicles/VehiclesPage';
 import VehiclesCreatePage from './Pages/Admin/Vehicles/VehiclesCreatePage';
 import VehicleCategoryPage from './Pages/Admin/Category/VehicleCategoryPage';
 import VehiclesCategoryCreatePage from './Pages/Admin/Category/VehiclesCategoryCreatePage';
+import VehiclesCategoryUpdate from './Pages/Admin/Category/VehicleCategoryUpdatePage';
+import VariantsPage from './Pages/Admin/Variants/VariantsPage';
+import VariantsCreatePage from './Pages/Admin/Variants/VariantsCreatePage';
+import VariantsUpdatePage from './Pages/Admin/Variants/VariantsUpdatePage';
 
-const path = location.pathname;
+const page = document.body.dataset.page;
 
 const routes: Record<string, () => void> = {
   'users': UsersPage,
 
-  '/admin/vehicles': VehiclesPage,
-  '/admin/vehicles/create': VehiclesCreatePage,
+  'vehicles': VehiclesPage,
+  'vehicles-create': VehiclesCreatePage,
 
-  '/admin/vehicles-category': VehicleCategoryPage,
-  '/admin/vehicles-category/create': VehiclesCategoryCreatePage
+  'vehicles-category': VehicleCategoryPage,
+  'vehicles-category-create': VehiclesCategoryCreatePage,
+  'vehicles-category-update': VehiclesCategoryUpdate,
+
+  'variants': VariantsPage,
+  'variants-create': VariantsCreatePage,
+  'variants-update': VariantsUpdatePage,
 };
 
-if (path && routes[path]) {
-  routes[path]();
-  Alpine.start();
+if (page && routes[page]) {
+  routes[page]();
 }
+
+Alpine.start();

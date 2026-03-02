@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ModulesModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -41,5 +42,14 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
         // $this->session = service('session');
+        cache()->delete('modules');
+
+        $sidebar = cache()->remember('modules', 3600, function () {
+            return (new ModulesModel())->findAll();
+        });
+
+        service('renderer')->setData([
+            'modules' => $sidebar
+        ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\VehicleModel;
 use App\Models\VehiclesCategoryModel;
+use App\Models\VehiclesModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Showroom extends BaseController
@@ -14,7 +15,7 @@ class Showroom extends BaseController
 
     public function __construct()
     {
-        $this->vehicleModel = model(VehicleModel::class);
+        $this->vehicleModel = model(VehiclesModel::class);
         $this->vehiclesCategoryModel = model(VehiclesCategoryModel::class);
     }
 

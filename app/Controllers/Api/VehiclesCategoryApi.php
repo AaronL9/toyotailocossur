@@ -129,7 +129,48 @@ class VehiclesCategoryApi extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 400);
+        }
+
+        $json = json_decode($this->request->getBody(), true);
+
+        $rules = [
+            'category_name' => 'required',
+            'order' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $data["vcat_title"] = $json["category_name"];
+        $data["vcat_order"] = $json["order"];
+        $data["vcat_encode"] = session()->get("admin")["user_no"] ?? null;
+
+        $isInserted = $this->model->update($id, $data);
+
+        if (!$isInserted) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Something went wrong",
+                "errors" => $this->model->errors(),
+            ]);
+        }
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully updated vehicle category",
+            "errors" => null,
+        ]);
     }
 
     /**
