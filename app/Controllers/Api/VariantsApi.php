@@ -33,6 +33,7 @@ class VariantsApi extends ResourceController
             ->select()
             ->join("vehicles", "variants.vehicle_no = vehicles.vehicle_no")
             ->like("vehicle_title", $search, "both")
+            ->orlike('variant_model', $search, 'both')
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();

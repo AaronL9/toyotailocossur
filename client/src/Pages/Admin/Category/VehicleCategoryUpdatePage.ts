@@ -19,13 +19,13 @@ export default function VehiclesCategoryUpdate() {
     async update(e: Event) {
       this.loading = true;
 
+
       const form = e.currentTarget;
 
       // Check if the submit event is from form element
       if (!(form instanceof HTMLFormElement)) return;
 
       const uri = form.getAttribute("action") as string;
-
 
       try {
         const { data } = await axios.put(uri, form, {
