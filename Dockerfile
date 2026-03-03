@@ -16,13 +16,12 @@ FROM node:24-alpine AS base
 ###################################################
 FROM base AS client-base
 WORKDIR /usr/src/app
-COPY ./client /usr/src/app
+
+COPY ./client/package.json ./client/package-lock.json ./
 
 RUN npm install
 
-RUN chown -R node:node /usr/src/app
-
-USER node
+COPY ./client /usr/src/app
 
 ###################################################
 # Stage: client-dev

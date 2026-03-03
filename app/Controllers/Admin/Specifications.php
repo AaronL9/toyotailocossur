@@ -9,6 +9,8 @@ class Specifications extends BaseController
 {
     public function getIndex()
     {
-        return view("admin/specifications/specifications-view");
+        $data['page'] = 'specifications';
+
+        return view("admin/specifications/specifications-view", $data);
     }
 }

@@ -15,6 +15,8 @@ import VehiclesCategoryUpdate from './Pages/Admin/Category/VehicleCategoryUpdate
 import VariantsPage from './Pages/Admin/Variants/VariantsPage';
 import VariantsCreatePage from './Pages/Admin/Variants/VariantsCreatePage';
 import VariantsUpdatePage from './Pages/Admin/Variants/VariantsUpdatePage';
+import SpecificationsPage from './Pages/Admin/Specifications/SpecificationsPage';
+
 
 const page = document.body.dataset.page;
 
@@ -31,6 +33,8 @@ const routes: Record<string, () => void> = {
   'variants': VariantsPage,
   'variants-create': VariantsCreatePage,
   'variants-update': VariantsUpdatePage,
+
+  'specifications': SpecificationsPage
 };
 
 if (page && routes[page]) {

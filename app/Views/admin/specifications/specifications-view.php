@@ -5,7 +5,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section("page") ?>
-<div class="w-full mx-auto">
+<div x-data="SpecificationsData('<?= csrf_hash() ?>')" class="w-full mx-auto">
   <div class="max-w-2xl px-2">
 
     <!-- Page Header -->
@@ -17,22 +17,25 @@
     </div>
 
     <!-- Card -->
-    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6 ">
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
 
       <!-- Input + Add Button -->
       <div class="flex gap-x-3 mb-6">
         <div class="flex-1">
-          <label for="spec-input" class="block text-sm font-medium text-gray-700 mb-1">Specification Name</label>
+          <label for="spec-input" class="block text-sm  font-medium text-gray-700 mb-1">Specification Name</label>
           <input
+            x-model="specification"
+            x-ref="specInput"
             type="text"
             id="spec-input"
-            class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+            class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
             placeholder="Enter specification name..." />
         </div>
-        <div class="flex inline mt-auto">
+        <div class="flex mt-auto">
           <button
+            @click="add()"
             type="button"
-            class="py-2.5 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 text-white hover:bg-primary-500">
+            class="py-2.5 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 text-white hover:bg-primary-800 hover:cursor-pointer">
             <i class="fa-solid fa-plus"></i>
             Add
           </button>
@@ -48,10 +51,26 @@
       <!-- List -->
       <ul id="spec-list" class="flex flex-col gap-y-2">
         <!-- Empty State -->
-        <li id="empty-state" class="text-center py-8 text-gray-400 text-sm">
+        <!-- <li id="empty-state" class="text-center py-8 text-gray-400 text-sm">
           <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
           No specifications added yet.
-        </li>
+        </li> -->
+        <template x-for="row in data" :key="row.spec_no">
+          <li class="flex items-center justify-between px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg group hover:border-gray-300 hover:bg-gray-100 transition-colors duration-150">
+            <div class="flex items-center gap-x-3">
+              <span class="flex-shrink-0 w-2 h-2 rounded-full bg-primary-950"></span>
+              <span x-text="row.spec_title" class="text-sm font-medium text-gray-700"></span>
+            </div>
+            <div class="flex items-center gap-x-1">
+              <button type="button" class="p-1.5 inline-flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">
+                <i class="fa-solid fa-pen text-xs"></i>
+              </button>
+              <button type="button" class="p-1.5 inline-flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors duration-150">
+                <i class="fa-solid fa-trash text-xs"></i>
+              </button>
+            </div>
+          </li>
+        </template>
       </ul>
 
     </div>
