@@ -2,15 +2,15 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\SpecificationsModel;
+use App\Models\SpecificationsCategoryModel;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
-class SpecificationsApi extends ResourceController
+class SpecificationsCategoryApi extends ResourceController
 {
-    protected $modelName = SpecificationsModel::class;
+    protected $modelName = SpecificationsCategoryModel::class;
     protected $format = 'json';
 
     /**
@@ -18,7 +18,7 @@ class SpecificationsApi extends ResourceController
      */
     protected $request;
 
-    /** @var SpecificationsModel */
+    /** @var SpecificationsCategoryModel */
     protected $model;
 
     /**
@@ -28,7 +28,7 @@ class SpecificationsApi extends ResourceController
      */
     public function index()
     {
-        $data = $this->model->findAll();
+        $data = $this->model->where('scat_delete', 0)->findAll();
 
         return $this->respond([
             'specifications' => $data,
@@ -79,7 +79,7 @@ class SpecificationsApi extends ResourceController
         }
 
         $entry = [
-            'spec_title' => $json['specification']
+            'scat_title' => $json['specification']
         ];
 
         $this->model->insert($entry);
@@ -112,7 +112,39 @@ class SpecificationsApi extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Resource not found",
+                "errors" => null
+            ], 404);
+        }
+
+        $json = json_decode($this->request->getBody(), true);
+
+        $rules = [
+            'specification' => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $entry = [
+            'scat_title' => $json['specification']
+        ];
+
+        $this->model->update($id, $entry);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully update specification",
+            "errors" => null,
+        ]);
     }
 
     /**
@@ -124,6 +156,20 @@ class SpecificationsApi extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resource found",
+                "errors" => null,
+            ]);
+        }
+
+        $this->model->update($id, ["spec_delete" => 1]);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "Deleted Successfully",
+            "errors" => null,
+        ]);
     }
 }

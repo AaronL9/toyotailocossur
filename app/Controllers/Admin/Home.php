@@ -9,6 +9,6 @@ class Home extends BaseController
 {
     public function getIndex()
     {
-        return redirect()->to("admin/users");
+        return redirect()->to("admin/vehicles");
     }
 }

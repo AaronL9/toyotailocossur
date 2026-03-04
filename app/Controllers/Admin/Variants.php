@@ -3,6 +3,8 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\SpecificationsCategoryModel;
+use App\Models\SpecificationsModel;
 use App\Models\VariantsModel;
 use App\Models\VehiclesModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -10,10 +12,12 @@ use CodeIgniter\HTTP\ResponseInterface;
 class Variants extends BaseController
 {
     protected $model;
+    protected $specificationsCategoryModel;
 
     public function __construct()
     {
         $this->model = new VariantsModel();
+        $this->specificationsCategoryModel = new SpecificationsCategoryModel();
     }
 
     public function getIndex($id = null)
@@ -34,11 +38,14 @@ class Variants extends BaseController
 
     public function getCreate()
     {
+
         $data['page'] = 'variants-create';
 
         $model = new VehiclesModel();
 
         $data['vehicles'] = $model->findAll();
+        // $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
+        $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
 
         return view('admin/variants/variants-create-view', $data);
     }

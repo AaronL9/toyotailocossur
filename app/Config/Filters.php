@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
+use App\Filters\AdminLoginFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -34,6 +36,8 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'adminlogin'    => AdminLoginFilter::class,
+        'admin'         => AdminFilter::class
     ];
 
     /**
@@ -106,5 +110,30 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'adminlogin' => [
+            'before' => [
+                'admin/specifications',
+                'admin/specifications/*',
+
+                'admin/users',
+                'admin/users/*',
+
+                'admin/variants',
+                'admin/variants/*',
+
+                'admin/vehicles',
+                'admin/vehicles/*',
+
+                'admin/vehicles-category',
+                'admin/vehicles-category/*'
+            ],
+        ],
+
+        'admin' => [
+            'before' => [
+                'admin/login'
+            ]
+        ]
+    ];
 }

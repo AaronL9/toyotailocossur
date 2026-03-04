@@ -104,7 +104,7 @@
               Settings
             </a>
             <div class="border-t border-gray-200 my-1"></div>
-            <form action="/logout" class="w-full" method="post">
+            <form action="/admin/logout" class="w-full" method="post">
               <?= csrf_field() ?>
               <button type="submit" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-red-50">
                 <i class="fa-solid fa-arrow-right-from-bracket w-4"></i>

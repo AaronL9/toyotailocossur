@@ -16,6 +16,7 @@ import VariantsPage from './Pages/Admin/Variants/VariantsPage';
 import VariantsCreatePage from './Pages/Admin/Variants/VariantsCreatePage';
 import VariantsUpdatePage from './Pages/Admin/Variants/VariantsUpdatePage';
 import SpecificationsPage from './Pages/Admin/Specifications/SpecificationsPage';
+import Swal from 'sweetalert2';
 
 
 const page = document.body.dataset.page;
@@ -40,5 +41,15 @@ const routes: Record<string, () => void> = {
 if (page && routes[page]) {
   routes[page]();
 }
+
+Alpine.store('Swal', {
+  close() {
+    Swal.close();
+  },
+
+  clickConfirm() {
+    Swal.clickConfirm();
+  }
+});
 
 Alpine.start();

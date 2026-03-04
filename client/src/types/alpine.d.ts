@@ -1,11 +1,10 @@
-// alpine.d.ts
-import 'alpinejs';
+// types/alpine.d.ts
+import 'alpinejs' // ← this import is REQUIRED, without it the module augmentation breaks
 
 declare module 'alpinejs' {
-  interface AlpineStores {
-    csrfToken: {
-      name: string;
-      value: string;
-    };
+  interface Stores {
+    spec: {
+      editInput: string;
+    }
   }
 }

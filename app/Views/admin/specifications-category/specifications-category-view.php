@@ -55,53 +55,68 @@
           <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
           No specifications added yet.
         </li> -->
-        <template x-for="row in data" :key="row.spec_no">
+        <template x-for="row in data" :key="row.scat_no">
           <li class="flex items-center justify-between px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg group hover:border-gray-300 hover:bg-gray-100 transition-colors duration-150">
             <div class="flex items-center gap-x-3">
               <span class="flex-shrink-0 w-2 h-2 rounded-full bg-primary-950"></span>
-              <span x-text="row.spec_title" class="text-sm font-medium text-gray-700"></span>
+              <span x-text="row.scat_title" class="text-sm font-medium text-gray-700"></span>
             </div>
             <div class="flex items-center gap-x-1">
-              <button type="button" class="p-1.5 inline-flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">
+              <button @click="edit(row.spec_title, row.scat_no)" type="button" class="p-1.5 inline-flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">
                 <i class="fa-solid fa-pen text-xs"></i>
               </button>
-              <button type="button" class="p-1.5 inline-flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors duration-150">
+              <button @click="deleteRow(row.scat_no)" type="button" class="p-1.5 inline-flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors duration-150">
                 <i class="fa-solid fa-trash text-xs"></i>
               </button>
             </div>
           </li>
         </template>
       </ul>
-
     </div>
   </div>
 
-  <!-- Edit Modal Backdrop -->
-  <div id="edit-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-    <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm mx-4">
-      <h3 class="text-lg font-semibold text-gray-800 mb-4">
-        <i class="fa-solid fa-pen-to-square text-blue-500 mr-2"></i>Edit Specification
+  <template id="swal-spec-modal">
+    <swal-html>
+      <h3 class="text-base font-semibold text-left text-gray-800">
+        <i class="fa-solid fa-pen-to-square text-primary-900 mr-2"></i>Edit Specification
       </h3>
-      <input
-        type="text"
-        id="edit-input"
-        class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none mb-4"
-        placeholder="Edit specification name..." />
+
+      <!-- Divider -->
+      <hr class="border-t border-gray-100 my-4" />
+
+      <!-- Input -->
+      <div class="mb-4">
+        <label class="block text-sm text-left font-medium text-gray-700 mb-1">Specification Name</label>
+        <input
+          x-model="$store.spec.editInput"
+          type="text"
+          id="edit-input"
+          value="Water Resistance"
+          class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
+          placeholder="Edit specification name..." />
+      </div>
+    </swal-html>
+
+    <swal-footer>
       <div class="flex justify-end gap-x-2">
         <button
-          onclick="closeModal()"
+          @click="$store.Swal.close()"
           type="button"
-          class="py-2 px-4 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
-          <i class="fa-solid fa-xmark"></i> Cancel
+          class="py-2 px-4 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+          <i class="fa-solid fa-xmark text-xs"></i> Cancel
         </button>
         <button
-          onclick="saveEdit()"
+          @click="$store.Swal.clickConfirm()"
           type="button"
-          class="py-2 px-4 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-          <i class="fa-solid fa-floppy-disk"></i> Save
+          class="py-2 px-4 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg bg-primary-950 text-white hover:bg-primary-900 transition-colors duration-150">
+          <i class="fa-solid fa-floppy-disk text-xs"></i> Save
         </button>
       </div>
-    </div>
-  </div>
+    </swal-footer>
+
+    <swal-param
+      name="customClass"
+      value='{ "footer": "border-none! pt-0! mt-0!" }' />
+  </template>
 </div>
 <?= $this->endSection() ?>
