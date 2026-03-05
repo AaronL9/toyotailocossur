@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
 import AgentsCreatePage from './Pages/Admin/agents/AgentsCreatePage';
 import AgentsPage from './Pages/Admin/agents/AgentsPage';
 import AgentsEditPage from './Pages/Admin/agents/AgentsEditPage';
-import { ZodNumberFormat } from 'zod';
+import SpecificationsTypePage from './Pages/Admin/SpecificationType/SpecificationTypePage';
 
 const page = document.body.dataset.page;
 
@@ -42,7 +42,9 @@ const routes: Record<string, () => void> = {
 
   'agents': AgentsPage,
   'agents-create': AgentsCreatePage,
-  'agents-edit': AgentsEditPage
+  'agents-edit': AgentsEditPage,
+
+  'specifications-type': SpecificationsTypePage
 };
 
 if (page && routes[page]) {
