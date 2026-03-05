@@ -12,4 +12,5 @@ $routes->group("api", function ($routes) {
   $routes->resource('vehicles-category', ['controller' => '\App\Controllers\Api\VehiclesCategoryApi']);
   $routes->resource('variants', ['controller' => '\App\Controllers\Api\VariantsApi']);
   $routes->resource('specifications-category', ['controller' => '\App\Controllers\Api\SpecificationsCategoryApi']);
+  $routes->resource('agents', ['controller' => '\App\Controllers\Api\AgentsApi']);
 });

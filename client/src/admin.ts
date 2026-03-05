@@ -17,7 +17,10 @@ import VariantsCreatePage from './Pages/Admin/Variants/VariantsCreatePage';
 import VariantsUpdatePage from './Pages/Admin/Variants/VariantsUpdatePage';
 import SpecificationsPage from './Pages/Admin/Specifications/SpecificationsPage';
 import Swal from 'sweetalert2';
-
+import AgentsCreatePage from './Pages/Admin/agents/AgentsCreatePage';
+import AgentsPage from './Pages/Admin/agents/AgentsPage';
+import AgentsEditPage from './Pages/Admin/agents/AgentsEditPage';
+import { ZodNumberFormat } from 'zod';
 
 const page = document.body.dataset.page;
 
@@ -35,7 +38,11 @@ const routes: Record<string, () => void> = {
   'variants-create': VariantsCreatePage,
   'variants-update': VariantsUpdatePage,
 
-  'specifications': SpecificationsPage
+  'specifications': SpecificationsPage,
+
+  'agents': AgentsPage,
+  'agents-create': AgentsCreatePage,
+  'agents-edit': AgentsEditPage
 };
 
 if (page && routes[page]) {
@@ -49,7 +56,23 @@ Alpine.store('Swal', {
 
   clickConfirm() {
     Swal.clickConfirm();
-  }
+  },
 });
+
+Alpine.store('helper', {
+  formatNumber(value: any) {
+
+    const formatterPH = new Intl.NumberFormat('en-PH', {
+      style: 'currency',
+      currency: 'PHP'
+    });
+
+    if (isNaN(parseFloat(value))) {
+      return formatterPH.format(0);
+    }
+
+    return formatterPH.format(value);
+  }
+})
 
 Alpine.start();

@@ -57,10 +57,7 @@
                     <td x-text="vehicle.vehicle_tagline" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800">100,000</td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
-                        <a x-bind:href="`/admin/vehicles/${vehicle.vehicle_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-info-600 hover:text-info-400 focus:outline-hidden">
-                          <i class="fa-solid fa-eye"></i>
-                        </a>
-                        <a class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
+                        <a class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-orange-400 focus:outline-hidden">
                           <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <button type="button" data-action="delete" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">

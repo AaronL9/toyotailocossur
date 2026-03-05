@@ -30,24 +30,46 @@
 
   <form @submit.prevent="add($event)" id="vehicle-add-form" method="post" class="w-full max-w-3xl">
     <input x-model="csrf_token" type="hidden" name="csrf_token">
-    <fieldset class="flex flex-col gap-4 bg-base-200 border-base-300 rounded-box rounded-lg border border-gray-100 px-4 py-4">
+
+    <fieldset class="flex flex-col gap-5 bg-base-200 border-base-300 rounded-box rounded-lg border border-gray-100 px-6 py-6">
+      <legend class="text-base font-semibold text-gray-800 px-1 mb-1">Category Details</legend>
+
+      <!-- Category Name -->
       <div>
         <label for="category_name" class="block text-sm font-medium mb-2">Category Name</label>
-        <input type="text" id="category_name" name="category_name" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+        <input
+          type="text"
+          id="category_name"
+          name="category_name"
+          placeholder="e.g. SUV"
+          class="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
 
+      <!-- Order -->
       <div>
         <label for="order" class="block text-sm font-medium mb-2">Order</label>
-        <input type="number" id="order" name="order" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+        <input
+          type="number"
+          id="order"
+          name="order"
+          min="1"
+          placeholder="e.g. 1"
+          class="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
 
-      <div class="flex justify-end">
-        <button :disabled="loading" type="submit" class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
-          <span x-show="loading" class="animate-spin inline-block size-4 border-3 border-current border-t-transparent rounded-[999px] text-primary-foreground" role="status" aria-label="loading"></span>
-          <span x-text="loading ? 'Loading...' : 'Add'"></span>
-        </button>
-      </div>
     </fieldset>
+
+    <!-- Actions -->
+    <div class="flex justify-end pt-4">
+      <button
+        type="submit"
+        :disabled="loading"
+        class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
+        <span x-show="loading" class="animate-spin inline-block size-4 border-3 border-current border-t-transparent rounded-[999px] text-primary-foreground" role="status" aria-label="loading"></span>
+        <span x-text="loading ? 'Loading...' : 'Add Category'"></span>
+      </button>
+    </div>
+
   </form>
 </div>
 

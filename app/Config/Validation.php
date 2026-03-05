@@ -41,4 +41,37 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+
+    public array $agents = [
+        'fname' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'First Name field is required'
+            ]
+        ],
+        'mname' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Middle Name field is required'
+            ]
+        ],
+        'lname' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Last Name field is required'
+            ]
+        ],
+        'contact' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Contact Number field is required'
+            ]
+        ],
+        'email' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Email is field is required'
+            ]
+        ],
+    ];
 }
