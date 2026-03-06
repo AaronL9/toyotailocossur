@@ -118,10 +118,9 @@
         <div>
           <label class="block text-sm font-medium mb-2">Category</label>
           <select
-            x-model="selectedCategory"
-            @change="selectedSpec = ''; specValue = ''"
+            x-ref="spec_cat_ref"
+            @change="onSpecCatChangeHandler($event)"
             class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm bg-white focus:border-primary-500 focus:ring-primary-500">
-            <option value="" disabled>Select category...</option>
             <?php foreach ($spec_categories as $row): ?>
               <option value="<?= $row->scat_no ?>"><?= $row->scat_title ?></option>
             <?php endforeach; ?>
@@ -132,13 +131,12 @@
         <div>
           <label class="block text-sm font-medium mb-2">Specification</label>
           <select
-            x-model="selectedSpec"
-            :disabled="!selectedCategory"
+            x-ref="spec_type_ref"
+            @change="onSpecTypeChangeHandler($event)"
             class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm bg-white focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
-            <option value="" disabled>Select spec...</option>
-            <template x-for="spec in filteredSpecs" :key="spec.spec_no">
-              <option :value="spec.spec_no" x-text="spec.spec_name + (spec.spec_unit ? ' (' + spec.spec_unit + ')' : '')"></option>
-            </template>
+            <?php foreach ($spec_type as $row): ?>
+              <option value="<?= $row->spec_no ?>"><?= $row->spec_title ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
 
@@ -148,16 +146,9 @@
           <div class="relative">
             <input
               type="text"
-              x-model="specValue"
-              :disabled="!selectedSpec"
+              x-model="data.vs"
               @keydown.enter.prevent="addSpec()"
-              :placeholder="selectedSpecUnit ? 'e.g. 120 ' + selectedSpecUnit : 'Enter value...'"
               class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
-            <span
-              x-show="selectedSpecUnit"
-              x-text="selectedSpecUnit"
-              class="absolute inset-y-0 right-3 flex items-center text-xs text-gray-400 pointer-events-none">
-            </span>
           </div>
         </div>
 
@@ -166,7 +157,6 @@
           <button
             type="button"
             @click="addSpec()"
-            :disabled="!selectedCategory || !selectedSpec || !specValue.trim() || isDuplicate"
             class="w-full py-2.5 px-4 inline-flex items-center justify-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
@@ -175,19 +165,18 @@
             Add
           </button>
         </div>
-
       </div>
 
       <!-- Duplicate Warning -->
-      <template x-if="isDuplicate">
-        <p class="text-xs text-amber-600 -mt-1">This spec has already been added.</p>
+      <template x-if="!isValid">
+        <p x-text="validationMessage" class="text-xs text-amber-600 -mt-1"></p>
       </template>
 
       <!-- Specs Table -->
       <template x-if="addedSpecs.length > 0">
-        <div class="rounded-lg border border-gray-200 overflow-hidden mt-1">
+        <div class="rounded-lg border border-gray-200 overflow-hidden mt-1 min-h-[150px] max-h-[500px] overflow-y-auto">
           <table class="min-w-full divide-y divide-gray-200 text-sm">
-            <thead class="bg-gray-50">
+            <thead class="bg-gray-50 sticky top-0 z-10">
               <tr>
                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Specification</th>
@@ -196,16 +185,15 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 bg-white">
-              <template x-for="spec in addedSpecs" :key="spec.spec_no">
+              <template x-for="spec in addedSpecs" :key="spec.vs_id">
                 <tr class="hover:bg-gray-50 transition-colors">
-                  <td class="px-4 py-3 text-gray-500 whitespace-nowrap" x-text="spec.category"></td>
-                  <td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap" x-text="spec.spec_name"></td>
+                  <td x-text="spec.scat" class="px-4 py-3 text-gray-500 whitespace-nowrap"></td>
+                  <td x-text="spec.spec_type" class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap"></td>
                   <td class="px-4 py-3 text-gray-700 whitespace-nowrap">
-                    <span x-text="spec.value"></span>
-                    <span x-show="spec.spec_unit" class="text-gray-400 text-xs ml-1" x-text="spec.spec_unit"></span>
+                    <span x-text="spec.vs"></span>
                   </td>
                   <td class="px-4 py-3 text-right">
-                    <button type="button" @click="removeSpec(spec.spec_no)" class="text-gray-400 hover:text-red-500 transition-colors">
+                    <button type="button" @click="removeSpec(spec.vs_id)" class="text-gray-400 hover:text-red-500 transition-colors">
                       <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 6h18" />
                         <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />

@@ -4,8 +4,9 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\SpecificationsCategoryModel;
-use App\Models\SpecificationsModel;
+use App\Models\SpecificationsTypeModel;
 use App\Models\VariantsModel;
+use App\Models\VariantsSpecificationsModel;
 use App\Models\VehiclesModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -13,11 +14,15 @@ class Variants extends BaseController
 {
     protected $model;
     protected $specificationsCategoryModel;
+    protected $specTypeModel;
+    protected $variantsSpecificationsModel;
 
     public function __construct()
     {
         $this->model = new VariantsModel();
         $this->specificationsCategoryModel = new SpecificationsCategoryModel();
+        $this->specTypeModel = new SpecificationsTypeModel();
+        $this->variantsSpecificationsModel = new VariantsSpecificationsModel();
     }
 
     public function getIndex($id = null)
@@ -46,6 +51,7 @@ class Variants extends BaseController
         $data['vehicles'] = $model->findAll();
         // $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
         $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
+        $data['spec_type'] = $this->specTypeModel->findAll();
 
         // $spec_categories = [
         //     (object)[
@@ -95,5 +101,21 @@ class Variants extends BaseController
         // $data['spec_categories'] = $spec_categories;
 
         return view('admin/variants/variants-create-view', $data);
+    }
+
+    public function getSpecifications($id = null)
+    {
+
+        if (!$id) {
+            return redirect()->to('admin/variants');
+        }
+
+        $data['page'] = 'variants-specifications';
+        $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
+        $data['spec_type'] = $this->specTypeModel->findAll();
+        $data['cc'] = $this->variantsSpecificationsModel->getVariantFullSpec();
+        $data['id'] = $id;
+
+        return view('admin/variants-specifications/variants-specifications-view', $data);
     }
 }

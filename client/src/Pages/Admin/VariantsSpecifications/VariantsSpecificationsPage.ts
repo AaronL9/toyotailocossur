@@ -1,6 +1,7 @@
 import * as z from "zod";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { getFormValues } from "../../../utils/form.utils";
 
 const VariantsPostApiSchema = z.object({
   message: z.string(),
@@ -19,7 +20,7 @@ interface SpecData {
 
 type VariantsValidation = z.infer<typeof VariantsPostApiSchema>["errors"];
 
-export default function VariantsCreatePage() {
+export default function VariantsSpecificationsPage() {
   Alpine.data("VariantsCreate", (csrf_token: string = "") => ({
     csrf_token,
     validation: null as VariantsValidation,
@@ -92,26 +93,24 @@ export default function VariantsCreatePage() {
     async add(e: Event) {
       this.loading = true;
 
-      const form = e.currentTarget;
+      const form = e.target;
+      if (!(form instanceof HTMLFormElement)) return
 
-      if (!(form instanceof HTMLFormElement)) return;
+      const uri = form.getAttribute('action') ?? 'api/variants-specifications';
+
 
       try {
-        const { data } = await axios.post("/api/variants", form, {
+        const { data } = await axios.post(uri, form, {
           headers: { "Content-Type": "application/json" }
-        });
-
-        const result = VariantsPostApiSchema.safeParse(data);
-
-        if (!result.success) return console.log(result.error);
+        })
 
         Swal.fire({
           title: 'Added',
-          text: result.data.message,
+          text: data.message,
           icon: 'success'
         });
 
-        this.csrf_token = result.data.csrf_token;
+        this.csrf_token = data.csrf_token;
         this.validation = null;
         form.reset();
       } catch (error) {

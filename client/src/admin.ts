@@ -21,6 +21,7 @@ import AgentsCreatePage from './Pages/Admin/agents/AgentsCreatePage';
 import AgentsPage from './Pages/Admin/agents/AgentsPage';
 import AgentsEditPage from './Pages/Admin/agents/AgentsEditPage';
 import SpecificationsTypePage from './Pages/Admin/SpecificationType/SpecificationTypePage';
+import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/VariantsSpecificationsPage';
 
 const page = document.body.dataset.page;
 
@@ -37,6 +38,7 @@ const routes: Record<string, () => void> = {
   'variants': VariantsPage,
   'variants-create': VariantsCreatePage,
   'variants-update': VariantsUpdatePage,
+  'variants-specifications': VariantsSpecificationsPage,
 
   'specifications': SpecificationsPage,
 
@@ -44,7 +46,7 @@ const routes: Record<string, () => void> = {
   'agents-create': AgentsCreatePage,
   'agents-edit': AgentsEditPage,
 
-  'specifications-type': SpecificationsTypePage
+  'specifications-type': SpecificationsTypePage,
 };
 
 if (page && routes[page]) {

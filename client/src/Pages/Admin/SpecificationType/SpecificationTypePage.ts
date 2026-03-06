@@ -2,6 +2,15 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import * as z from "zod";
 
+// ─── API Types ────────────────────────────────────────────────────────────────────
+
+const SpecTypePostApi = z.object({
+  message: z.string(),
+  csrf_token: z.string(),
+  errors: z.nullable(z.record(z.string(), z.string()))
+})
+
+type SpecificationsTypeErrors = z.infer<typeof SpecTypePostApi>["errors"];
 
 export default function SpecificationsTypePage() {
   Alpine.store('specType', {
@@ -10,7 +19,7 @@ export default function SpecificationsTypePage() {
 
   Alpine.data('SpecificationsType', (csrf_token: string) => ({
     csrf_token,
-    specification: '',
+    specType: '',
     data: [],
     loading: true,
     errorClass: ["border-red-500", "focus:border-red-500", "focus:ring-red-500"],
@@ -19,31 +28,36 @@ export default function SpecificationsTypePage() {
     async init() {
       const response = await axios.get('/api/specifications-type');
 
-      this.data = response.data.specifications;
+      this.data = response.data.specifications_type;
     },
 
     async add() {
-      const input = this.$refs['specInput'] as HTMLInputElement;
+      const input = this.$refs['specTypeInput'] as HTMLInputElement;
       input.classList.remove(...this.errorClass);
 
       try {
         const response = await axios.post('/api/specifications-type', {
           csrf_token: this.csrf_token,
-          specification: this.specification
+          spec_type: this.specType
         });
 
-        this.specification = '';
+        const result = SpecTypePostApi.safeParse(response.data);
+
+        if (!result.success) {
+          return console.log(result.error)
+        }
+
         Swal.fire({
           title: 'Added',
           text: response.data.message,
           icon: 'success'
         })
 
+        this.specType = '';
+        this.csrf_token = result.data.csrf_token;
         this.init();
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {
-          const data = error.response.data;
-
           input.classList.add(...this.errorClass);
         }
       }

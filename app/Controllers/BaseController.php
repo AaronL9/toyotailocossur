@@ -45,7 +45,7 @@ abstract class BaseController extends Controller
         cache()->delete('modules');
 
         $sidebar = cache()->remember('modules', 3600, function () {
-            return (new ModulesModel())->findAll();
+            return (new ModulesModel())->orderBy('mod_order')->findAll();
         });
 
         service('renderer')->setData([

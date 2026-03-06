@@ -74,4 +74,27 @@ class Validation extends BaseConfig
             ]
         ],
     ];
+
+    public array $variants = [];
+
+    public array $variants_spec = [
+        'spec_cat' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Please Select Category'
+            ]
+        ],
+        'spec_type' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Please Select Specification'
+            ]
+        ],
+        'vs_value' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Please input a value'
+            ]
+        ]
+    ];
 }

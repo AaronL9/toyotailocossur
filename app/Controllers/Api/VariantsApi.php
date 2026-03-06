@@ -87,15 +87,17 @@ class VariantsApi extends ResourceController
             ], 422);
         }
 
-        $data['vehicle_no'] = $json['vehicle'];
-        $data['variant_model'] = $json['model'];
-        $data['variant_price'] = $json['price'];
-        $data['variant_price_month'] = $json['price_month'];
-        $data['variant_isdefault'] = $json['isdefault'] ?? 0;
-        $data['variant_isshowprice'] = $json['isshowprice'] ?? 0;
-        $data['variant_encode'] = session()->get('admin')['user_no'] ?? null;
+        $entry = [
+            'vehicle_no' => $json['vehicle'],
+            'variant_model' => $json['model'],
+            'variant_price' => $json['price'],
+            'variant_price_month' => $json['price_month'],
+            'variant_isdefault' => $json['isdefault'] ?? 0,
+            'variant_isshowprice' => $json['isshowprice'] ?? 0,
+            'variant_encode' => session()->get('admin')['user_no'] ?? null
+        ];
 
-        $isInserted = $this->model->insert($data, false);
+        $isInserted = $this->model->insert($entry, false);
 
         if (!$isInserted) {
             return $this->respond([

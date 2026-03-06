@@ -2,14 +2,14 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\SpecificationsTypeModel;
+use App\Models\VariantSpecCatModel;
+use App\Models\VariantsSpecificationsModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
-class SpecificationsTypeApi extends ResourceController
+class VariantsSpecificationsApi extends ResourceController
 {
-
-    protected $modelName = SpecificationsTypeModel::class;
+    protected $modelName = VariantsSpecificationsModel::class;
     protected $format = 'json';
 
     /**
@@ -17,7 +17,7 @@ class SpecificationsTypeApi extends ResourceController
      */
     protected $request;
 
-    /** @var SpecificationsTypeModel */
+    /** @var VariantsSpecificationsModel */
     protected $model;
 
     /**
@@ -27,11 +27,7 @@ class SpecificationsTypeApi extends ResourceController
      */
     public function index()
     {
-        $data = $this->model->where('spec_delete', 0)->findAll();
-
-        return $this->respond([
-            'specifications_type' => $data,
-        ]);
+        //
     }
 
     /**
@@ -64,12 +60,9 @@ class SpecificationsTypeApi extends ResourceController
     public function create()
     {
         $json = json_decode($this->request->getBody(), true);
+        $vscModel = new VariantSpecCatModel();
 
-        $rules = [
-            'spec_type' => 'required',
-        ];
-
-        if (!$this->validate($rules)) {
+        if (!$this->validate('variants_spec')) {
             return $this->respond([
                 "csrf_token" => csrf_hash(),
                 "message" => "Validation Error",
@@ -77,16 +70,31 @@ class SpecificationsTypeApi extends ResourceController
             ], 422);
         }
 
-        $entry = [
-            'spec_title' => $json['spec_type'],
-            'spec_encode_date' => date('Y-m-d H:i:s')
-        ];
+        $id = $vscModel->insert([
+            "variant_no" => $json['variant'],
+            'scat_no' => $json['spec_cat'],
+            "vsc_order" => $json['order'] ?? null,
+            "vsc_encode" => session()->get('admin')['user_no'] ?? null,
+            "vsc_encode_date" => date('Y-m-d H:i:s'),
+        ]);
 
-        $this->model->insert($entry);
+        $isInserted = $this->model->insert([
+            'vsc_no' => $id,
+            'spec_no' => $json['spec_type'],
+            'vs_value' => $json['vs_value']
+        ], false);
+
+        if (!$isInserted) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Something went wrong",
+                "errors" => $this->model->errors(),
+            ]);
+        }
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add specification",
+            "message" => "You have successfully add Specification",
             "errors" => null,
         ]);
     }

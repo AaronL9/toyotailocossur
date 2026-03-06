@@ -61,7 +61,10 @@
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
-                        <a x-bind:href="`/admin/variants/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
+                        <a x-bind:href="`/admin/variants/specifications/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-primary-600 hover:text-blue-400 focus:outline-hidden">
+                          <i class="fa-solid fa-rectangle-list"></i>
+                        </a>
+                        <a x-bind:href="`/admin/variants/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-primary-600 hover:text-orange-400 focus:outline-hidden">
                           <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <button @click="deleteRow(row.variant_no)" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
