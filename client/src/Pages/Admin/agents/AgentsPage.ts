@@ -111,7 +111,7 @@ export default function AgentsPage() {
               csrf_token: this.csrf_token
             }
           }).then((response) => {
-            const result = VehicleCategoryDeleteApi.safeParse(response.data)
+            const result = AgentsDeleteApi.safeParse(response.data)
 
             if (!result.success) {
               return console.log(result.error);

@@ -10,8 +10,6 @@ const SpecTypePostApi = z.object({
   errors: z.nullable(z.record(z.string(), z.string()))
 })
 
-type SpecificationsTypeErrors = z.infer<typeof SpecTypePostApi>["errors"];
-
 export default function SpecificationsTypePage() {
   Alpine.store('specType', {
     editInput: ''

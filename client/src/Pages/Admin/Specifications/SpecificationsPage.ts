@@ -1,7 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import * as z from "zod";
-
 
 export default function SpecificationsPage() {
   Alpine.store('spec', {
@@ -42,7 +40,7 @@ export default function SpecificationsPage() {
         this.init();
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {
-          const data = error.response.data;
+          // const data = error.response.data;
 
           input.classList.add(...this.errorClass);
         }
