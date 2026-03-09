@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminApiFilters;
 use App\Filters\AdminFilter;
 use App\Filters\AdminLoginFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
@@ -37,7 +38,8 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'adminlogin'    => AdminLoginFilter::class,
-        'admin'         => AdminFilter::class
+        'admin'         => AdminFilter::class,
+        'adminApi'      => AdminApiFilters::class,
     ];
 
     /**
@@ -133,6 +135,13 @@ class Filters extends BaseFilters
         'admin' => [
             'before' => [
                 'admin/login'
+            ]
+        ],
+
+        'adminApi' => [
+            'before' => [
+                'api',
+                'api/*'
             ]
         ]
     ];
