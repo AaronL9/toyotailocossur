@@ -27,7 +27,9 @@ class VariantsSpecificationsApi extends ResourceController
      */
     public function index()
     {
-        //
+
+        $data = $this->model->getVariantFullSpec();
+        return $this->respond($data);
     }
 
     /**
@@ -120,7 +122,45 @@ class VariantsSpecificationsApi extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        $json = json_decode($this->request->getBody(), true);
+
+        if (isset($json['inactive'])) {
+            $this->model->update($id, [
+                "vs_inactive" => $json['inactive']
+            ]);
+
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "You have successfully update specification",
+                "errors" => null,
+            ]);
+        }
+
+        if (!$this->validate('variants_spec')) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $isUpdated = $this->model->update($id, [
+            'vs_value' => $json['vs_value']
+        ]);
+
+        if (!$isUpdated) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Something went wrong",
+                "errors" => $this->model->errors(),
+            ]);
+        }
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully update specification {$json['vs_value']}",
+            "errors" => null,
+        ]);
     }
 
     /**

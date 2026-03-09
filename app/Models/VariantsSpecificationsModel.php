@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class VariantsSpecificationsModel extends Model
 {
     protected $table            = 'variants_specifications';
-    protected $primaryKey       = 'vsc_no';
+    protected $primaryKey       = 'vs_no';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
@@ -27,11 +27,11 @@ class VariantsSpecificationsModel extends Model
 
     public function getVariantFullSpec()
     {
-        return $this->select()
+        return $this
+            ->select()
             ->join('specifications', 'variants_specifications.spec_no = specifications.spec_no', 'left')
             ->join('variants_specifications_category', 'variants_specifications.vsc_no = variants_specifications_category.vsc_no', 'left')
             ->join('specifications_category', 'variants_specifications_category.scat_no = specifications_category.scat_no', 'left')
-
             ->findAll();
     }
 }

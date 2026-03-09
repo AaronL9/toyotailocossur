@@ -1,7 +1,7 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("page") ?>
-<div x-data="VariantsCreate('<?= csrf_hash() ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
+<div x-data="VariantsSpecificationsData('<?= csrf_hash() ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
 
   <!-- Validation Errors -->
   <template x-if="validation">
@@ -113,31 +113,41 @@
       <table class="min-w-full divide-y divide-gray-200 text-sm">
         <thead class="bg-gray-50 sticky top-0 z-10">
           <tr>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"></th>
             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Specification</th>
             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Value</th>
-            <th class="px-4 py-3"></th>
+            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100 bg-white">
-          <?php foreach ($cc as $row): ?>
+          <template x-for="row in data" :key="row.vs_no">
             <tr class="hover:bg-gray-50 transition-colors">
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap"><?= $row->scat_title ?></td>
-              <td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap"><?= $row->spec_title ?></td>
+              <td class="px-2 py-3 whitespace-nowrap">
+                <label class="relative inline-block w-11 h-6 cursor-pointer">
+                  <input type="checkbox" class="peer sr-only" @click="onSwitch(row.vs_inactive, row.vs_no)" x-bind:checked="!Boolean(parseInt(row.vs_inactive))">
+                  <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary -600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                  <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+                </label>
+              </td>
+              <td class="px-4 py-3 text-gray-500 whitespace-nowrap" x-text="row.scat_title"></td>
+              <td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap" x-text="row.spec_title"></td>
               <td class="px-4 py-3 text-gray-700 whitespace-nowrap">
-                <span><?= $row->vs_value ?></span>
+                <span x-text="row.vs_value"></span>
               </td>
               <td class="px-4 py-3 text-right">
-                <button type="button" @click="removeSpec(spec.vs_id)" class="text-gray-400 hover:text-red-500 transition-colors">
+                <!-- Edit button -->
+                <button
+                  type="button"
+                  @click="edit(row.vs_no, row)"
+                  class="mr-2 text-gray-400 hover:text-blue-600 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 6h18" />
-                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 3 21l.5-4.5L17 3z" />
                   </svg>
                 </button>
               </td>
             </tr>
-          <?php endforeach; ?>
+          </template>
         </tbody>
       </table>
     </div>
@@ -159,13 +169,57 @@
     </template>
   <?php endif; ?>
 
-  <pre>
-      <?php // print_r($cc); 
-      ?>
-    </pre>
+  <!-- Edit value modal template (similar to specifications-category-view) -->
+  <template id="swal-variant-spec-modal">
+    <swal-html>
+      <h3 class="text-base font-semibold text-left text-gray-800">
+        <i class="fa-solid fa-pen-to-square text-primary-900 mr-2"></i>Edit Specification Value
+      </h3>
+
+      <!-- Divider -->
+      <hr class="border-t border-gray-100 my-4" />
+
+      <!-- Input -->
+      <div class="mb-4">
+        <label class="block text-sm text-left font-medium text-gray-700 mb-1">Value</label>
+        <input
+          x-model="$store.variantSpec.editInput"
+          type="text"
+          id="edit-variant-spec-input"
+          class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
+          placeholder="Edit specification value..." />
+      </div>
+    </swal-html>
+
+    <swal-footer>
+      <div class="flex justify-end gap-x-2">
+        <button
+          @click="$store.Swal.close()"
+          type="button"
+          class="py-2 px-4 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors duration-150">
+          <i class="fa-solid fa-xmark text-xs"></i> Cancel
+        </button>
+        <button
+          @click="$store.Swal.clickConfirm()"
+          type="button"
+          class="py-2 px-4 inline-flex items-center gap-x-1.5 text-sm font-medium rounded-lg bg-primary-950 text-white hover:bg-primary-900 transition-colors duration-150">
+          <i class="fa-solid fa-floppy-disk text-xs"></i> Save
+        </button>
+      </div>
+    </swal-footer>
+
+    <swal-param
+      name="customClass"
+      value='{ "footer": "border-none! pt-0! mt-0!" }' />
+  </template>
 
   </fieldset>
   </form>
+
+  <pre>
+    <?php // print_r($cc)
+    ?>
+  </pre>
 </div>
 
 <?= $this->endSection() ?>

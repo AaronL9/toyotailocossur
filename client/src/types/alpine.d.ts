@@ -6,5 +6,8 @@ declare module 'alpinejs' {
     spec: {
       editInput: string;
     }
+    variantSpec: {
+      editInput: string;
+    }
   }
 }

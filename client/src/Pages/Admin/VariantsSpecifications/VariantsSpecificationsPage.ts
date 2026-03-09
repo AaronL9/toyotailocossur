@@ -3,123 +3,140 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { getFormValues } from "../../../utils/form.utils";
 
+/**
+ * ======================================
+ *  Schema Definitions for Variants Specs
+ * ======================================
+ */
+
+/**
+ * API Response Schema for POST Operations on /api/variants-specifications
+ * (Used for form submissions: add/update)
+ */
 const VariantsPostApiSchema = z.object({
-  message: z.string(),
-  csrf_token: z.string(),
-  errors: z.nullable(z.record(z.string(), z.string()))
-})
+  message: z.string(), // Server message
+  csrf_token: z.string(), // Updated CSRF token from server, for secure future requests
+  errors: z.nullable(z.record(z.string(), z.string())), // Validation errors, if any
+});
 
-interface SpecData {
-  vs_id: string
-  vs: string
-  scat_id: string
-  scat: string
-  spec_type_id: string
-  spec_type: string
-}
-
+/** Type for server-side validation errors structure */
 type VariantsValidation = z.infer<typeof VariantsPostApiSchema>["errors"];
 
+/**
+ * ======================================
+ *  Data Structure for Specifications List and Table Rows
+ * ======================================
+ */
+
+/**
+ * Single Specification Entry as shown in the table (fetched from backend)
+ */
+const VariantSpecificationItemSchema = z.object({
+  vs_no: z.coerce.number(),        // PK: Variant Specification Record ID
+  vs_value: z.string(),            // Value for this spec (e.g. "6-speed")
+  spec_title: z.string(),          // Specification Name (e.g. "Transmission")
+  spec_no: z.string(),             // FK: Specification ID
+  scat_no: z.string(),             // FK: Category ID
+  scat_title: z.string(),          // Category Name (e.g. "Powertrain")
+  vs_inactive: z.string()
+});
+
+/**
+ * All specifications for the current variant (array of table rows)
+ */
+const VariantSpecificationListSchema = z.array(VariantSpecificationItemSchema);
+
+/**
+ * ======================================
+ *  Data Structure for Submitting New Spec via Form
+ * ======================================
+ */
+const VariantSpecificationFormSchema = z.object({
+  spec_type: z.string(),       // Selected specification
+  spec_cat: z.string(),       // Selected category
+});
+
+/** Array of all specs for the table in this page */
+type VariantSpecificationList = z.infer<typeof VariantSpecificationListSchema>;
+type VariantSpecificationItem = z.infer<typeof VariantSpecificationItemSchema>;
+
 export default function VariantsSpecificationsPage() {
-  Alpine.data("VariantsCreate", (csrf_token: string = "") => ({
+  Alpine.store("variantSpec", {
+    editInput: "",
+  });
+
+  Alpine.data("VariantsSpecificationsData", (csrf_token: string = "") => ({
     csrf_token,
     validation: null as VariantsValidation,
     loading: false,
     isValid: true,
-    validationMessage: 'Something went wrong',
+    validationMessage: "Something went wrong",
+    data: [] as VariantSpecificationList,
 
-    data: {
-      vs_id: '',
-      vs: '',
-      scat_id: '',
-      scat: '',
-      spec_type_id: '',
-      spec_type: '',
-    } as SpecData,
-
-    addedSpecs: [] as SpecData[],
-
-    getSelectedItem() {
-
+    async init() {
+      this.loading = true;
+      try {
+        const response = await axios.get("/api/variants-specifications");
+        const result = VariantSpecificationListSchema.safeParse(response.data);
+        if (!result.success) {
+          console.error(result.error);
+          return;
+        }
+        this.data = result.data;
+        console.log(this.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.loading = false;
+      }
     },
 
-    onSpecCatChangeHandler(event: Event) {
-      const selectElem = event.target;
-      if (!(selectElem instanceof HTMLSelectElement)) return;
-
-      this.data.scat = selectElem.selectedOptions[0].textContent;
-      this.data.scat_id = selectElem.selectedOptions[0].value;
-    },
-
-    onSpecTypeChangeHandler(event: Event) {
-      const selectElem = event.target;
-      if (!(selectElem instanceof HTMLSelectElement)) return;
-
-      this.data.spec_type = selectElem.selectedOptions[0].textContent;
-      this.data.spec_type_id = selectElem.selectedOptions[0].value;
-    },
-
-    addSpec() {
-      if (this.$refs['spec_cat_ref'] instanceof HTMLSelectElement) {
-        this.$refs['spec_cat_ref'].dispatchEvent(new Event('change'));
-      }
-
-      if (this.$refs['spec_type_ref'] instanceof HTMLSelectElement) {
-        this.$refs['spec_type_ref'].dispatchEvent(new Event('change'));
-      }
-
-      console.log(this.data.vs.trim())
-      if (!this.data.vs.trim()) {
-        this.validationMessage = 'Please input value';
-        this.isValid = false;
-        return;
-      }
-
-      const newId = `${this.data.scat_id}-${this.data.spec_type_id}`;
-      if (this.addedSpecs.some((data: SpecData) => data.vs_id === newId)) {
-        this.validationMessage = 'This spec has already been added.';
-        return
-      }
-
-      this.data.vs_id = newId;
-      this.addedSpecs.push({ ...this.data });
-      this.data.vs = '';
-    },
-
-    removeSpec(id: string) {
-      this.addedSpecs = this.addedSpecs.filter((item: SpecData) => item.vs_id !== id)
+    checkIfSpecExists(spec_no: string, scat_no: string) {
+      return this.data.some((data: VariantSpecificationItem) => data.spec_no === spec_no && data.scat_no === scat_no);
     },
 
     async add(e: Event) {
       this.loading = true;
 
       const form = e.target;
-      if (!(form instanceof HTMLFormElement)) return
+      if (!(form instanceof HTMLFormElement)) return;
 
-      const uri = form.getAttribute('action') ?? 'api/variants-specifications';
+      const specifications = VariantSpecificationFormSchema.safeParse(getFormValues(form));
+      if (!specifications.success) {
+        return console.log(specifications.error);
+      }
 
+      if (this.checkIfSpecExists(specifications.data.spec_type, specifications.data.spec_cat)) {
+        this.validationMessage = "This spec has already been added.";
+        this.isValid = false;
+        this.loading = false;
+        return;
+      }
+
+      const uri = form.getAttribute("action") ?? "api/variants-specifications";
 
       try {
         const { data } = await axios.post(uri, form, {
-          headers: { "Content-Type": "application/json" }
-        })
+          headers: { "Content-Type": "application/json" },
+        });
 
         Swal.fire({
-          title: 'Added',
+          title: "Added",
           text: data.message,
-          icon: 'success'
+          icon: "success",
         });
 
         this.csrf_token = data.csrf_token;
         this.validation = null;
         form.reset();
+        this.init();
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {
           const data = error.response.data;
           const result = VariantsPostApiSchema.safeParse(data);
 
           if (!result.success) {
-            return console.log(result.error)
+            return console.log(result.error);
           }
 
           this.validation = result.data.errors;
@@ -127,6 +144,115 @@ export default function VariantsSpecificationsPage() {
         }
       } finally {
         this.loading = false;
+      }
+    },
+
+    async edit(vs_id: string, row: VariantSpecificationItem) {
+      Alpine.store("variantSpec").editInput = row.vs_value;
+      this.validation = null;
+
+      const result = await Swal.fire({
+        template: "#swal-variant-spec-modal",
+        showConfirmButton: false,
+      });
+
+      if (!result.isConfirmed) return;
+
+      try {
+        const response = await axios.put(
+          `/api/variants-specifications/${vs_id}`,
+          {
+            csrf_token: this.csrf_token,
+            vs_value: Alpine.store("variantSpec").editInput,
+            spec_type: row.spec_no,
+            spec_cat: row.scat_no,
+          },
+        );
+
+        console.table({
+          csrf_token: this.csrf_token,
+          vs_value: Alpine.store("variantSpec").editInput,
+          spec_type: row.spec_no,
+          spec_cat: row.scat_no,
+        })
+
+        Swal.fire({
+          title: "Updated",
+          text: response.data.message,
+          icon: "success",
+        });
+        this.csrf_token = response.data.csrf_token;
+        this.init();
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 422) {
+          const data = error.response.data;
+          const result = VariantsPostApiSchema.safeParse(data);
+
+          if (!result.success) {
+            return console.log(result.error);
+          }
+
+          this.validation = result.data.errors;
+          this.csrf_token = result.data.csrf_token;
+        }
+      }
+    },
+
+    async onSwitch(isInactive: string, id: string) {
+      try {
+        const data = {
+          inactive: Number(!Boolean(parseInt(isInactive))),
+          csrf_token
+        }
+
+        const response = await axios.put(`api/variants-specifications/${id}`, data)
+
+        this.csrf_token = response.data.csrf_token;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 422) {
+          const data = error.response.data;
+          const result = VariantsPostApiSchema.safeParse(data);
+
+          if (!result.success) {
+            return console.log(result.error);
+          }
+
+          this.validation = result.data.errors;
+          this.csrf_token = result.data.csrf_token;
+        }
+      }
+    },
+
+    async deleteRow(vs_id: string) {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (!result.isConfirmed) return;
+
+      try {
+        const response = await axios.delete(
+          `/api/variants-specifications/${vs_id}`,
+          {
+            data: { csrf_token: this.csrf_token },
+          },
+        );
+
+        Swal.fire({
+          title: "Deleted",
+          text: response.data.message,
+          icon: "success",
+        });
+
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
       }
     },
   }));

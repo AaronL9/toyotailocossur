@@ -14,8 +14,10 @@ export default function VehiclesCreatePage() {
   Alpine.data("VehicleCreatePage", (csrf_token: string = "") => ({
     csrf_token,
     validation: null as VehicleValidation,
+    loading: false,
 
     async addVehicle(e: Event) {
+      this.loading = true;
       const form = e.currentTarget;
 
       if (!(form instanceof HTMLFormElement)) return;
@@ -49,6 +51,8 @@ export default function VehiclesCreatePage() {
           this.validation = result.data.errors;
           this.csrf_token = result.data.csrf_token;
         }
+      } finally {
+        this.loading = false;
       }
     },
   }));
