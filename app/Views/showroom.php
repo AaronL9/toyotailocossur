@@ -47,7 +47,7 @@
                                         <article class="group">
                                             <a href="#" class="block">
                                                 <div class="aspect-4/3 bg-zinc-100 overflow-hidden mb-3 group-hover:shadow-md transition-all duration-200">
-                                                    <img class="w-full h-full object-contain object-center p-2" src="/img/vehicles/<?= $row->variant_filename ?>" alt="<?= $row->vehicle_title ?>" loading="lazy">
+                                                    <img class="w-full h-full object-contain object-center p-2" src="/img/variants/<?= $row->variant_filename ?>" alt="<?= $row->vehicle_title ?>" loading="lazy">
                                                 </div>
                                                 <h3 class="text-slate-800 font-semibold text-center text-sm sm:text-base"><?= $row->vehicle_title ?></h3>
                                                 <p class="text-red-600 font-semibold text-center text-xs sm:text-sm tracking-widest uppercase mt-1 group-hover:underline">Explore</p>

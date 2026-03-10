@@ -9,7 +9,7 @@
   <?= csrf_meta("csrf-token"); ?>
   <link rel="shortcut icon" type="image/png" href="/favicon.ico">
   <base href="<?= base_url() ?>">
-  <?= vite_css("src/main.ts") ?>
+  <?= vite_css("src/admin.ts") ?>
 </head>
 
 <body class="flex flex-col min-h-screen" data-page="<?= $page ?? "" ?>">

@@ -56,19 +56,19 @@
             <?php foreach ($vehicles as $row): ?>
                 <div class="group flex flex-col overflow-hidden bg-gray-100 shadow-lg">
                     <div class="relative overflow-hidden bg-gray-100">
-                        <img src="/img/vehicles/<?= $row->variant_filename ?>" class="w-full h-64 object-contain" />
+                        <img src="/img/variants/<?= $row->variant_filename ?>" class="w-full h-64 object-contain" />
                         <div class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white">
                             <h3 class="text-2xl font-semibold mb-2"><?= $row->vehicle_title ?></h3>
                             <div class="space-y-1 mb-4">
                                 <p class="text-sm text-gray-300">Starting at</p>
                                 <p class="text-2xl font-bold">
-                                    PHP 1,775,000<span class="text-sm">*</span>
+                                    PHP <?= number_format($row->variant_price, 2) ?><span class="text-sm">*</span>
                                 </p>
                                 <p class="text-gray-300">
-                                    PHP 32,265<span class="text-sm">*</span> / month
+                                    PHP <?= number_format($row->variant_price_month, 2) ?><span class="text-sm">*</span> / month
                                 </p>
                             </div>
-                            <a href="/vehicle"
+                            <a href="/<?= url_title($row->vehicle_title, '-', true) ?>"
                                 class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-red-600 px-6 font-medium text-neutral-200">
                                 <span>Full Specs</span>
                                 <div

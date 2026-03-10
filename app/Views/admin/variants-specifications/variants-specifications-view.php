@@ -1,7 +1,7 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("page") ?>
-<div x-data="VariantsSpecificationsData('<?= csrf_hash() ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
+<div x-data="VariantsSpecificationsData('<?= csrf_hash() ?>', '/api/variants-specifications', '<?= $id ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
 
   <!-- Validation Errors -->
   <template x-if="validation">
@@ -43,7 +43,6 @@
           <label class="block text-sm font-medium mb-2">Category</label>
           <select
             x-ref="spec_cat_ref"
-            @change="onSpecCatChangeHandler($event)"
             name="spec_cat"
             class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm bg-white focus:border-primary-500 focus:ring-primary-500">
             <?php foreach ($spec_categories as $row): ?>
@@ -57,7 +56,6 @@
           <label class="block text-sm font-medium mb-2">Specification</label>
           <select
             x-ref="spec_type_ref"
-            @change="onSpecTypeChangeHandler($event)"
             name="spec_type"
             class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm bg-white focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
             <?php foreach ($spec_type as $row): ?>
@@ -107,66 +105,62 @@
     <p x-text="validationMessage" class="text-xs text-amber-600 -mt-1"></p>
   </template>
 
-  <?php if (count($cc)): ?>
-    <!-- Specs Table -->
-    <div class="rounded-lg border border-gray-200 overflow-hidden mt-1 min-h-[150px] max-h-[500px] overflow-y-auto">
-      <table class="min-w-full divide-y divide-gray-200 text-sm">
-        <thead class="bg-gray-50 sticky top-0 z-10">
-          <tr>
-            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"></th>
-            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
-            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Specification</th>
-            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Value</th>
-            <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+  <!-- Specs Table -->
+  <div class="rounded-lg border border-gray-200 overflow-hidden mt-1 min-h-[150px] max-h-[500px] overflow-y-auto">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead class="bg-gray-50 sticky top-0 z-10">
+        <tr>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"></th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Specification</th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Value</th>
+          <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 bg-white">
+        <template x-for="row in data" :key="row.vsc_no">
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-2 py-3 whitespace-nowrap">
+              <label class="relative inline-block w-11 h-6 cursor-pointer">
+                <input type="checkbox" class="peer sr-only" @click="onSwitch(row.vs_inactive, row.vs_no)" x-bind:checked="!Boolean(parseInt(row.vs_inactive))">
+                <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary -600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+              </label>
+            </td>
+            <td class="px-4 py-3 text-gray-500 whitespace-nowrap" x-text="row.scat_title"></td>
+            <td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap" x-text="row.spec_title"></td>
+            <td class="px-4 py-3 text-gray-700 whitespace-nowrap">
+              <span x-text="row.vs_value"></span>
+            </td>
+            <td class="px-4 py-3 text-right">
+              <!-- Edit button -->
+              <button
+                type="button"
+                @click="edit(row.vs_no, row)"
+                class="mr-2 text-gray-400 hover:text-blue-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 3 21l.5-4.5L17 3z" />
+                </svg>
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100 bg-white">
-          <template x-for="row in data" :key="row.vs_no">
-            <tr class="hover:bg-gray-50 transition-colors">
-              <td class="px-2 py-3 whitespace-nowrap">
-                <label class="relative inline-block w-11 h-6 cursor-pointer">
-                  <input type="checkbox" class="peer sr-only" @click="onSwitch(row.vs_inactive, row.vs_no)" x-bind:checked="!Boolean(parseInt(row.vs_inactive))">
-                  <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary -600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
-                  <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
-                </label>
-              </td>
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap" x-text="row.scat_title"></td>
-              <td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap" x-text="row.spec_title"></td>
-              <td class="px-4 py-3 text-gray-700 whitespace-nowrap">
-                <span x-text="row.vs_value"></span>
-              </td>
-              <td class="px-4 py-3 text-right">
-                <!-- Edit button -->
-                <button
-                  type="button"
-                  @click="edit(row.vs_no, row)"
-                  class="mr-2 text-gray-400 hover:text-blue-600 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 3 21l.5-4.5L17 3z" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-    </div>
-  <?php endif; ?>
+        </template>
+      </tbody>
+    </table>
+  </div>
 
   <?php if (!count($cc)): ?>
     <!-- Empty State -->
-    <template x-if="addedSpecs.length === 0">
-      <div class="flex flex-col items-center justify-center py-8 text-center border border-dashed border-gray-200 rounded-lg mt-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-gray-300 mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-          <rect x="9" y="3" width="6" height="4" rx="1" />
-          <path d="M9 12h6" />
-          <path d="M9 16h4" />
-        </svg>
-        <p class="text-sm text-gray-400">No specifications added yet.</p>
-        <p class="text-xs text-gray-300 mt-0.5">Select a category and spec above, then click Add.</p>
-      </div>
-    </template>
+    <div class="flex flex-col items-center justify-center py-8 text-center border border-dashed border-gray-200 rounded-lg mt-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-gray-300 mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+        <rect x="9" y="3" width="6" height="4" rx="1" />
+        <path d="M9 12h6" />
+        <path d="M9 16h4" />
+      </svg>
+      <p class="text-sm text-gray-400">No specifications added yet.</p>
+      <p class="text-xs text-gray-300 mt-0.5">Select a category and spec above, then click Add.</p>
+    </div>
   <?php endif; ?>
 
   <!-- Edit value modal template (similar to specifications-category-view) -->
@@ -178,6 +172,19 @@
 
       <!-- Divider -->
       <hr class="border-t border-gray-100 my-4" />
+
+      <!-- Specification select -->
+      <div class="mb-4">
+        <label class="block text-sm text-left font-medium text-gray-700 mb-1">Specification</label>
+        <select
+          x-model="$store.variantSpec.editSpecNo"
+          id="edit-variant-spec-select"
+          class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm bg-white focus:border-primary-500 focus:ring-primary-500">
+          <?php foreach ($spec_type as $row): ?>
+            <option value="<?= $row->spec_no ?>"><?= $row->spec_title ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
 
       <!-- Input -->
       <div class="mb-4">

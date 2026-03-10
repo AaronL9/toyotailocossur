@@ -25,10 +25,13 @@ class VariantsSpecificationsApi extends ResourceController
      *
      * @return ResponseInterface
      */
-    public function index()
+    public function index($id = null)
     {
+        if (!$id) {
+            return $this->respond('No resource found');
+        }
 
-        $data = $this->model->getVariantFullSpec();
+        $data = $this->model->getVariantFullSpec($id);
         return $this->respond($data);
     }
 
@@ -41,7 +44,12 @@ class VariantsSpecificationsApi extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond('No resource found');
+        }
+
+        $data = $this->model->getVariantFullSpec($id);
+        return $this->respond($data);
     }
 
     /**
@@ -145,7 +153,8 @@ class VariantsSpecificationsApi extends ResourceController
         }
 
         $isUpdated = $this->model->update($id, [
-            'vs_value' => $json['vs_value']
+            'vs_value' => $json['vs_value'],
+            'spec_no' => $json['spec_type']
         ]);
 
         if (!$isUpdated) {
@@ -158,7 +167,7 @@ class VariantsSpecificationsApi extends ResourceController
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully update specification {$json['vs_value']}",
+            "message" => "You have successfully update specification",
             "errors" => null,
         ]);
     }

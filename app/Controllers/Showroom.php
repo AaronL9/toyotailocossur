@@ -28,6 +28,7 @@ class Showroom extends BaseController
             ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no", "left")
             ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
             ->join("photos", "photos.variant_no = variants.variant_no", "left")
+            ->where('variant_isdefault', 1)
             ->findAll();
 
         return view("showroom", $data);

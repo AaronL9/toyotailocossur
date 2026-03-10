@@ -22,4 +22,27 @@ class VariantsModel extends Model
         'variant_inactive',
         'variant_delete'
     ];
+
+    /**
+     * Get all variants for a given vehicle, including vehicle title.
+     */
+    public function getByVehicleNo(int $vehicleNo): array
+    {
+        return $this
+            ->builder('variants')
+            ->select([
+                'variants.variant_no',
+                'variants.variant_model',
+                'variants.variant_price',
+                'variants.variant_price_month',
+                'variants.variant_isdefault',
+                'vehicles.vehicle_title',
+                'photos.variant_filename'
+            ])
+            ->join('vehicles', 'vehicles.vehicle_no = variants.vehicle_no', 'left')
+            ->join('photos', 'photos.variant_no = variants.variant_no', 'left')
+            ->where('variants.vehicle_no', $vehicleNo)
+            ->get()
+            ->getResultArray();
+    }
 }

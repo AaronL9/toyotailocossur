@@ -63,9 +63,10 @@ type VariantSpecificationItem = z.infer<typeof VariantSpecificationItemSchema>;
 export default function VariantsSpecificationsPage() {
   Alpine.store("variantSpec", {
     editInput: "",
+    editSpecNo: "" as string,
   });
 
-  Alpine.data("VariantsSpecificationsData", (csrf_token: string = "") => ({
+  Alpine.data("VariantsSpecificationsData", (csrf_token: string = "", uri: string = '/', id) => ({
     csrf_token,
     validation: null as VariantsValidation,
     loading: false,
@@ -75,15 +76,17 @@ export default function VariantsSpecificationsPage() {
 
     async init() {
       this.loading = true;
+      console.log('hello world')
       try {
-        const response = await axios.get("/api/variants-specifications");
-        const result = VariantSpecificationListSchema.safeParse(response.data);
-        if (!result.success) {
-          console.error(result.error);
-          return;
-        }
-        this.data = result.data;
-        console.log(this.data);
+        const response = await axios.get(`${uri}/${id}`);
+        // const result = VariantSpecificationListSchema.safeParse(response.data);
+        // console.log(response.data);
+        // if (!result.success) {
+        //   console.error(result.error);
+        //   return;
+        // }
+        this.data = response.data;
+
       } catch (error) {
         console.error(error);
       } finally {
@@ -149,6 +152,8 @@ export default function VariantsSpecificationsPage() {
 
     async edit(vs_id: string, row: VariantSpecificationItem) {
       Alpine.store("variantSpec").editInput = row.vs_value;
+      Alpine.store("variantSpec").editSpecNo = row.spec_no;
+
       this.validation = null;
 
       const result = await Swal.fire({
@@ -164,17 +169,10 @@ export default function VariantsSpecificationsPage() {
           {
             csrf_token: this.csrf_token,
             vs_value: Alpine.store("variantSpec").editInput,
-            spec_type: row.spec_no,
+            spec_type: Alpine.store("variantSpec").editSpecNo,
             spec_cat: row.scat_no,
           },
         );
-
-        console.table({
-          csrf_token: this.csrf_token,
-          vs_value: Alpine.store("variantSpec").editInput,
-          spec_type: row.spec_no,
-          spec_cat: row.scat_no,
-        })
 
         Swal.fire({
           title: "Updated",
@@ -202,7 +200,7 @@ export default function VariantsSpecificationsPage() {
       try {
         const data = {
           inactive: Number(!Boolean(parseInt(isInactive))),
-          csrf_token
+          csrf_token: this.csrf_token
         }
 
         const response = await axios.put(`api/variants-specifications/${id}`, data)

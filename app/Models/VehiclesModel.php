@@ -22,9 +22,10 @@ class VehiclesModel extends Model
     public function getVehiclePhotos()
     {
         $data = $this
-            ->select("vehicles.vehicle_title ,photos.*")
+            ->select("vehicles.vehicle_title ,photos.*, variants.*")
             ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
             ->join("photos", "photos.variant_no = variants.variant_no", "left")
+            ->groupBy('vehicles.vehicle_no')
             ->findAll(4);
 
         return $data;
