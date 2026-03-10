@@ -16,7 +16,7 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
   "src/admin.ts": {
-    "file": "assets/admin-BdzFb6iH.js",
+    "file": "assets/admin-BMj6NVww.js",
     "name": "admin",
     "src": "src/admin.ts",
     "isEntry": true,
@@ -24,7 +24,7 @@
       "_index-D9tQtfWM.js"
     ],
     "css": [
-      "assets/admin-jBZfY93f.css"
+      "assets/admin-Dm0bHJ4R.css"
     ],
     "assets": [
       "assets/fa-brands-400-BP5tdqmh.woff2",
@@ -33,7 +33,7 @@
     ]
   },
   "src/main.ts": {
-    "file": "assets/main-CHg7AizM.js",
+    "file": "assets/main-BYmmk-9f.js",
     "name": "main",
     "src": "src/main.ts",
     "isEntry": true,
@@ -41,7 +41,7 @@
       "_index-D9tQtfWM.js"
     ],
     "css": [
-      "assets/main-DcludQ48.css"
+      "assets/main-bf2gSGbb.css"
     ]
   }
 }
