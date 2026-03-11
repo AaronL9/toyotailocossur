@@ -56,10 +56,21 @@ class Vehicle extends BaseController
             $variants[$i]['specifications'] = $this->variantsSpecificationsModel->getAllSpecificationsByVariant($variant_no);
         }
 
-        $data['variants'] = array_map(static fn(array $row) => (object) $row, $variants);
-        $data['cc'] = (object) array_find($variants, function ($value) {
-            return $value['variant_isdefault'] == 1;
-        });
+        // Convert variant rows to objects (PHP 5.6+ compatible syntax)
+        $data['variants'] = array_map(function (array $row) {
+            return (object) $row;
+        }, $variants);
+
+        // Find default variant without using arrow functions (older PHP compatibility)
+        $defaultVariant = null;
+        foreach ($variants as $value) {
+            if (isset($value['variant_isdefault']) && $value['variant_isdefault'] == 1) {
+                $defaultVariant = $value;
+                break;
+            }
+        }
+
+        $data['cc'] = $defaultVariant ? (object) $defaultVariant : null;
 
         // echo "<pre>";
         // print_r($data['cc']);

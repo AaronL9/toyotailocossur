@@ -16,6 +16,28 @@ export default function VariantsUpdatePage() {
     validation: null as VariantsValidation,
     loading: false,
 
+    async onDefaultToggle(e: Event) {
+      const input = e.currentTarget;
+      if (!(input instanceof HTMLInputElement)) return;
+
+      // Only warn when turning ON
+      if (!input.checked) return;
+
+      const result = await Swal.fire({
+        title: "Overwrite default variant?",
+        text: "If you set this as default, it will overwrite the current default variant for this vehicle.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, set as default",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#b91c1c",
+      });
+
+      if (!result.isConfirmed) {
+        input.checked = false;
+      }
+    },
+
     async update(e: Event) {
       this.loading = true;
 

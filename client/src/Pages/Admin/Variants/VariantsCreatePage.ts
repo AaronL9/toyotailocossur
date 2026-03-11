@@ -27,66 +27,26 @@ export default function VariantsCreatePage() {
     isValid: true,
     validationMessage: 'Something went wrong',
 
-    data: {
-      vs_id: '',
-      vs: '',
-      scat_id: '',
-      scat: '',
-      spec_type_id: '',
-      spec_type: '',
-    } as SpecData,
+    async onDefaultToggle(e: Event) {
+      const input = e.currentTarget;
+      if (!(input instanceof HTMLInputElement)) return;
 
-    addedSpecs: [] as SpecData[],
+      // Only warn when turning ON
+      if (!input.checked) return;
 
-    getSelectedItem() {
+      const result = await Swal.fire({
+        title: "Overwrite default variant?",
+        text: "If you set this as default, it will overwrite the current default variant for this vehicle.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, set as default",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#b91c1c",
+      });
 
-    },
-
-    onSpecCatChangeHandler(event: Event) {
-      const selectElem = event.target;
-      if (!(selectElem instanceof HTMLSelectElement)) return;
-
-      this.data.scat = selectElem.selectedOptions[0].textContent;
-      this.data.scat_id = selectElem.selectedOptions[0].value;
-    },
-
-    onSpecTypeChangeHandler(event: Event) {
-      const selectElem = event.target;
-      if (!(selectElem instanceof HTMLSelectElement)) return;
-
-      this.data.spec_type = selectElem.selectedOptions[0].textContent;
-      this.data.spec_type_id = selectElem.selectedOptions[0].value;
-    },
-
-    addSpec() {
-      if (this.$refs['spec_cat_ref'] instanceof HTMLSelectElement) {
-        this.$refs['spec_cat_ref'].dispatchEvent(new Event('change'));
+      if (!result.isConfirmed) {
+        input.checked = false;
       }
-
-      if (this.$refs['spec_type_ref'] instanceof HTMLSelectElement) {
-        this.$refs['spec_type_ref'].dispatchEvent(new Event('change'));
-      }
-
-      console.log(this.data.vs.trim())
-      if (!this.data.vs.trim()) {
-        this.validationMessage = 'Please input value';
-        this.isValid = false;
-        return;
-      }
-
-      const newId = `${this.data.scat_id}-${this.data.spec_type_id}`;
-      if (this.addedSpecs.some((data: SpecData) => data.vs_id === newId)) {
-        this.validationMessage = 'This spec has already been added.';
-        return
-      }
-
-      this.data.vs_id = newId;
-      this.addedSpecs.push({ ...this.data });
-      this.data.vs = '';
-    },
-
-    removeSpec(id: string) {
-      this.addedSpecs = this.addedSpecs.filter((item: SpecData) => item.vs_id !== id)
     },
 
     async add(e: Event) {
