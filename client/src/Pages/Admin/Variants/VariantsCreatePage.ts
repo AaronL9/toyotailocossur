@@ -8,14 +8,14 @@ const VariantsPostApiSchema = z.object({
   errors: z.nullable(z.record(z.string(), z.string()))
 })
 
-interface SpecData {
-  vs_id: string
-  vs: string
-  scat_id: string
-  scat: string
-  spec_type_id: string
-  spec_type: string
-}
+// interface SpecData {
+//   vs_id: string
+//   vs: string
+//   scat_id: string
+//   scat: string
+//   spec_type_id: string
+//   spec_type: string
+// }
 
 type VariantsValidation = z.infer<typeof VariantsPostApiSchema>["errors"];
 
