@@ -29,18 +29,18 @@
     </div>
   </template>
 
-  <form @submit.prevent="update($event)" id="vehicle-update-form" action="/api/vehicles-category/<?= $cc->vcat_no ?>" class="w-full max-w-3xl">
+  <form @submit.prevent="update($event)" id="vehicle-update-form" action="/api/vehicles-category/<?= $cc->cat_no ?>" class="w-full max-w-3xl">
     <input x-model="csrf_token" type="hidden" name="csrf_token">
 
     <fieldset class="flex flex-col gap-4 bg-base-200 border-base-300 rounded-box rounded-lg border border-gray-100 px-4 py-4">
       <div>
         <label for="category_name" class="block text-sm font-medium mb-2">Category Name</label>
-        <input type="text" id="category_name" name="category_name" value="<?= $cc->vcat_title ?>" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+        <input type="text" id="category_name" name="category_name" value="<?= $cc->cat_title ?>" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
 
       <div>
         <label for="order" class="block text-sm font-medium mb-2">Order</label>
-        <input type="number" id="order" name="order" value="<?= $cc->vcat_order ?>" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
+        <input type="number" id="order" name="order" value="<?= $cc->cat_order ?>" class="py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
 
       <div class="flex justify-end">

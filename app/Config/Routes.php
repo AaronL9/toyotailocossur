@@ -8,7 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 // $routes->get('/', 'Home::index');
 
 $routes->group("api", function ($routes) {
-  $routes->resource('vehicle', ['controller' => '\App\Controllers\Api\Vehicle']);
+  $routes->resource('vehicle', ['controller' => '\App\Controllers\Api\VehicleApi']);
   $routes->resource('vehicles-category', ['controller' => '\App\Controllers\Api\VehiclesCategoryApi']);
   $routes->resource('variants', ['controller' => '\App\Controllers\Api\VariantsApi']);
   $routes->resource('specifications-category', ['controller' => '\App\Controllers\Api\SpecificationsCategoryApi']);

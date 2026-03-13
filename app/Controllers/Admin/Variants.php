@@ -25,7 +25,7 @@ class Variants extends BaseController
         $this->specificationsCategoryModel = new SpecificationsCategoryModel();
         $this->specTypeModel = new SpecificationsTypeModel();
         $this->variantsSpecificationsModel = new VariantsSpecificationsModel();
-        $this->photoModel = new PhotoModel();
+        $this->photoModel = model(PhotoModel::class);
     }
 
     public function getIndex($id = null)
@@ -134,6 +134,13 @@ class Variants extends BaseController
             ->join('vehicles', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
             ->find($id);
 
+        $data['gallery'] = $this->model
+            ->select('photos.variant_filename, photos.photo_no, photos.variant_no')
+            ->join('photos', 'variants.variant_no = photos.variant_no', 'left')
+            ->where('photos.variant_no', $id)
+            ->where('variant_isprimary', 0)
+            ->findAll();
+
         // echo "<pre>";
         // print_r($data['cc']);
         // echo "</pre>";
@@ -189,6 +196,65 @@ class Variants extends BaseController
                 'variant_path' => 'img/variants',
                 'variant_fullPath' => $fullPath,
                 'variant_size' => $img->getSize(),
+                'variant_type' => $filetype,
+                'variant_isprimary' => 1
+            ]);
+
+            return redirect()->to("/admin/variants/photo/{$id}")->with('success', 'Image has been uploaded successfully');
+        }
+
+        return redirect()
+            ->to("/admin/variants/photo/{$id}")
+            ->with("userfile_error", "The file has already been moved.");
+    }
+
+    public function postUploadGallery($id = null)
+    {
+        if (!$id) {
+            return redirect()->to("/admin/variants");
+        }
+
+        $validationRule = [
+            'userfile' => [
+                'label' => 'Image File',
+                'rules' => [
+                    'uploaded[userfile]',
+                    'is_image[userfile]',
+                    'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
+                    'max_size[userfile,10000]',
+                ],
+            ],
+        ];
+
+        if (!$this->validateData([], $validationRule)) {
+            $msg = $this->validator->getError('userfile');
+
+            return redirect()
+                ->to("/admin/variants/photo/{$id}")
+                ->with("userfile_error", $msg);
+        }
+
+        $img = $this->request->getFile('userfile');
+
+        // 1. Delete existing files with same base name (any extension)
+        foreach (glob(FCPATH . "img/gallery/{$id}.*") as $existingFile) {
+            unlink($existingFile);
+        }
+
+        if (!$img->hasMoved()) {
+            $filetype = $img->getMimeType();
+            $filename = "{$id}-{$img->getFilename()}.{$img->getExtension()}";
+            $destDir = FCPATH . 'img/gallery';
+            $img->move($destDir, $filename, true);
+
+            $fullPath = $destDir . DIRECTORY_SEPARATOR . $filename;
+            $this->photoModel->insert([
+                'variant_no' => $id,
+                'variant_filename' => $filename,
+                'variant_filenameRaw' => $filename,
+                'variant_path' => 'img/gallery',
+                'variant_fullPath' => $fullPath,
+                'variant_size' => $img->getSize(),
                 'variant_type' => $filetype
             ]);
 
@@ -198,5 +264,23 @@ class Variants extends BaseController
         return redirect()
             ->to("/admin/variants/photo/{$id}")
             ->with("userfile_error", "The file has already been moved.");
+    }
+
+    public function deletePhoto($id = null, $variant_no = null)
+    {
+        if (!$id | !$variant_no) {
+            return redirect()->to("/admin/variants");
+        }
+
+        $photo = $this->photoModel->find($id);
+
+        // 1. Delete existing files with same base name (any extension)
+        foreach (glob(FCPATH . "img/gallery/{$photo->variant_filename}") as $existingFile) {
+            unlink($existingFile);
+        }
+
+        $this->photoModel->delete($id);
+
+        return redirect()->to("/admin/variants/photo/{$variant_no}")->with('success', 'Image has been deleted successfully');
     }
 }

@@ -23,7 +23,7 @@ class VehiclesModel extends Model
     {
         $data = $this
             ->select("vehicles.vehicle_title ,photos.*, variants.*")
-            ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
+            ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "inner")
             ->join("photos", "photos.variant_no = variants.variant_no", "left")
             ->groupBy('vehicles.vehicle_no')
             ->findAll(4);

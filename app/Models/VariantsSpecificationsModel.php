@@ -61,4 +61,23 @@ class VariantsSpecificationsModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function getFullSpecificationsByVariant(int $variantNo)
+    {
+        $result =  $this->builder('variants_specifications_category a')
+            ->select('c.scat_no, c.scat_title, b.vs_value, d.spec_title')
+            ->join('variants_specifications b', 'b.vsc_no = a.vsc_no', 'left')
+            ->join('specifications_category c', 'c.scat_no = a.scat_no', 'left')
+            ->join('specifications d', 'd.spec_no = b.spec_no', 'left')
+            ->where('a.variant_no', $variantNo)
+            ->get()
+            ->getResultArray();
+
+        $data = [];
+        foreach ($result as $row) {
+            $data[$row['scat_title']][] = $row;
+        }
+
+        return $data;
+    }
 }

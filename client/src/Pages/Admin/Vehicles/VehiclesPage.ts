@@ -9,10 +9,10 @@ const VehiclesApi = z.object({
     previous: z.nullable(z.string()),
   }),
   vehicles: z.array(z.object({
-    vehicle_no: z.string(),
-    vehicle_title: z.string(),
-    vcat_title: z.string(),
-    vehicle_tagline: z.nullable(z.string())
+    id: z.string(),
+    name: z.string(),
+    categories: z.array(z.string()),
+    tagline: z.nullable(z.string())
   }))
 })
 
@@ -41,7 +41,6 @@ export default function VehiclesPage() {
         this.vehicles = result.data.vehicles;
         this.pageDetails = result.data.pageDetails;
         this.loading = false
-
       }
     },
 

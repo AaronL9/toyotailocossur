@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\CategoryModel;
 use App\Models\VehiclesCategoryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
@@ -9,7 +10,7 @@ use CodeIgniter\RESTful\ResourceController;
 class VehiclesCategoryApi extends ResourceController
 {
 
-    protected $modelName = VehiclesCategoryModel::class;
+    protected $modelName = CategoryModel::class;
     protected $format = 'json';
 
     /**
@@ -17,7 +18,7 @@ class VehiclesCategoryApi extends ResourceController
      */
     protected $request;
 
-    /** @var VehiclesCategoryModel */
+    /** @var CategoryModel */
     protected $model;
 
     /**
@@ -32,8 +33,8 @@ class VehiclesCategoryApi extends ResourceController
 
         $data = $this->model
             ->select()
-            ->like("vcat_title", $search, "both")
-            ->where("vcat_delete", 0)
+            ->like("cat_title", $search, "both")
+            ->where("cat_delete", 0)
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();
@@ -87,9 +88,9 @@ class VehiclesCategoryApi extends ResourceController
             ], 422);
         }
 
-        $data["vcat_title"] = $json["category_name"];
-        $data["vcat_order"] = $json["order"];
-        $data["vcat_encode"] = session()->get("admin")["user_no"] ?? null;
+        $data["cat_title"] = $json["category_name"];
+        $data["cat_order"] = $json["order"];
+        $data["cat_encode"] = session()->get("admin")["user_no"] ?? null;
 
         $isInserted = $this->model->insert($data, false);
 
@@ -103,7 +104,7 @@ class VehiclesCategoryApi extends ResourceController
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add vehicle category",
+            "message" => "You have successfully add category",
             "errors" => null,
         ]);
     }
@@ -152,9 +153,9 @@ class VehiclesCategoryApi extends ResourceController
             ], 422);
         }
 
-        $data["vcat_title"] = $json["category_name"];
-        $data["vcat_order"] = $json["order"];
-        $data["vcat_encode"] = session()->get("admin")["user_no"] ?? null;
+        $data["cat_title"] = $json["category_name"];
+        $data["cat_order"] = $json["order"];
+        $data["cat_encode"] = session()->get("admin")["user_no"] ?? null;
 
         $isInserted = $this->model->update($id, $data);
 
@@ -190,7 +191,7 @@ class VehiclesCategoryApi extends ResourceController
             ]);
         }
 
-        $this->model->update($id, ["vcat_delete" => 1]);
+        $this->model->update($id, ["cat_delete" => 1]);
 
         return $this->respond([
             "csrf_token" => csrf_hash(),

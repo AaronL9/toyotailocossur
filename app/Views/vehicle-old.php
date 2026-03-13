@@ -87,6 +87,36 @@
             </p>
         </div>
 
+        <!-- Featured Variant -->
+        <!-- <div class="border rounded-2xl p-8 mb-16 bg-gray-50">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <img src="/img/fortuner1-Q3IeaT8B.webp" alt="" class="w-full max-w-xl mx-auto" />
+
+            <div class="space-y-6">
+                <h3 class="text-2xl font-semibold">GR-S 4x4 AT</h3>
+
+                <div>
+                    <p class="text-sm text-gray-500">Starts at</p>
+                    <p class="text-3xl font-semibold">
+                        PHP 2,656,000 <span class="text-sm text-gray-500">MSRP</span>
+                    </p>
+                    <p class="text-sm text-gray-600">PHP 48,279 / mo</p>
+                </div>
+
+                <ul class="text-sm text-gray-700 space-y-2">
+                    <li><strong>Engine:</strong> 2.8L Diesel Turbo</li>
+                    <li><strong>Drivetrain:</strong> 4x4 Automatic</li>
+                    <li><strong>Brakes:</strong> Ventilated Disc (Front & Rear)</li>
+                </ul>
+
+                <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:underline">
+                    Full Specs
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div> -->
+
         <!-- Variant Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             <!-- Card -->
@@ -127,7 +157,7 @@
     <section class="py-16 md:py-24 px-4 md:px-8" aria-labelledby="gallery-heading">
         <div class="max-w-7xl mx-auto">
             <!-- Section header -->
-            <header class="text-center mb-8 md:mb-10">
+            <header class="text-center mb-12 md:mb-16">
                 <p class="text-auto-accent text-sm font-semibold tracking-widest uppercase mb-2">
                     Explore
                 </p>
@@ -139,65 +169,102 @@
                 </p>
             </header>
 
-            <!-- Carousel -->
-            <div data-hs-carousel='{
-    "loadingClasses": "opacity-0"
-  }' class="relative">
-                <div class="hs-carousel flex flex-col sm:flex-row gap-2">
-                    <div class="sm:order-2 relative grow overflow-hidden min-h-[500px] rounded-lg">
-                        <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
-                            <?php foreach ($gallery as $photo): ?>
-                                <div class="hs-carousel-slide">
-                                    <!-- <div class="flex justify-center h-full bg-surface p-6">
-                                        <span class="self-center text-4xl text-foreground transition duration-700">First slide</span>
-                                    </div> -->
-                                    <img class="w-full h-full object-cover transition-transform duration-500 rounded"
-                                        src="/img/gallery/<?= $photo->variant_filename ?>"
-                                        alt="Dashboard and steering wheel" loading="lazy" />
-                                </div>
-                            <?php endforeach ?>
+            <!-- Exterior | Interior -->
+            <div id="vehicle-gallery-tabs" class="mb-10">
+                <nav class="flex flex-wrap gap-2 justify-center border-b border-white/10 pb-px" aria-label="Gallery views"
+                    role="tablist" data-hs-tabs='{"defaultSelected": "exterior-tab"}'>
+                    <button type="button"
+                        class="active hs-tab-active:border-auto-accent hs-tab-active:text-red-600 border-b-2 border-transparent px-6 py-3 text-md font-large transition-all focus:outline-none focus:ring-2 focus:ring-auto-accent/50"
+                        id="exterior-tab" data-hs-tab="#exterior-panel" aria-selected="true" aria-controls="exterior-panel"
+                        role="tab">
+                        Exterior
+                    </button>
+                    <button type="button"
+                        class="hs-tab-active:border-auto-accent hs-tab-active:text-red-600 border-b-2 border-transparent text-auto-black px-6 py-3 text-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-auto-accent/50"
+                        id="interior-tab" data-hs-tab="#interior-panel" aria-selected="false" aria-controls="interior-panel"
+                        role="tab">
+                        Interior
+                    </button>
+                </nav>
+
+                <!-- Exterior panel -->
+                <div id="exterior-panel" role="tabpanel" aria-labelledby="exterior-tab" class="mt-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80"
+                                alt="Vehicle exterior front three-quarter view" loading="lazy" />
                         </div>
-
-                        <!-- Arrows -->
-                        <button type="button" class="hs-carousel-prev hs-carousel-disabled:opacity-50 hs-carousel-disabled:cursor-default absolute top-1/2 start-2 inline-flex justify-center items-center size-10 bg-layer text-layer-foreground rounded-full shadow-2xs hover:bg-layer-hover -translate-y-1/2 focus:outline-hidden">
-                            <span class="text-2xl" aria-hidden="true">
-                                <svg class="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="m15 18-6-6 6-6" />
-                                </svg>
-                            </span>
-                            <span class="sr-only">Previous</span>
-                        </button>
-                        <button type="button" class="hs-carousel-next hs-carousel-disabled:opacity-50 hs-carousel-disabled:cursor-default absolute top-1/2 end-2 inline-flex justify-center items-center size-10 bg-layer text-layer-foreground rounded-full shadow-2xs hover:bg-layer-hover -translate-y-1/2 focus:outline-hidden">
-                            <span class="sr-only">Next</span>
-                            <span class="text-2xl" aria-hidden="true">
-                                <svg class="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="m9 18 6-6-6-6" />
-                                </svg>
-                            </span>
-                        </button>
-                        <!-- End Arrows -->
-                    </div>
-
-                    <!-- Thumbnails -->
-                    <div class="sm:order-1 flex-none">
-
-                        <div class="hs-carousel-pagination max-h-[500px] flex flex-row sm:flex-col gap-2 overflow-x-auto sm:overflow-x-hidden sm:overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb">
-                            <?php foreach ($gallery as $photo): ?>
-                                <div class="hs-carousel-pagination-item shrink-0 border border-line-2 rounded-md overflow-hidden cursor-pointer size-20 sm:size-32 hs-carousel-active:border-primary">
-                                    <div class="flex justify-center items-center text-center size-full bg-surface p-2">
-                                        <!-- <span class="text-xs text-foreground transition duration-700">First slide</span> -->
-                                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 rounded"
-                                            src="/img/gallery/<?= $photo->variant_filename ?>"
-                                            alt="Dashboard and steering wheel" loading="lazy" />
-                                    </div>
-                                </div>
-                            <?php endforeach ?>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&q=80"
+                                alt="Vehicle side profile" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80"
+                                alt="Vehicle rear view" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80"
+                                alt="Vehicle front grille and headlights" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate sm:col-span-2">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&q=80"
+                                alt="Vehicle exterior in motion" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80"
+                                alt="Vehicle wheel and brake detail" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=80"
+                                alt="Vehicle at dusk" loading="lazy" />
                         </div>
                     </div>
-                    <!-- End Thumbnails -->
+                </div>
+
+                <!-- Interior panel (hidden by default) -->
+                <div id="interior-panel" role="tabpanel" aria-labelledby="interior-tab" class="mt-10 hidden">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate sm:col-span-2">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=1200&q=80"
+                                alt="Dashboard and steering wheel" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80"
+                                alt="Front seats and center console" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                                alt="Interior cabin and seats" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=800&q=80"
+                                alt="Infotainment and controls" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80"
+                                alt="Rear seats and legroom" loading="lazy" />
+                        </div>
+                        <div class="group aspect-4/3 rounded-xl overflow-hidden bg-auto-slate sm:col-span-2">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1200&q=80"
+                                alt="Interior trim and materials" loading="lazy" />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- End Carousel -->
+        </div>
     </section>
 
     <!-- Divider -->

@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\CategoryModel;
 use App\Models\VehiclesCategoryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -20,7 +21,7 @@ class VehiclesCategory extends BaseController
         if ($id) {
             $data["page"] = "vehicles-category-update";
 
-            $model = model(VehiclesCategoryModel::class);
+            $model = model(CategoryModel::class);
             $data["cc"] = $model->find($id);
 
             return view("admin/vehicles-category/vehicles-category-update-view", $data);

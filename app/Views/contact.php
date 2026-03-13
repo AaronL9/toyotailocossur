@@ -1,7 +1,6 @@
 <?= $this->extend("layout/default"); ?>
 
 <?= $this->section("mainContent"); ?>
-<?= $this->include("partials/breadcrumb"); ?>
 
 <!-- Contact Us Section -->
 <section class="py-16 md:py-24 px-4 md:px-8 bg-slate-50" aria-labelledby="contact-heading">

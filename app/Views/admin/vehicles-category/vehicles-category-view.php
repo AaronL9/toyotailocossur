@@ -6,7 +6,7 @@
 
 <?= $this->section("page") ?>
 <div class="w-full mx-auto">
-  <div x-data="VehicleCategoryTable('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto min-h-[calc(100vh-250px)]">
+  <div x-data="VehicleCategoryTable('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
     <!-- Header -->
     <div class="mb-5 flex justify-between">
       <div class="relative max-w-xs">
@@ -29,9 +29,9 @@
 
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full min-h-full inline-block align-middle">
-        <div class="overflow-hidden">
-          <table id="users-table" class="min-w-full h-full divide-y divide-gray-200">
-            <thead>
+        <div class="rounded-lg border border-gray-200 overflow-hidden mt-1 max-h-[calc(100vh-350px)] overflow-y-auto">
+          <table id="users-table" class="min-w-full h-full divide-y divide-gray-100">
+            <thead class="bg-gray-50 sticky top-0 z-10">
               <tr>
                 <th scope="col" class="px-2 py-3 text-start text-xs font-medium text-gray-500 uppercase"></th>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Title</th>
@@ -42,7 +42,7 @@
             <tbody>
               <!-- Alpine for directives -->
               <template x-if="!loading">
-                <template x-for="row in data" :key="row.vcat_no">
+                <template x-for="row in data" :key="row.cat_no">
                   <tr class="odd:bg-white even:bg-gray-100">
                     <td class="px-2 py-3 whitespace-nowrap">
                       <label class="relative inline-block w-11 h-6 cursor-pointer">
@@ -51,11 +51,11 @@
                         <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
                       </label>
                     </td>
-                    <td x-text="row.vcat_title" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
-                    <td x-text="row.vcat_order" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="row.cat_title" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="row.cat_order" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800"></td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
-                        <a x-bind:href="`/admin/vehicles-category/${row.vcat_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
+                        <a x-bind:href="`/admin/vehicles-category/${row.cat_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
                           <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <button @click="deleteRow(row.vcat_no)" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">

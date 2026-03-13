@@ -2,13 +2,14 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\VehiclesModel;
+use App\Models\CategoryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
-class Vehicle extends ResourceController
+class CategoryApi extends ResourceController
 {
-    protected $modelName = VehiclesModel::class;
+
+    protected $modelName = CategoryModel::class;
     protected $format = 'json';
 
     /**
@@ -16,7 +17,7 @@ class Vehicle extends ResourceController
      */
     protected $request;
 
-    /** @var VehiclesModel */
+    /** @var CategoryModel */
     protected $model;
 
     /**
@@ -26,20 +27,20 @@ class Vehicle extends ResourceController
      */
     public function index()
     {
+
         $page = $this->request->getGet("page") ?? 1;
         $search = $this->request->getGet("search") ?? "";
 
         $data = $this->model
             ->select()
-            ->join("vehicles_category", "vehicles.vcat_no = vehicles_category.vcat_no")
-            ->like("vehicle_title", $search, "both")
+            ->like("cat_title", $search, "both")
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();
 
         return $this->respond([
-            "pageDetails" => $pageDetails,
-            "vehicles" => $data
+            "pagination" => $pageDetails,
+            "categories" => $data
         ]);
     }
 
@@ -72,42 +73,7 @@ class Vehicle extends ResourceController
      */
     public function create()
     {
-        $json = json_decode($this->request->getBody(), true);
-
-        // return $this->respond(["data from server" => $json]);
-
-        $rules = [
-            'title' => 'required',
-        ];
-
-        if (!$this->validate($rules)) {
-            return $this->respond([
-                "csrf_token" => csrf_hash(),
-                "message" => "Validation Error",
-                "errors" => $this->validator->getErrors()
-            ], 422);
-        }
-
-        $data["vehicle_title"] = $json["title"];
-        $data["vehicle_tagline"] = $json["tagline"] ?: null;
-        $data["vcat_no"] = $json["vehicle_category"];
-        $data["vehicle_encode"] = session()->get("admin")["user_no"] ?? null;
-
-        $isInserted = $this->model->insert($data, false);
-
-        if (!$isInserted) {
-            return $this->respond([
-                "csrf_token" => csrf_hash(),
-                "message" => "You have successfully add vehicle",
-                "errors" => $this->model->errors(),
-            ]);
-        }
-
-        return $this->respond([
-            "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add vehicle",
-            "errors" => null,
-        ]);
+        //
     }
 
     /**

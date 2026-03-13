@@ -1,7 +1,7 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("page") ?>
-<div x-data="VehicleCreatePage('<?= csrf_hash() ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
+<div x-data="VehiclesEditPage('<?= csrf_hash() ?>', '<?= $api ?>')" class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
   <template x-if="validation">
     <div class="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4 max-h-fit" role="alert" tabindex="-1" aria-labelledby="hs-with-list-label">
       <div class="flex">
@@ -28,7 +28,7 @@
     </div>
   </template>
 
-  <form @submit.prevent="addVehicle($event)" id="vehicle-add-form" action="/api/vehicle" method="post" class="w-full max-w-3xl">
+  <form @submit.prevent="updateVehicle($event)" id="vehicle-add-form" action="/api/vehicle" method="post" class="w-full max-w-3xl">
     <input x-model="csrf_token" type="hidden" name="csrf_token">
 
     <fieldset class="flex flex-col gap-5 bg-base-200 border-base-300 rounded-box rounded-lg border border-gray-100 px-6 py-6">
@@ -41,6 +41,7 @@
           type="text"
           id="title"
           name="title"
+          value="<?= $cc->vehicle_title ?>"
           placeholder="e.g. Toyota Vios"
           class="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
@@ -52,6 +53,7 @@
           type="text"
           id="tagline"
           name="tagline"
+          value="<?= $cc->vehicle_tagline ?>"
           placeholder="e.g. Drive the future today"
           class="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
@@ -68,8 +70,8 @@
           "optionTemplate": "<div class=\"flex items-center\"><div class=\"me-2\" data-icon></div><div><div class=\"hs-selected:font-semibold text-sm text-foreground\" data-title></div></div><div class=\"ms-auto\"><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-4 text-primary\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z\"/></svg></span></div></div>",
             "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-muted-foreground-1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
               }' class="hidden">
-          <?php foreach ($category as $row): ?>
-            <option value="<?= $row->cat_no ?>"><?= $row->cat_title ?></option>
+          <?php foreach ($categories as $row): ?>
+            <option <?= in_array($row->cat_no, $vehicle_categories) ? "selected" : "" ?> value="<?= $row->cat_no ?>"><?= $row->cat_title ?></option>
           <?php endforeach; ?>
         </select>
       </div>
@@ -84,7 +86,7 @@
         :disabled="loading"
         class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
         <span x-show="loading" class="animate-spin inline-block size-4 border-3 border-current border-t-transparent rounded-[999px]" role="status" aria-label="loading"></span>
-        <span x-text="loading ? 'Loading...' : 'Add Vehicle'"></span>
+        <span x-text="loading ? 'Loading...' : 'Update Vehicle'"></span>
       </button>
     </div>
   </form>

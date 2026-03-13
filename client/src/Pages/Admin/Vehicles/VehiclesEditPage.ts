@@ -1,7 +1,6 @@
 import * as z from "zod";
 import Swal from "sweetalert2";
 import axios from "axios";
-import HSSelect from "@preline/select";
 
 const VehiclePostApi = z.object({
   message: z.string(),
@@ -11,13 +10,13 @@ const VehiclePostApi = z.object({
 
 type VehicleValidation = z.infer<typeof VehiclePostApi>["errors"];
 
-export default function VehiclesCreatePage() {
-  Alpine.data("VehicleCreatePage", (csrf_token: string = "") => ({
+export default function VehiclesEditPage() {
+  Alpine.data("VehiclesEditPage", (csrf_token: string = "", api: string = '/api/vehicle') => ({
     csrf_token,
     validation: null as VehicleValidation,
     loading: false,
 
-    async addVehicle(e: Event) {
+    async updateVehicle(e: Event) {
       this.loading = true;
       const form = e.currentTarget;
 
@@ -25,7 +24,7 @@ export default function VehiclesCreatePage() {
 
       try {
 
-        const { data } = await axios.post("/api/vehicle", form, {
+        const { data } = await axios.put(api, form, {
           headers: { "Content-Type": "application/json" }
         });
 
@@ -40,11 +39,6 @@ export default function VehiclesCreatePage() {
         });
 
         this.csrf_token = result.data.csrf_token;
-
-        form.reset();
-
-        const select = HSSelect.getInstance('#hs-multiple-with-option-template');
-        select.setValue('');
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {
           const data = error.response.data;

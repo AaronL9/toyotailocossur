@@ -22,6 +22,7 @@ import AgentsPage from './Pages/Admin/agents/AgentsPage';
 import AgentsEditPage from './Pages/Admin/agents/AgentsEditPage';
 import SpecificationsTypePage from './Pages/Admin/SpecificationType/SpecificationTypePage';
 import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/VariantsSpecificationsPage';
+import VehiclesEditPage from './Pages/Admin/Vehicles/VehiclesEditPage';
 
 const page = document.body.dataset.page;
 
@@ -30,6 +31,7 @@ const routes: Record<string, () => void> = {
 
   'vehicles': VehiclesPage,
   'vehicles-create': VehiclesCreatePage,
+  'vehicles-edit': VehiclesEditPage,
 
   'vehicles-category': VehicleCategoryPage,
   'vehicles-category-create': VehiclesCategoryCreatePage,

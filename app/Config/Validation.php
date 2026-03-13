@@ -97,4 +97,19 @@ class Validation extends BaseConfig
             ]
         ]
     ];
+
+    public array $vehicle = [
+        'title' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Please add a name for a vehicle'
+            ]
+        ],
+        'categories' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Please select atleast one category'
+            ]
+        ]
+    ];
 }

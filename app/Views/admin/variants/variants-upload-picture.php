@@ -1,7 +1,7 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("page") ?>
-<div class="flex flex-row-reverse flex-wrap justify-end gap-3 w-full">
+<div class="flex flex-col justify-stsart gap-3 w-full">
 
   <!-- Validation Errors -->
   <?php if (session()->has('errors')): ?>
@@ -130,27 +130,143 @@
         </div>
       </div>
 
+      <!-- Actions -->
+      <div class="flex items-center justify-end pt-4">
+        <button
+          type="submit"
+          class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" x2="12" y1="3" y2="15" />
+          </svg>
+          Upload Photo
+        </button>
+      </div>
     </fieldset>
-
-    <!-- Actions -->
-    <div class="flex items-center justify-between pt-4">
-      <a
-        href="/admin/variants"
-        class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 focus:outline-hidden transition-colors">
-        Cancel
-      </a>
-      <button
-        type="submit"
-        class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="17 8 12 3 7 8" />
-          <line x1="12" x2="12" y1="3" y2="15" />
-        </svg>
-        Upload Photo
-      </button>
-    </div>
   </form>
+
+  <form action="<?= site_url('admin/variants/upload-gallery/' . esc($cc->variant_no)) ?>" method="post" enctype="multipart/form-data" class="w-full max-w-3xl">
+    <?= csrf_field() ?>
+
+    <fieldset class="flex flex-col gap-6 bg-base-200 border-base-300 rounded-box rounded-lg border border-gray-100 px-6 py-6">
+      <legend class="text-base font-semibold text-gray-800 px-1 mb-1">Vehicle Gallery</legend>
+
+      <!-- Upload New Photo -->
+      <div class="flex flex-col gap-3">
+        <div>
+          <p class="text-sm font-medium text-gray-800">Upload New Photo</p>
+          <p class="text-xs text-gray-400 mt-0.5">Accepted formats: JPG, PNG, WEBP. Maximum file size: 5MB.</p>
+        </div>
+
+        <label for="userfile" class="sr-only">Choose file</label>
+        <input
+          type="file"
+          id="userfile"
+          name="userfile"
+          accept=".jpg,.jpeg,.png,.webp"
+          class="block w-full bg-layer border border-layer-line rounded-lg text-sm text-foreground focus:z-10 focus:outline-hidden focus:border-primary-focus focus:ring-1 focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none
+          file:bg-surface file:border-0 file:me-4 file:py-3 file:px-4">
+
+        <?php if (session()->getFlashdata("userfile_error")): ?>
+          <div class="bg-red-50 border border-red-200 text-sm text-red-800 rounded-lg p-4" role="alert">
+            <div class="flex gap-3">
+              <svg class="shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="m15 9-6 6" />
+                <path d="m9 9 6 6" />
+              </svg>
+              <p class="font-medium"><?= session()->getFlashdata("userfile_error") ?></p>
+            </div>
+          </div>
+        <?php endif; ?>
+      </div>
+
+      <!-- Vehicle Reference -->
+      <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-lg border border-gray-100">
+        <i class="fa-solid fa-hexagon-nodes text-gray-400"></i>
+        <div class="text-sm">
+          <span class="font-medium text-gray-800"><?= esc($cc->vehicle_title) ?></span>
+          <?php if (!empty($cc->variant_model)): ?>
+            <span class="text-gray-400 ml-2">&mdash; <?= esc($cc->variant_model) ?></span>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="flex items-center justify-end">
+        <button
+          type="submit"
+          class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" x2="12" y1="3" y2="15" />
+          </svg>
+          Upload Photo
+        </button>
+      </div>
+
+    </fieldset>
+  </form>
+
+  <!-- Gallery List -->
+  <div class="w-full max-w-3xl mt-6 flex flex-col gap-3">
+
+    <div class="flex items-center justify-between">
+      <p class="text-sm font-semibold text-gray-800">Gallery Photos</p>
+      <?php if (!empty($gallery)): ?>
+        <span class="text-xs text-gray-400"><?= count($gallery) ?> photo<?= count($gallery) !== 1 ? 's' : '' ?></span>
+      <?php endif; ?>
+    </div>
+
+    <?php if (!empty($gallery)): ?>
+      <div class="rounded-lg border border-gray-100 overflow-hidden divide-y divide-gray-100">
+        <?php foreach ($gallery as $photo): ?>
+          <div class="flex items-center gap-4 px-4 py-3 bg-white hover:bg-gray-50 transition-colors">
+
+            <!-- Thumbnail -->
+            <div class="shrink-0 w-20 h-14 rounded-md overflow-hidden border border-gray-200 bg-gray-100">
+              <img
+                src="<?= site_url('img/gallery/' . esc($photo->variant_filename)) ?>"
+                alt="<?= esc($photo->variant_filename) ?>"
+                class="w-full h-full object-cover object-top">
+            </div>
+
+            <!-- Filename & meta -->
+            <!-- <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-gray-800 truncate"><?= esc($photo->variant_filename) ?></p>
+              <?php if (!empty($photo->created_at)): ?>
+                <p class="text-xs text-gray-400 mt-0.5">Uploaded <?= esc($photo->created_at) ?></p>
+              <?php endif; ?>
+            </div> -->
+
+            <!-- Delete -->
+            <form action="admin/variants/photo/<?= $photo->photo_no ?>/<?= $photo->variant_no ?>" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <?= csrf_field() ?>
+              <button type="submit" class="shrink-0 inline-flex items-center gap-1.5 py-1.5 px-3 text-xs font-medium rounded-lg border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 hover:border-red-300 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+                Delete
+              </button>
+            </form>
+
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+    <?php else: ?>
+      <div class="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-6 py-10 text-center">
+        <i class="fa-regular fa-images text-2xl text-gray-300"></i>
+        <p class="text-sm text-gray-400">No photos in the gallery yet.</p>
+      </div>
+    <?php endif; ?>
+
+  </div>
 </div>
 
 <?= $this->endSection() ?>

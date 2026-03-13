@@ -11,9 +11,9 @@ const VehiclesCategoryApi = z.object({
     previous: z.nullable(z.string()),
   }),
   vehicle_categories: z.array(z.object({
-    vcat_no: z.string(),
-    vcat_title: z.string(),
-    vcat_order: z.string()
+    cat_no: z.string(),
+    cat_title: z.string(),
+    cat_order: z.string()
   }))
 })
 

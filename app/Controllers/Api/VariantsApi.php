@@ -16,7 +16,7 @@ class VariantsApi extends ResourceController
      */
     protected $request;
 
-    /** @var Variants */
+    /** @var VariantsModel */
     protected $model;
 
     /**
@@ -31,7 +31,7 @@ class VariantsApi extends ResourceController
 
         $data = $this->model
             ->select()
-            ->join("vehicles", "variants.vehicle_no = vehicles.vehicle_no")
+            ->join("vehicles", "variants.vehicle_no = vehicles.vehicle_no", 'inner')
             ->like("vehicle_title", $search, "both")
             ->orlike('variant_model', $search, 'both')
             ->paginate(10, "default", $page);
@@ -96,6 +96,17 @@ class VariantsApi extends ResourceController
             'variant_isshowprice' => $json['isshowprice'] ?? 0,
             'variant_encode' => session()->get('admin')['user_no'] ?? null
         ];
+
+        if ($entry['variant_isdefault'] == 1) {
+            $variant = $this->model
+                ->where('vehicle_no', $entry['vehicle_no'])
+                ->where('variant_isdefault', 1)
+                ->first();
+
+            if ($variant) {
+                $this->model->update($variant->variant_no, ['variant_isdefault' => 0]);
+            }
+        }
 
         $isInserted = $this->model->insert($entry, false);
 
@@ -165,6 +176,17 @@ class VariantsApi extends ResourceController
         $data['variant_isdefault'] = $json['isdefault'] ?? 0;
         $data['variant_isshowprice'] = $json['isshowprice'] ?? 0;
         $data['variant_encode'] = session()->get('admin')['user_no'] ?? null;
+
+        if ($data['variant_isdefault'] == 1) {
+            $variant = $this->model
+                ->where('vehicle_no', $data['vehicle_no'])
+                ->where('variant_isdefault', 1)
+                ->first();
+
+            if ($variant) {
+                $this->model->update($variant->variant_no, ['variant_isdefault' => 0]);
+            }
+        }
 
         $isInserted = $this->model->update($id, $data, false);
 

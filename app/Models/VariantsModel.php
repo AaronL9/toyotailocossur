@@ -42,6 +42,7 @@ class VariantsModel extends Model
             ->join('vehicles', 'vehicles.vehicle_no = variants.vehicle_no', 'left')
             ->join('photos', 'photos.variant_no = variants.variant_no', 'left')
             ->where('variants.vehicle_no', $vehicleNo)
+            ->where('photos.variant_isprimary', 1)
             ->get()
             ->getResultArray();
     }
