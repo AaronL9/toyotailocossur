@@ -85,6 +85,8 @@ class Vehicle extends BaseController
 
         $data['cc'] = $defaultVariant ? (object) $defaultVariant : null;
 
+        $data['colors'] = $this->variantsModel->getBaseVariantInfo($id);
+
         // echo "<pre>";
         // print_r($variants);
         // echo "</pre>";

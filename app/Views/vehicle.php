@@ -4,11 +4,11 @@
 <div x-data="vehiclePage()">
     <!-- Main Layout -->
     <main class="flex-1 max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
+        <div x-data="{ activeImage: '/img/variants/<?= $cc->variant_filename ?>'}" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
             <!-- Left: Vehicle Image -->
             <div class="w-full flex justify-center">
                 <div class="w-full max-w-4xl aspect-21/9 lg:aspect-video">
-                    <img src="/img/variants/<?= $cc->variant_filename ?>" class="w-full h-full object-contain" alt="" />
+                    <img :src="activeImage" class="w-full h-full object-contain" alt="" />
                 </div>
             </div>
 
@@ -20,11 +20,12 @@
                         EXPLORE COLORS*
                     </p>
                     <div class="flex justify-center lg:justify-start gap-3">
-                        <button class="w-8 h-8 rounded-full border bg-white"></button>
-                        <button class="w-8 h-8 rounded-full border bg-gray-300"></button>
-                        <button class="w-8 h-8 rounded-full border bg-black ring-2 ring-black"></button>
-                        <button class="w-8 h-8 rounded-full border bg-gray-600"></button>
-                        <button class="w-8 h-8 rounded-full border bg-accent-900"></button>
+                        <?php foreach ($colors as $color): ?>
+                            <button
+                                @click="activeImage = '/img/variants/<?= $color['variant_filename'] ?>';"
+                                style="background-color: <?= $color['color_hex_value'] ?>;"
+                                class="w-8 h-8 rounded-full border"></button>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -292,5 +293,21 @@
         </swal-footer>
     </template>
 </div>
+
+<!-- At the bottom before </body> -->
+<script>
+    function changeColor(btn) {
+        // Swap image
+        document.getElementById('variant-image').src = btn.dataset.image;
+
+        // Reset all buttons
+        document.querySelectorAll('[data-image]').forEach(b => {
+            b.classList.remove('ring-2', 'ring-offset-2', 'ring-gray-400');
+        });
+
+        // Highlight selected
+        btn.classList.add('ring-2', 'ring-offset-2', 'ring-gray-400');
+    }
+</script>
 
 <?= $this->endSection() ?>

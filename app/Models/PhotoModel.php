@@ -12,6 +12,7 @@ class PhotoModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         "variant_no",
+        "color_no",
         "variant_filename",
         "variant_filenameRaw",
         "variant_path",

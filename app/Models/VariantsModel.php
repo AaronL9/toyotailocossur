@@ -44,6 +44,27 @@ class VariantsModel extends Model
             ->join('photos', 'photos.variant_no = variants.variant_no', 'left')
             ->where('variants.vehicle_no', $vehicleNo)
             ->where('photos.variant_isprimary', 1)
+            ->groupBy('variants.variant_no')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getBaseVariantInfo($id)
+    {
+        return $this
+            ->builder('vehicles')
+            ->select([
+                'vehicles.vehicle_no',
+                'vehicles.vehicle_title',
+                'photos.variant_filename',
+                'colors.color_hex_value',
+                'colors.color_no'
+            ])
+            ->join('variants', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
+            ->join('photos', 'photos.variant_no = variants.variant_no', 'left')
+            ->join('colors', 'colors.color_no = photos.color_no', 'left')
+            ->where('vehicles.vehicle_no', $id)
+            ->where('photos.variant_isprimary', 1)
             ->get()
             ->getResultArray();
     }

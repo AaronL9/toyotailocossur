@@ -3,12 +3,14 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\ColorsModel;
 use App\Models\PhotoModel;
 use App\Models\SpecificationsCategoryModel;
 use App\Models\SpecificationsTypeModel;
 use App\Models\VariantsModel;
 use App\Models\VariantsSpecificationsModel;
 use App\Models\VehiclesModel;
+use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Variants extends BaseController
@@ -18,6 +20,7 @@ class Variants extends BaseController
     protected $specTypeModel;
     protected $variantsSpecificationsModel;
     protected $photoModel;
+    protected $colorModel;
 
     public function __construct()
     {
@@ -26,6 +29,7 @@ class Variants extends BaseController
         $this->specTypeModel = new SpecificationsTypeModel();
         $this->variantsSpecificationsModel = new VariantsSpecificationsModel();
         $this->photoModel = model(PhotoModel::class);
+        $this->colorModel = model(ColorsModel::class);
     }
 
     public function getIndex($id = null)
@@ -134,6 +138,16 @@ class Variants extends BaseController
             ->join('vehicles', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
             ->find($id);
 
+        $data['photos'] = $this->photoModel
+            ->select([
+                'photos.*',
+                'colors.color_hex_value',
+                'colors.color_title'
+            ])
+            ->join('colors', 'colors.color_no = photos.color_no', 'left')
+            ->where('variant_no', $id)
+            ->findAll();
+
         $data['gallery'] = $this->model
             ->select('photos.variant_filename, photos.photo_no, photos.variant_no')
             ->join('photos', 'variants.variant_no = photos.variant_no', 'left')
@@ -146,7 +160,7 @@ class Variants extends BaseController
         // echo "</pre>";
         // exit;
 
-        return view('admin/variants/variants-upload-picture', $data);
+        return view('admin/variants/variants-upload-photo', $data);
     }
 
     public function postUploadPhoto($id = null)
@@ -178,27 +192,43 @@ class Variants extends BaseController
         $img = $this->request->getFile('userfile');
 
         // 1. Delete existing files with same base name (any extension)
-        foreach (glob(FCPATH . "img/variants/{$id}.*") as $existingFile) {
-            unlink($existingFile);
-        }
+        // foreach (glob(FCPATH . "img/variants/{$id}.*") as $existingFile) {
+        //     unlink($existingFile);
+        // }
 
         if (!$img->hasMoved()) {
             $filetype = $img->getMimeType();
-            $filename = "{$id}.{$img->getExtension()}";
+            $filename = "{$id}-{$img->getFilename()}.{$img->getExtension()}";
             $destDir = FCPATH . 'img/variants';
             $img->move($destDir, $filename, true);
 
             $fullPath = $destDir . DIRECTORY_SEPARATOR . $filename;
-            $this->photoModel->upsert($id, [
-                'variant_no' => $id,
-                'variant_filename' => $filename,
-                'variant_filenameRaw' => $filename,
-                'variant_path' => 'img/variants',
-                'variant_fullPath' => $fullPath,
-                'variant_size' => $img->getSize(),
-                'variant_type' => $filetype,
-                'variant_isprimary' => 1
-            ]);
+
+
+            try {
+                db_connect()->transException(true)->transStart();
+
+                $colorId = $this->colorModel->insert([
+                    'color_title' => $this->request->getPost('color_title'),
+                    'color_hex_value' => $this->request->getPost('color_hex_value'),
+                ], true);
+
+                $this->photoModel->insert([
+                    'variant_no' => $id,
+                    'color_no' => $colorId,
+                    'variant_filename' => $filename,
+                    'variant_filenameRaw' => $filename,
+                    'variant_path' => 'img/variants',
+                    'variant_fullPath' => $fullPath,
+                    'variant_size' => $img->getSize(),
+                    'variant_type' => $filetype,
+                    'variant_isprimary' => 1
+                ]);
+
+                db_connect()->transComplete();
+            } catch (DatabaseException $e) {
+                return redirect()->to("/admin/variants/photo/{$id}")->with('error', 'Something went wrong');
+            }
 
             return redirect()->to("/admin/variants/photo/{$id}")->with('success', 'Image has been uploaded successfully');
         }
