@@ -36,15 +36,17 @@
                     <p class="text-sm text-gray-500 mt-1">Variant / Trim Description</p>
                 </div>
 
-                <!-- Pricing -->
-                <div class="space-y-1">
-                    <p class="text-xs tracking-widest text-gray-500">STARTS AT</p>
-                    <p class="text-3xl font-semibold">
-                        PHP <?= number_format($cc->variant_price) ?><span class="text-sm font-normal">*</span>
-                        <span class="text-sm text-gray-500">MSRP</span>
-                    </p>
-                    <p class="text-sm text-gray-600">PHP <?= number_format($cc->variant_price_month) ?>* / mo</p>
-                </div>
+                <?php if ($cc->variant_isshowprice): ?>
+                    <!-- Pricing -->
+                    <div class="space-y-1">
+                        <p class="text-xs tracking-widest text-gray-500">STARTS AT</p>
+                        <p class="text-3xl font-semibold">
+                            PHP <?= number_format($cc->variant_price) ?><span class="text-sm font-normal">*</span>
+                            <span class="text-sm text-gray-500">MSRP</span>
+                        </p>
+                        <p class="text-sm text-gray-600">PHP <?= number_format($cc->variant_price_month) ?>* / mo</p>
+                    </div>
+                <?php endif ?>
 
                 <!-- Disclaimer -->
                 <div class="text-xs text-gray-400 leading-relaxed">
@@ -98,8 +100,11 @@
 
                     <div>
                         <h4 class="font-bold text-xl"><?= $row->variant_model ?></h4>
-                        <p class="text-md text-gray-600">PHP <?= number_format($row->variant_price, 0) ?> MSRP</p>
-                        <p class="text-md text-gray-500">PHP 46,698 / mo</p>
+                        <?php if ($row->variant_isshowprice): ?>
+                            <!-- Price -->
+                            <p class="text-md text-gray-600">PHP <?= number_format($row->variant_price, 0) ?> MSRP</p>
+                            <p class="text-md text-gray-500">PHP <?= number_format($row->variant_price_month, 0) ?> / mo</p>
+                        <?php endif; ?>
                     </div>
 
                     <?php foreach ($row->specifications as $spec): ?>

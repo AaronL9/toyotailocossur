@@ -105,6 +105,12 @@ class Validation extends BaseConfig
                 'required' => 'Please add a name for a vehicle'
             ]
         ],
+        'tagline' => [
+            'rules' => 'required',
+            'errors' => [
+                'required' => 'Please add tagline for this vehicle'
+            ]
+        ],
         'categories' => [
             'rules' => 'required',
             'errors' => [
