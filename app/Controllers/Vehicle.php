@@ -61,7 +61,6 @@ class Vehicle extends BaseController
             ->where('variant_isprimary', 0)
             ->findAll();
 
-
         $variants = $this->variantsModel->getByVehicleNo($id);
         for ($i = 0; $i < count($variants); $i++) {
             $variant_no = $variants[$i]['variant_no'];

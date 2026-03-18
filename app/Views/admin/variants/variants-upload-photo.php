@@ -240,10 +240,11 @@
 
               <!-- Delete form (standard POST) -->
               <form
-                action="<?= site_url('admin/variants/delete-photo/' . esc($photo->photo_no)) ?>"
+                action="<?= site_url('admin/variants/variant-photo/' . esc($photo->photo_no)) ?>"
                 method="post"
                 onsubmit="return confirm('Delete this photo? This cannot be undone.')">
                 <?= csrf_field() ?>
+                <input type="hidden" name="_method" value="DELETE">
                 <button
                   type="submit"
                   class="p-1 inline-flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors duration-150">

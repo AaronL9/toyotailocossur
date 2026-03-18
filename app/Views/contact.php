@@ -96,11 +96,12 @@
             </div>
 
             <!-- Contact form -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div x-data="contact" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
                 <h3 class="text-slate-800 font-semibold text-sm text-center uppercase tracking-wider mb-6">
                     Send a message
                 </h3>
-                <form class="space-y-5" action="#" method="post">
+                <form @submit.prevent="onSubmitContact($event)" class="space-y-5" action="#" method="post">
+                    <?= csrf_field('csrf_field') ?>
                     <div class="grid sm:grid-cols-2 gap-5">
                         <div>
                             <label for="contact-name"
@@ -137,7 +138,6 @@
                             Send message
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>

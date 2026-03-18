@@ -5,7 +5,7 @@
 
 <body class="flex flex-col min-h-screen">
 
-    <div class="mx-auto py-10">
+    <div class="mx-auto py-10" x-data="schedule">
         <section class="bg-neutral-100 text-white border border-black py-12 md:py-16 px-4"
             aria-labelledby="toyota-inquiry-heading">
             <div class="max-w-5xl mx-auto">
@@ -13,7 +13,9 @@
                     Toyota Service Inquiry
                 </h2>
 
-                <form action="/inquiry" method="post" class="space-y-8">
+                <form @submit.prevent="onSubmitContact($event)" method="post" class="space-y-8">
+                    <?= csrf_field('csrf_field') ?>
+
                     <!-- DB flags -->
                     <input type="hidden" name="inquiry_inactive" value="0" />
                     <input type="hidden" name="inquiry_delete" value="0" />
@@ -73,8 +75,8 @@
 
                                     <!-- inquiry_milage -->
                                     <div>
-                                        <label for="inquiry_milage" class="sr-only">Mileage</label>
-                                        <select id="inquiry_milage" name="inquiry_mileage"
+                                        <label for="inquiry_mileage" class="sr-only">Mileage</label>
+                                        <select id="inquiry_mileage" name="inquiry_mileage"
                                             class="py-2.5 px-4 block w-full bg-white text-sm text-gray-900 rounded-full border border-gray-200 shadow-sm placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 focus:outline-none">
                                             <option value="">Mileage</option>
                                             <option>5k</option>
@@ -143,32 +145,32 @@
 
                             <!-- inquiry_name -->
                             <div>
-                                <label for="inquiry_name" class="sr-only">Name</label>
-                                <input id="inquiry_name" name="inquiry_name" type="text" required
+                                <label for="name" class="sr-only">Name</label>
+                                <input id="name" name="name" type="text" required
                                     class="py-2.5 px-4 block w-full bg-white text-sm text-gray-900 rounded-full border border-gray-200 shadow-sm placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 focus:outline-none"
                                     placeholder="Full Name" />
                             </div>
 
                             <!-- inquiry_email -->
                             <div>
-                                <label for="inquiry_email" class="sr-only">Email</label>
-                                <input id="inquiry_email" name="inquiry_email" type="email" required
+                                <label for="email" class="sr-only">Email</label>
+                                <input id="email" name="email" type="email" required
                                     class="py-2.5 px-4 block w-full bg-white text-sm text-gray-900 rounded-full border border-gray-200 shadow-sm placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 focus:outline-none"
                                     placeholder="Email" />
                             </div>
 
                             <!-- inquiry_contact -->
                             <div>
-                                <label for="inquiry_contact" class="sr-only">Contact Number</label>
-                                <input id="inquiry_contact" name="inquiry_contact" type="tel" required
+                                <label for="contact" class="sr-only">Contact Number</label>
+                                <input id="contact" name="contact" type="tel" required
                                     class="py-2.5 px-4 block w-full bg-white text-sm text-gray-900 rounded-full border border-gray-200 shadow-sm placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 focus:outline-none"
                                     placeholder="Mobile Number" />
                             </div>
 
                             <!-- inquiry_content -->
                             <div>
-                                <label for="inquiry_content" class="sr-only">Notes</label>
-                                <textarea id="inquiry_content" name="inquiry_content" rows="3"
+                                <label for="message" class="sr-only">Notes</label>
+                                <textarea id="message" name="message" rows="3"
                                     class="py-2.5 px-4 block w-full bg-white text-sm text-gray-900 rounded-2xl border border-gray-200 shadow-sm placeholder-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 focus:outline-none resize-y"
                                     placeholder="Tell us more about your concern or requested service."></textarea>
                             </div>

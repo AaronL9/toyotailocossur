@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 
 import Showroom from './Pages/showroom';
 import VehiclePage from './Pages/vehicle';
+import Contact from './Pages/Contact';
+import Schedule from './Pages/schedule';
 
 
 const page = document.documentElement.dataset.page;
@@ -15,6 +17,8 @@ const page = document.documentElement.dataset.page;
 const routes: Record<string, () => void> = {
   'showroom': Showroom,
   'vehicle': VehiclePage,
+  'contact': Contact,
+  'schedule': Schedule
 };
 
 if (page && routes[page]) {

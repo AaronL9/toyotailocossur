@@ -9,6 +9,8 @@ class Schedule extends BaseController
 {
     public function getIndex()
     {
-        return view("schedule");
+        $data['page'] = 'schedule';
+
+        return view("schedule", $data);
     }
 }

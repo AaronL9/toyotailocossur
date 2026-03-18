@@ -23,6 +23,7 @@ import AgentsEditPage from './Pages/Admin/agents/AgentsEditPage';
 import SpecificationsTypePage from './Pages/Admin/SpecificationType/SpecificationTypePage';
 import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/VariantsSpecificationsPage';
 import VehiclesEditPage from './Pages/Admin/Vehicles/VehiclesEditPage';
+import VariantsUploadPhotoPage from './Pages/Admin/Variants/VariantsUploadPhotoPage';
 
 const page = document.body.dataset.page;
 
@@ -41,6 +42,7 @@ const routes: Record<string, () => void> = {
   'variants-create': VariantsCreatePage,
   'variants-update': VariantsUpdatePage,
   'variants-specifications': VariantsSpecificationsPage,
+  'variants-upload-photo': VariantsUploadPhotoPage,
 
   'specifications': SpecificationsPage,
 

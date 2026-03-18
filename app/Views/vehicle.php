@@ -62,7 +62,7 @@
 
                 <!-- CTA -->
                 <div>
-                    <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:underline">
+                    <a href="<?= url_title($cc->vehicle_title, '-', true) ?>/#vehicle-contact-form" class="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:underline">
                         Inquire Now
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -214,12 +214,14 @@
     </span>
 
     <!-- Contact form -->
-    <div
+    <div id="vehicle-contact-form"
         class="mb-6 mx-4 sm:mx-auto w-auto sm:w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
         <h3 class="text-slate-800 font-semibold text-xl text-center uppercase tracking-wider mb-6">
             Inquire About This Vehicle
         </h3>
-        <form class="space-y-5" action="#" method="post">
+        <form @submit.prevent="onSubmitContact($event)" class="space-y-5" action="#" method="post">
+            <?= csrf_field('csrf_field') ?>
+            <input type="hidden" name="vehicle" value="<?= $cc->variant_no ?>">
             <div class="grid sm:grid-cols-2 gap-5">
                 <div>
                     <label for="contact-name" class="block text-sm font-medium text-slate-700 mb-1.5">Name</label>
@@ -252,7 +254,6 @@
                     Send message
                 </button>
             </div>
-
         </form>
     </div>
 

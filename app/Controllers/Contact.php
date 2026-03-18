@@ -9,6 +9,8 @@ class Contact extends BaseController
 {
     public function getIndex()
     {
-        return view("contact");
+        $data['page'] = 'contact';
+
+        return view("contact", $data);
     }
 }

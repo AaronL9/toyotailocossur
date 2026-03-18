@@ -64,6 +64,9 @@
                         <a x-bind:href="`/admin/variants/specifications/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-primary-600 hover:text-blue-400 focus:outline-hidden">
                           <i class="fa-solid fa-rectangle-list"></i>
                         </a>
+                        <a x-bind:href="`/admin/variants/gallery/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-primary-600 hover:text-blue-400 focus:outline-hidden">
+                          <i class="fa-solid fa-images"></i>
+                        </a>
                         <a x-bind:href="`/admin/variants/photo/${row.variant_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-primary-600 hover:text-blue-400 focus:outline-hidden">
                           <i class="fa-solid fa-camera"></i>
                         </a>

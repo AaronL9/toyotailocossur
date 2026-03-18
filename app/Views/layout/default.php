@@ -58,7 +58,7 @@
 
                     <?php foreach ($links as $key => $value): ?>
                         <?php $isActive = url_is($value) ?>
-                        <a class="<?= $isActive ? "underline decoration-red-600 " : "" ?> uppercase text-white font-medium focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-4"
+                        <a class="<?= $isActive ? "underline decoration-red-600 " : "" ?> uppercase text-white font-medium focus:outline-hidden hover:underline hover:decoration-red-600 underline-offset-2"
                             href="<?= $value ?>"><?= $key ?></a>
                     <?php endforeach; ?>
                 </div>

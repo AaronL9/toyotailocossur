@@ -132,6 +132,8 @@ class Variants extends BaseController
             return redirect()->to('admin/variants');
         }
 
+        $data['page'] = 'variants-upload-photo';
+
         $data['cc'] = $this->model
             ->select('photos.variant_filename, variants.*, vehicles.vehicle_title')
             ->join('photos', 'variants.variant_no = photos.variant_no', 'left')
@@ -146,13 +148,7 @@ class Variants extends BaseController
             ])
             ->join('colors', 'colors.color_no = photos.color_no', 'left')
             ->where('variant_no', $id)
-            ->findAll();
-
-        $data['gallery'] = $this->model
-            ->select('photos.variant_filename, photos.photo_no, photos.variant_no')
-            ->join('photos', 'variants.variant_no = photos.variant_no', 'left')
-            ->where('photos.variant_no', $id)
-            ->where('variant_isprimary', 0)
+            ->where('photos.variant_isprimary', 1)
             ->findAll();
 
         // echo "<pre>";
@@ -161,6 +157,28 @@ class Variants extends BaseController
         // exit;
 
         return view('admin/variants/variants-upload-photo', $data);
+    }
+
+    public function getGallery($id = null)
+    {
+        if (!$id) {
+            return redirect()->back();
+        }
+
+        $data['cc'] = $this->model
+            ->select('photos.variant_filename, variants.*, vehicles.vehicle_title')
+            ->join('photos', 'variants.variant_no = photos.variant_no', 'left')
+            ->join('vehicles', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
+            ->find($id);
+
+        $data['gallery'] = $this->model
+            ->select('photos.variant_filename, photos.photo_no, photos.variant_no')
+            ->join('photos', 'variants.variant_no = photos.variant_no', 'left')
+            ->where('photos.variant_no', $id)
+            ->where('variant_isprimary', 0)
+            ->findAll();
+
+        return view('admin/variants/variants-gallery-view', $data);
     }
 
     public function postUploadPhoto($id = null)
@@ -260,7 +278,7 @@ class Variants extends BaseController
             $msg = $this->validator->getError('userfile');
 
             return redirect()
-                ->to("/admin/variants/photo/{$id}")
+                ->to("/admin/variants/gallery/{$id}")
                 ->with("userfile_error", $msg);
         }
 
@@ -288,7 +306,7 @@ class Variants extends BaseController
                 'variant_type' => $filetype
             ]);
 
-            return redirect()->to("/admin/variants/photo/{$id}")->with('success', 'Image has been uploaded successfully');
+            return redirect()->to("/admin/variants/gallery/{$id}")->with('success', 'Image has been uploaded successfully');
         }
 
         return redirect()
@@ -312,5 +330,41 @@ class Variants extends BaseController
         $this->photoModel->delete($id);
 
         return redirect()->to("/admin/variants/photo/{$variant_no}")->with('success', 'Image has been deleted successfully');
+    }
+
+    public function deleteGalleryPhoto($id, $variant_no)
+    {
+        if (!$id | !$variant_no) {
+            return redirect()->to("/admin/variants");
+        }
+
+        $photo = $this->photoModel->find($id);
+
+        // 1. Delete existing files with same base name (any extension)
+        foreach (glob(FCPATH . "img/gallery/{$photo->variant_filename}") as $existingFile) {
+            unlink($existingFile);
+        }
+
+        $this->photoModel->delete($id);
+
+        return redirect()->to("/admin/variants/gallery/{$variant_no}")->with('success', 'Image has been deleted successfully');
+    }
+
+    public function deleteVariantPhoto($id = null)
+    {
+        if (!$id) {
+            return redirect()->to("/admin/variants");
+        }
+
+        $photo = $this->photoModel->find($id);
+
+        // 1. Delete existing files with same base name (any extension)
+        foreach (glob(FCPATH . "img/variants/{$photo->variant_filename}") as $existingFile) {
+            unlink($existingFile);
+        }
+
+        $this->photoModel->delete($id);
+
+        return redirect()->back()->with('success', 'Image has been deleted successfully');
     }
 }
