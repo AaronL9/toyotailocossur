@@ -23,7 +23,7 @@ export default function Schedule() {
           icon: 'success',
           text: 'Your message has been sent',
           showCloseButton: true,
-        })
+        });
 
         form.reset();
 

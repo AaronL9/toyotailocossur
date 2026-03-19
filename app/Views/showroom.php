@@ -1,7 +1,5 @@
 <?= $this->extend("layout/default"); ?>
 <?= $this->section("mainContent"); ?>
-<?= $this->include("partials/breadcrumb"); ?>
-
 
 <body class="flex flex-col min-h-screen">
     <div>

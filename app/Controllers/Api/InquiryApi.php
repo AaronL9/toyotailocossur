@@ -26,7 +26,21 @@ class InquiryApi extends ResourceController
      */
     public function index()
     {
-        //
+        $page = $this->request->getGet("page") ?? 1;
+        $search = $this->request->getGet("search") ?? "";
+
+        $data = $this->model
+            ->select()
+            ->like("inquiry_name", $search, "both")
+            ->where("inquiry_delete", 0)
+            ->paginate(10, "default", $page);
+
+        $pageDetails = $this->model->pager->getDetails();
+
+        return $this->respond([
+            "pagination" => $pageDetails,
+            "inquiries" => $data
+        ]);
     }
 
     /**

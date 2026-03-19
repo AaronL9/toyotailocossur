@@ -24,6 +24,7 @@ import SpecificationsTypePage from './Pages/Admin/SpecificationType/Specificatio
 import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/VariantsSpecificationsPage';
 import VehiclesEditPage from './Pages/Admin/Vehicles/VehiclesEditPage';
 import VariantsUploadPhotoPage from './Pages/Admin/Variants/VariantsUploadPhotoPage';
+import InquiryPage from './Pages/Admin/inquiry/InquiryPage';
 
 const page = document.body.dataset.page;
 
@@ -51,6 +52,8 @@ const routes: Record<string, () => void> = {
   'agents-edit': AgentsEditPage,
 
   'specifications-type': SpecificationsTypePage,
+
+  'inquiry': InquiryPage
 };
 
 if (page && routes[page]) {

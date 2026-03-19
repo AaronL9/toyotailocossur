@@ -28,6 +28,7 @@
           <table id="inquiry-table" class="min-w-full h-full divide-y divide-gray-100">
             <thead class="bg-gray-50 sticky top-0 z-10">
               <tr>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">#</th>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Plate No.</th>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Year</th>
@@ -58,8 +59,11 @@
                     <td x-text="row.inquiry_contact" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                       <div class="flex flex-col">
-                        <span x-text="row.inquiry_appointment_date ?? '—'"></span>
-                        <span x-text="row.inquiry_appointment_time ?? ''" class="text-xs text-gray-400"></span>
+                        <span x-text="row.inquiry_appointment_date ? new Date(row.inquiry_appointment_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—'">
+                        </span>
+                        <span x-text="row.inquiry_appointment_time ? new Date('1970-01-01T' + row.inquiry_appointment_time).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }) : ''"
+                          class="text-xs text-gray-400">
+                        </span>
                       </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -78,7 +82,7 @@
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
-                        <a x-bind:href="`/admin/inquiries/${row.inquiry_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden" title="View">
+                        <a x-bind:href="`/admin/inquiry/${row.inquiry_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden" title="View">
                           <i class="fa-solid fa-eye"></i>
                         </a>
                       </div>
