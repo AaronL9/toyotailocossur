@@ -3,11 +3,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home2/toyotai3/public_html/
 
-    # Create dist folder if it doesn't exist
-    - /bin/mkdir -p $DEPLOYPATH/dist
-
-    # Clean old files
-    - /bin/rm -rf $DEPLOYPATH/dist/*
-
-    # Copy dist build files
-    - /bin/cp -R ./public/dist/* $DEPLOYPATH/dist/
+    # Move new dist folder (overwrites if exists)
+    - /bin/mv ./public/dist $DEPLOYPATH/dist
