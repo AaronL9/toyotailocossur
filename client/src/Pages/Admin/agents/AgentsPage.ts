@@ -14,9 +14,9 @@ const AgentsIndexApi = z.object({
     agent_no: z.string(),
     agent_lname: z.string(),
     agent_fname: z.string(),
-    agent_mname: z.string(),
-    agent_contact: z.string(),
-    agent_email: z.string(),
+    agent_mname: z.nullable(z.string()),
+    agent_contact: z.nullable(z.string()),
+    agent_email: z.nullable(z.string()),
   }))
 })
 
