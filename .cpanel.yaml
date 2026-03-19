@@ -1,0 +1,10 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/toyotai3/public_html/
+
+    # Clean old files
+    - /bin/rm -rf $DEPLOYPATH/dist/*
+
+    # Copy public (entry point)
+    - /bin/cp -R public/dist/* $DEPLOYPATH/dist/
