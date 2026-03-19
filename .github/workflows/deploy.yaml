@@ -40,6 +40,13 @@ jobs:
           rm -rf node_modules
           rm -rf .github
           rm -rf resources
+          rm -rf Docker
+          rm -rf .dockerignore
+          rm -rf .compose.yml
+          rm -rf package.json
+          rm -rf package-lock.json
+          rm -rf vite.config.js
+          rm -rf tsconfig.json
 
       # 6. Push to production branch
       - name: Push to production branch
