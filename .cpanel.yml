@@ -10,4 +10,4 @@ deployment:
     - /bin/rm -rf $DEPLOYPATH/dist/*
 
     # Copy dist build files
-    - /bin/cp -R ./dist/* $DEPLOYPATH/dist/
+    - /bin/cp -R ./public/dist/* $DEPLOYPATH/dist/
