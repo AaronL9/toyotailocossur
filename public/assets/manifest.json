@@ -1,7 +1,7 @@
 {
-  "_sweetalert2.esm.all-CdIeTeQe.js": {
-    "file": "assets/sweetalert2.esm.all-CdIeTeQe.js",
-    "name": "sweetalert2.esm.all"
+  "_index-BheRXs2K.js": {
+    "file": "assets/index-BheRXs2K.js",
+    "name": "index"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
     "file": "assets/fa-brands-400-BP5tdqmh.woff2",
@@ -16,15 +16,15 @@
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
   "src/admin.ts": {
-    "file": "assets/admin-DSyBuaeJ.js",
+    "file": "assets/admin-Cr5Qh0Ej.js",
     "name": "admin",
     "src": "src/admin.ts",
     "isEntry": true,
     "imports": [
-      "_sweetalert2.esm.all-CdIeTeQe.js"
+      "_index-BheRXs2K.js"
     ],
     "css": [
-      "assets/admin-CdHXvTSk.css"
+      "assets/admin-EL2H-0nq.css"
     ],
     "assets": [
       "assets/fa-brands-400-BP5tdqmh.woff2",
@@ -33,15 +33,15 @@
     ]
   },
   "src/main.ts": {
-    "file": "assets/main-Cwx07QWf.js",
+    "file": "assets/main-KTnKLvup.js",
     "name": "main",
     "src": "src/main.ts",
     "isEntry": true,
     "imports": [
-      "_sweetalert2.esm.all-CdIeTeQe.js"
+      "_index-BheRXs2K.js"
     ],
     "css": [
-      "assets/main-DYKpvKQI.css"
+      "assets/main-Csvae2k2.css"
     ]
   }
 }

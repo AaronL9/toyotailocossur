@@ -28,7 +28,7 @@ const InquiryIndexApiSchema = z.object({
 
 type Pagination = z.infer<typeof PaginationSchema>;
 type Inquiry = z.infer<typeof InquirySchema>;
-type InquiryIndexApi = z.infer<typeof InquiryIndexApiSchema>;
+// type InquiryIndexApi = z.infer<typeof InquiryIndexApiSchema>;
 
 export default function InquiryPage() {
   console.log('hello world');
