@@ -41,7 +41,7 @@ jobs:
           rm -rf resources
 
       # 6. Push to production branch
-      - name: Push to production
+      - name: Push to production branch
         run: |
           cd deploy
           git init
