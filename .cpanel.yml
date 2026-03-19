@@ -4,4 +4,4 @@ deployment:
     - export DEPLOYPATH=/home2/toyotai3/public_html/
 
     # Move new dist folder (overwrites if exists)
-    - /bin/mv ./public/dist $DEPLOYPATH/dist
+    - /bin/mv ./public/dist $DEPLOYPATH
