@@ -13,12 +13,14 @@ jobs:
       # 1. Checkout main branch
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       # 2. Setup Node
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 24.14.0
 
       # 3. Install deps
       - name: Install dependencies
@@ -48,5 +50,5 @@ jobs:
           git checkout -b production
           git add .
           git commit -m "Deploy from main"
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git push --force origin production
