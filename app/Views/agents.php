@@ -19,23 +19,6 @@
           <?php if ($agent->agent_inactive || $agent->agent_delete) continue; ?>
           <div class="group flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
 
-
-            <!-- photo -->
-            <!-- <div class="relative bg-gray-100 aspect-[3/3.5] overflow-hidden">
-              <?php if (!empty($agent->agent_photo)): ?>
-                <img
-                  src="/img/agents/<?= esc($agent->agent_photo) ?>"
-                  alt="<?= esc($agent->agent_fname . ' ' . $agent->agent_lname) ?>"
-                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" />
-              <?php else: ?>
-                <div class="w-full h-full flex items-center justify-center bg-gray-100">
-                  <svg class="size-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-              <?php endif; ?>
-            </div> -->
-
             <!-- Photo -->
             <div class="relative w-full overflow-hidden bg-gray-100" style="padding-bottom: 133.33%;">
               <?php if (!empty($agent->agent_photo)): ?>
@@ -54,10 +37,9 @@
 
             <!-- Info -->
             <div class="flex flex-col flex-1 px-4 py-4">
-              <h3 class="text-sm font-bold text-gray-900 leading-tight">
+              <h3 class="text-sm font-bold text-gray-900 leading-tight mb-2">
                 <?= esc($agent->agent_fname . ' ' . (!empty($agent->agent_mname) ? $agent->agent_mname . ' ' : '') . $agent->agent_lname) ?>
               </h3>
-              <p class="text-xs text-red-600 font-medium mt-0.5 mb-3">Sales Agent</p>
 
               <!-- Contact -->
               <div class="flex flex-col gap-y-1.5 mt-auto">
