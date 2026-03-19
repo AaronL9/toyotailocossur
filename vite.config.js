@@ -16,7 +16,7 @@ export default defineConfig({
     emptyOutDir: true,
 
     // generate assets/manifest.json in outDir
-    manifest: true,
+    manifest: "manifest.json",
 
     rollupOptions: {
       // overwrite default .html entry
