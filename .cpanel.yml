@@ -1,10 +1,13 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/toyotai3/public_html/
+    - export DEPLOYPATH=/home2/toyotai3/public_html/
+
+    # Create dist folder if it doesn't exist
+    - /bin/mkdir -p $DEPLOYPATH/dist
 
     # Clean old files
     - /bin/rm -rf $DEPLOYPATH/dist/*
 
-    # Copy public (entry point)
-    - /bin/cp -R repositories/toyotailocossur/public/dist/* $DEPLOYPATH/dist/
+    # Copy dist build files
+    - /bin/cp -R ./dist/* $DEPLOYPATH/dist/
