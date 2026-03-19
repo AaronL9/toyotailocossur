@@ -21,7 +21,7 @@
   --color-primary-700: #434343;
   --color-primary-800: #292929;
   --color-primary-900: #1a1a1a;
-  --color-primary-950: #000000;           
+  --color-primary-950: #000000;
 
   --color-secondary-50: #f4f6f7;
   --color-secondary-100: #e3e8ea;
@@ -72,4 +72,4 @@
   --color-info-950: #172554;
 }
 
-@source '../../backend-views/**/*.php';
+@source '../app/Views/**/*.php';

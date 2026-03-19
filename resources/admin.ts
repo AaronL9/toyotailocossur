@@ -1,7 +1,8 @@
 import 'preline';
 
 import './admin.css'
-import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
@@ -21,7 +22,7 @@ import AgentsCreatePage from './Pages/Admin/agents/AgentsCreatePage';
 import AgentsPage from './Pages/Admin/agents/AgentsPage';
 import AgentsEditPage from './Pages/Admin/agents/AgentsEditPage';
 import SpecificationsTypePage from './Pages/Admin/SpecificationType/SpecificationTypePage';
-import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/VariantsSpecificationsPage';
+import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/VariantsSpecificationsPage'; ``
 import VehiclesEditPage from './Pages/Admin/Vehicles/VehiclesEditPage';
 import VariantsUploadPhotoPage from './Pages/Admin/Variants/VariantsUploadPhotoPage';
 import InquiryPage from './Pages/Admin/inquiry/InquiryPage';

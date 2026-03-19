@@ -117,7 +117,7 @@
 
     <?php if (getenv("CI_ENVIRONMENT") === 'development'): ?>
         <script type="module" src="http://localhost:5173/@vite/client"></script>
-        <script type="module" src="http://localhost:5173/src/main.ts"></script>
+        <script type="module" src="http://localhost:5173/main.ts"></script>
 
         <!-- Vite HMR + JS -->
     <?php else: ?>

@@ -13,15 +13,16 @@ export default defineConfig({
 
   build: {
     outDir: "../public/dist",
+    emptyOutDir: true,
 
     // generate assets/manifest.json in outDir
-    manifest: "assets/manifest.json",
+    manifest: true,
 
     rollupOptions: {
       // overwrite default .html entry
       input: {
-        admin: "/src/admin.ts",
-        main: "/src/main.ts",
+        admin: "/admin.ts",
+        main: "/main.ts",
       },
     },
   },
