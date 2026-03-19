@@ -48,15 +48,26 @@ jobs:
           rm -rf vite.config.js
           rm -rf tsconfig.json
 
+          # Force include dist even if in .gitignore
+          echo '!dist' >> .gitignore
+          echo '!dist/**' >> .gitignore
+
       # 6. Push to production branch
       - name: Push to production branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd deploy
           git init
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+
+          # Fetch existing production so histories are compatible
+          git fetch origin production || true
+          git reset --soft origin/production || true
+
           git checkout -b production
           git add .
-          git commit -m "Deploy from main"
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git commit -m "Deploy from main - ${{ github.sha }}"
           git push --force origin production
