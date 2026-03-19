@@ -8,7 +8,6 @@ class VariantsSpecificationsModel extends Model
 {
     protected $table            = 'variants_specifications';
     protected $primaryKey       = 'vs_no';
-    protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = true;
     protected $allowedFields    = [
@@ -35,7 +34,7 @@ class VariantsSpecificationsModel extends Model
         //     ->findAll();
 
         return  $this->builder('variants_specifications_category a')
-            ->select('a.vsc_no, c.vs_value, d.scat_title, d.scat_no, c.vs_value, e.spec_title, e.spec_no')
+            ->select('a.vsc_no, c.vs_value, d.scat_title, d.scat_no, c.vs_value, e.spec_title, e.spec_no, c.vs_no')
             ->join('variants b', 'a.variant_no = b.variant_no', 'inner')
             ->join('variants_specifications c', 'a.vsc_no = c.vsc_no', 'left')
             ->join('specifications_category d', 'a.scat_no = d.scat_no', 'left')

@@ -33,6 +33,9 @@
             <img src="/img/toyota-logo.png" alt="">
           </div>
           <div>
+            <p class="text-black">
+              <?= uri_string() ?>
+            </p>
             <h2 class="font-semibold text-gray-900">Control Panel</h2>
             <p class="text-xs text-gray-500">Admin Dashboard</p>
           </div>

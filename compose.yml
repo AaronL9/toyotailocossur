@@ -1,35 +1,29 @@
 services:
   backend:
     user: "${UID}:${GID}"
+    container_name: ci4
     build:
       context: ./ # The directory to use as build context (current folder)
       target: backend-dev # Dockerfile build stage to target (multi-stage build)
     volumes:
-      - ./:/var/www/html/ # Mount local backend folder to container for live code updates
+      # - ./:/var/www/html/ 
+      - ./app:/var/www/html/app 
+      - ./public:/var/www/html/public 
+      - ./tests:/var/www/html/tests 
+      - ./writable:/var/www/html/writable 
+      - ./.env:/var/www/html/.env 
+      - ./builds:/var/www/html/builds 
+      - ./composer.json:/var/www/html/composer.json 
+      - ./composer.lock:/var/www/html/composer.lock 
+      - ./phpunit.xml.dist:/var/www/html/phpunit.xml.dist 
+      - ./preload.php:/var/www/html/preload.php 
+      - ./spark:/var/www/html/spark 
       - vendor:/var/www/html/vendor
     ports:
       - 8080:8080 # Map host port 8080 to container port 8080
     command:
       ["php", "spark", "serve", "--host", "0.0.0.0", "--port", "8080"]
       # Run CodeIgniter 4 dev server, accessible from any host
-
-  client:
-    build:
-      context: ./ # Same build context (current folder)
-      target: client-dev # Target stage for client-side dev build
-    develop: # Development options (probably for a dev tool like docker-compose-watch)
-      watch:
-        - path: ./client/src # Watch this local folder
-          action: sync # Sync changes to container automatically
-          target: /usr/src/app # Path inside container to sync to
-        - path: ./client/package.json # Watch this file
-          action: rebuild # Rebuild container if package.json changes
-    ports:
-      - 5173:5173
-    volumes:
-      - ./client:/usr/src/app
-      - ./app/Views:/usr/src/backend-views
-      - node-modules:/usr/src/app/node_modules
 
   db:
     platform: linux/x86_64 # Ensure architecture compatibility on MacBook Pro
@@ -42,12 +36,10 @@ services:
       - 3306:3306 # Map host port 3306 to container port 3306
     environment: # Environment variables for MySQL
       - MYSQL_ROOT_PASSWORD=market # Root password
-      - MYSQL_DATABASE=malasiqui # Default database
     volumes:
       - mysql-8.0.16:/var/lib/mysql # Named volume for persistent DB data
 
 volumes:
   mysql-8.0.16: # Declare named volume for MySQL persistence
     external: true
-  node-modules:
   vendor:

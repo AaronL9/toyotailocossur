@@ -154,7 +154,7 @@ class VariantsSpecificationsApi extends ResourceController
 
         $isUpdated = $this->model->update($id, [
             'vs_value' => $json['vs_value'],
-            'spec_no' => $json['spec_type']
+            'spec_no' => $json['spec_type'],
         ]);
 
         if (!$isUpdated) {
@@ -167,7 +167,7 @@ class VariantsSpecificationsApi extends ResourceController
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully update specification",
+            "message" => "You have successfully update secification",
             "errors" => null,
         ]);
     }

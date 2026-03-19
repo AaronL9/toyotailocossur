@@ -32,7 +32,7 @@ type VariantsValidation = z.infer<typeof VariantsPostApiSchema>["errors"];
  * Single Specification Entry as shown in the table (fetched from backend)
  */
 const VariantSpecificationItemSchema = z.object({
-  vs_no: z.coerce.number(),        // PK: Variant Specification Record ID
+  vs_no: z.string(),        // PK: Variant Specification Record ID
   vs_value: z.string(),            // Value for this spec (e.g. "6-speed")
   spec_title: z.string(),          // Specification Name (e.g. "Transmission")
   spec_no: z.string(),             // FK: Specification ID
@@ -164,6 +164,15 @@ export default function VariantsSpecificationsPage() {
       if (!result.isConfirmed) return;
 
       try {
+        // console.table({
+        //   vs_id,
+        //   csrf_token: this.csrf_token,
+        //   vs_value: Alpine.store("variantSpec").editInput,
+        //   spec_type: Alpine.store("variantSpec").editSpecNo,
+        //   spec_cat: row.scat_no,
+        // });
+
+
         const response = await axios.put(
           `/api/variants-specifications/${vs_id}`,
           {
@@ -171,8 +180,9 @@ export default function VariantsSpecificationsPage() {
             vs_value: Alpine.store("variantSpec").editInput,
             spec_type: Alpine.store("variantSpec").editSpecNo,
             spec_cat: row.scat_no,
-          },
+          }
         );
+
 
         Swal.fire({
           title: "Updated",

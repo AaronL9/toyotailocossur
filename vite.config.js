@@ -3,17 +3,17 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [tailwindcss()],
+  root: "resources",
+
   server: {
     cors: {
-      // the origin you will be accessing via browser
       origin: "http://localhost:8080",
     },
-    origin: "http://localhost:5173",
-    watch: {
-      usePolling: true,
-    },
   },
+
   build: {
+    outDir: "../public/dist",
+
     // generate assets/manifest.json in outDir
     manifest: "assets/manifest.json",
 
