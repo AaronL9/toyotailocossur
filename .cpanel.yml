@@ -3,4 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home2/toyotai3/public_html/
 
-    - /bin/cp ./public/dist $DEPLOYPATH
+    - /bin/cp -R ./public/dist $DEPLOYPATH
