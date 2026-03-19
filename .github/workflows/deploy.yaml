@@ -40,7 +40,7 @@ jobs:
           rm -rf node_modules
           rm -rf .github
           rm -rf resources
-          rm -rf Docker
+          rm -rf Dockerfile
           rm -rf .dockerignore
           rm -rf .compose.yml
           rm -rf package.json
