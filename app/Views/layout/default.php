@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico">
     <base href="<?= base_url() ?>">
-    <?= vite_css("src/main.ts") ?>
+    <?= vite_css("main.ts") ?>
 </head>
 
 <body class=" flex flex-col min-h-screen">
@@ -121,7 +121,7 @@
 
         <!-- Vite HMR + JS -->
     <?php else: ?>
-        <script type="module" src="<?= vite_asset('src/main.ts'); ?>"></script>
+        <script type="module" src="dist/<?= vite_asset('main.ts'); ?>"></script>
     <?php endif; ?>
 </body>
 

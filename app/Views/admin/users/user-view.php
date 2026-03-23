@@ -56,7 +56,7 @@
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
                         <a :href="`/admin/users/module/${user.user_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-orange-400 focus:outline-hidden">
-                          <i class="fa-solid fa-pen-to-square"></i>
+                          <i class="fa-solid fa-key"></i>
                         </a>
                         <button type="button" data-action="delete" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
                           <i class="fa-solid fa-trash"></i>
