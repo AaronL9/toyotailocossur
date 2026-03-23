@@ -2,7 +2,6 @@ import axios from "axios";
 import * as z from "zod";
 import { PostResponseSchema } from "../../../schemas/api";
 import Swal from "sweetalert2";
-import Toastify from 'toastify-js';
 
 const VariantSpecificationSchema = z.object({
   scat_no: z.string(),
