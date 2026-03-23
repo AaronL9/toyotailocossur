@@ -5,7 +5,10 @@ import './admin.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 import Alpine from 'alpinejs';
+import collapse from '@alpinejs/collapse'
+
 window.Alpine = Alpine;
+Alpine.plugin(collapse)
 
 import UsersPage from './Pages/Admin/Users/UsersPage';
 import VehiclesPage from './Pages/Admin/Vehicles/VehiclesPage';
@@ -28,6 +31,7 @@ import VariantsUploadPhotoPage from './Pages/Admin/Variants/VariantsUploadPhotoP
 import InquiryPage from './Pages/Admin/inquiry/InquiryPage';
 import UsersCreatePage from './Pages/Admin/Users/UsersCreatePage';
 import UserModulesPage from './Pages/Admin/Users/UsersModulePage';
+import VariantAddSpecPage from './Pages/Admin/VariantsSpecifications/VariantAddSpecPage';
 
 const page = document.body.dataset.page;
 
@@ -48,6 +52,7 @@ const routes: Record<string, () => void> = {
   'variants-create': VariantsCreatePage,
   'variants-update': VariantsUpdatePage,
   'variants-specifications': VariantsSpecificationsPage,
+  'variant-add-spec': VariantAddSpecPage,
   'variants-upload-photo': VariantsUploadPhotoPage,
 
   'specifications': SpecificationsPage,

@@ -25,14 +25,45 @@ class VariantsSpecificationsApi extends ResourceController
      *
      * @return ResponseInterface
      */
-    public function index($id = null)
+    public function index()
     {
-        if (!$id) {
-            return $this->respond('No resource found');
+
+        $id = $this->request->getGet('variant_id');
+
+        $data = $this->model
+            ->builder('variants_specifications_category')
+            ->select([
+                'variants_specifications_category.vsc_no',
+                'variants_specifications_category.variant_no',
+                'variants_specifications.vs_no',
+                'variants_specifications.vs_value',
+                'specifications_category.scat_no',
+                'specifications_category.scat_title',
+                'specifications.spec_title'
+            ])
+            ->join('variants_specifications', 'variants_specifications.vsc_no = variants_specifications_category.vsc_no', 'left')
+            ->join('specifications', 'specifications.spec_no = variants_specifications.spec_no', 'left')
+            ->join('specifications_category', 'specifications_category.scat_no = variants_specifications_category.scat_no', 'right')
+            ->where('variants_specifications_category.variant_no', $id)
+            ->get()
+            ->getResultArray();
+
+        $result = [];
+
+        foreach ($data as $item) {
+            $result[$item['scat_title']][] = $item;
         }
 
-        $data = $this->model->getVariantFullSpec($id);
-        return $this->respond($data);
+        $final = [];
+
+        foreach ($result as $title => $items) {
+            $final[] = [
+                'title' => $title,
+                'items' => $items,
+            ];
+        }
+
+        return $this->respond($final);
     }
 
     /**
@@ -91,7 +122,7 @@ class VariantsSpecificationsApi extends ResourceController
         $isInserted = $this->model->insert([
             'vsc_no' => $id,
             'spec_no' => $json['spec_type'],
-            'vs_value' => $json['vs_value']
+            'vs_value' => $json['vs_value'] ?? null
         ], false);
 
         if (!$isInserted) {
@@ -132,29 +163,28 @@ class VariantsSpecificationsApi extends ResourceController
     {
         $json = json_decode($this->request->getBody(), true);
 
-        if (isset($json['inactive'])) {
-            $this->model->update($id, [
-                "vs_inactive" => $json['inactive']
-            ]);
+        // if (isset($json['inactive'])) {
+        //     $this->model->update($id, [
+        //         "vs_inactive" => $json['inactive']
+        //     ]);
 
-            return $this->respond([
-                "csrf_token" => csrf_hash(),
-                "message" => "You have successfully update specification",
-                "errors" => null,
-            ]);
-        }
+        //     return $this->respond([
+        //         "csrf_token" => csrf_hash(),
+        //         "message" => "You have successfully update specification",
+        //         "errors" => null,
+        //     ]);
+        // }
 
-        if (!$this->validate('variants_spec')) {
-            return $this->respond([
-                "csrf_token" => csrf_hash(),
-                "message" => "Validation Error",
-                "errors" => $this->validator->getErrors()
-            ], 422);
-        }
+        // if (!$this->validate('variants_spec')) {
+        //     return $this->respond([
+        //         "csrf_token" => csrf_hash(),
+        //         "message" => "Validation Error",
+        //         "errors" => $this->validator->getErrors()
+        //     ], 422);
+        // }
 
         $isUpdated = $this->model->update($id, [
-            'vs_value' => $json['vs_value'],
-            'spec_no' => $json['spec_type'],
+            'vs_value' => $json['spec_val'],
         ]);
 
         if (!$isUpdated) {
@@ -181,6 +211,24 @@ class VariantsSpecificationsApi extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => null,
+            ], 404);
+        }
+
+        $json = json_decode($this->request->getBody(), true);
+
+        $this->model->builder('variants_specifications')->delete(['vs_no' => $json['vs']]);
+        $this->model->builder('variants_specifications_category')->delete(['vsc_no' => $json['vsc']]);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully deleted specification",
+            "errors" => null,
+        ]);
     }
 }
