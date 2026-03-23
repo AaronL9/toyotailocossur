@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\InquiryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Inquiry extends BaseController
+class Inquiry extends AdminBaseController
 {
     public function getIndex($id = null)
     {

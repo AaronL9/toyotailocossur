@@ -33,9 +33,6 @@
             <img src="/img/toyota-logo.png" alt="">
           </div>
           <div>
-            <p class="text-black">
-              <?= uri_string() ?>
-            </p>
             <h2 class="font-semibold text-gray-900">Control Panel</h2>
             <p class="text-xs text-gray-500">Admin Dashboard</p>
           </div>
@@ -57,12 +54,14 @@
 
       <ul class="space-y-0.5">
         <?php foreach ($modules as $row): ?>
-          <li>
-            <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium rounded-lg transition-colors <?= preg_match("#^{$row->mod_link}($|/)#", uri_string()) ? "bg-accent-50 text-accent-800 hover:bg-accent-50" : "hover:bg-gray-100" ?>" href="<?= $row->mod_link ?>">
-              <i class="<?= $row->mod_icon ?> w-5 text-center <?= preg_match("#^{$row->mod_link}($|/)#", uri_string()) ? "text-accent-800" : "text-gray-500" ?>"></i>
-              <?= $row->mod_title ?>
-            </a>
-          </li>
+          <?php if (in_array($row->mod_no, $access)) : ?>
+            <li>
+              <a class="flex items-center gap-x-3 py-2.5 px-3 text-sm font-medium rounded-lg transition-colors <?= preg_match("#^{$row->mod_link}($|/)#", uri_string()) ? "bg-accent-50 text-accent-800 hover:bg-accent-50" : "hover:bg-gray-100" ?>" href="<?= $row->mod_link ?>">
+                <i class="<?= $row->mod_icon ?> w-5 text-center <?= preg_match("#^{$row->mod_link}($|/)#", uri_string()) ? "text-accent-800" : "text-gray-500" ?>"></i>
+                <?= $row->mod_title ?>
+              </a>
+            </li>
+          <?php endif; ?>
         <?php endforeach; ?>
       </ul>
 

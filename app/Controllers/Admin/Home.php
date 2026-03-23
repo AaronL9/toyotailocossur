@@ -2,13 +2,14 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Home extends BaseController
+class Home extends AdminBaseController
 {
     public function getIndex()
     {
-        return redirect()->to("admin/vehicles");
+        $admin = $this->session->get('admin');
+
+        return redirect()->to($admin['access'][0] ?? '/admin/login');
     }
 }

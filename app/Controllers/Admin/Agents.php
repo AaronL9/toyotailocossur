@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
+use App\Controllers\Admin\AdminBaseController;
 use App\Models\AgentsModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Agents extends BaseController
+class Agents extends AdminBaseController
 {
     protected $model;
 

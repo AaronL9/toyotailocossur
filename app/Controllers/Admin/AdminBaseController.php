@@ -43,13 +43,13 @@ class AdminBaseController extends Controller
             $sidebar = cache()->remember('modules', 3600, function () {
                 return (new ModulesModel())->orderBy('mod_order')->findAll();
             });
+
+            service('renderer')->setData([
+                'modules' => $sidebar,
+                'access' => $admin['modules'],
+            ]);
         }
 
         // cache()->delete('modules');
-
-
-        service('renderer')->setData([
-            'modules' => $sidebar
-        ]);
     }
 }

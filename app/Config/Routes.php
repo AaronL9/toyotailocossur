@@ -16,6 +16,9 @@ $routes->group("api", function ($routes) {
   $routes->resource('specifications-type', ['controller' => '\App\Controllers\Api\SpecificationsTypeApi']);
   $routes->resource('variants-specifications', ['controller' => '\App\Controllers\Api\VariantsSpecificationsApi']);
   $routes->resource('inquiry', ['controller' => '\App\Controllers\Api\InquiryApi']);
+  $routes->resource('modules', ['controller' => '\App\Controllers\Api\ModulesApi']);
+  $routes->resource('users', ['controller' => '\App\Controllers\Api\UsersApi']);
+  $routes->resource('user-module', ['controller' => '\App\Controllers\Api\UserModuleApi']);
 });
 
 try {

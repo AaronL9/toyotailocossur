@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class SpecificationsCategory extends BaseController
+class SpecificationsCategory extends AdminBaseController
 {
     public function getIndex()
     {

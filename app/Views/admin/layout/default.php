@@ -9,7 +9,7 @@
   <?= csrf_meta("csrf-token"); ?>
   <link rel="shortcut icon" type="image/png" href="/favicon.ico">
   <base href="<?= base_url() ?>">
-  <?= vite_css("src/admin.ts") ?>
+  <?= vite_css("admin.ts") ?>
 </head>
 
 <body class="flex flex-col min-h-screen" data-page="<?= $page ?? "" ?>">
@@ -24,7 +24,7 @@
 
     <!-- Vite HMR + JS -->
   <?php else: ?>
-    <script type="module" src="<?= vite_asset('src/admin.ts'); ?>"></script>
+    <script type="module" src="/dist/<?= vite_asset('admin.ts'); ?>"></script>
   <?php endif; ?>
 </body>
 
