@@ -110,20 +110,43 @@ class Variants extends AdminBaseController
         return view('admin/variants/variants-create-view', $data);
     }
 
+    // public function getSpecifications($id = null)
+    // {
+
+    //     if (!$id) {
+    //         return redirect()->to('admin/variants');
+    //     }
+
+    //     $data['page'] = 'variants-specifications';
+    //     $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
+    //     $data['spec_type'] = $this->specTypeModel->findAll();
+    //     $data['cc'] = $this->variantsSpecificationsModel->getVariantFullSpec($id);
+    //     $data['id'] = $id;
+
+    //     return view('admin/variants-specifications/variants-specifications-view', $data);
+    // }
+
     public function getSpecifications($id = null)
     {
-
         if (!$id) {
             return redirect()->to('admin/variants');
         }
 
-        $data['page'] = 'variants-specifications';
+        $data['page'] = 'variant-add-spec';
+
+        $data['cc'] = $this->model
+            ->select('variants.*, vehicles.vehicle_title')
+            ->join('vehicles', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
+            ->find($id);
+
+        $model = new VehiclesModel();
+
+        $data['vehicles'] = $model->findAll();
         $data['spec_categories'] = $this->specificationsCategoryModel->findAll();
         $data['spec_type'] = $this->specTypeModel->findAll();
-        $data['cc'] = $this->variantsSpecificationsModel->getVariantFullSpec($id);
         $data['id'] = $id;
 
-        return view('admin/variants-specifications/variants-specifications-view', $data);
+        return view('admin/variants-specifications/variants-spec-view', $data);
     }
 
     public function getPhoto($id = null)

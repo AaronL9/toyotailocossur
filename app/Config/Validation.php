@@ -90,12 +90,12 @@ class Validation extends BaseConfig
                 'required' => 'Please Select Specification'
             ]
         ],
-        'vs_value' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Please input a value'
-            ]
-        ]
+        // 'vs_value' => [
+        //     'rules' => 'required',
+        //     'errors' => [
+        //         'required' => 'Please input a value'
+        //     ]
+        // ]
     ];
 
     public array $vehicle = [
