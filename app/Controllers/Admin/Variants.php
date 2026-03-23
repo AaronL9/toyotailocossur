@@ -13,7 +13,7 @@ use App\Models\VehiclesModel;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Variants extends BaseController
+class Variants extends AdminBaseController
 {
     protected $model;
     protected $specificationsCategoryModel;

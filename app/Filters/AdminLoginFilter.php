@@ -30,6 +30,13 @@ class AdminLoginFilter implements FilterInterface
         if (!isset($admin)) {
             return redirect()->to('/admin/login');
         }
+
+        $array = array_filter($admin['access'], fn($value) => preg_match("#^{$value}($|/)#", uri_string()));
+
+        if (empty($array)) {
+            session()->destroy();
+            return redirect()->to('/admin/login');
+        }
     }
 
     /**

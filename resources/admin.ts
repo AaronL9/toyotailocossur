@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 
-import UsersPage from './Pages/Admin/UsersPage';
+import UsersPage from './Pages/Admin/Users/UsersPage';
 import VehiclesPage from './Pages/Admin/Vehicles/VehiclesPage';
 import VehiclesCreatePage from './Pages/Admin/Vehicles/VehiclesCreatePage';
 import VehicleCategoryPage from './Pages/Admin/Category/VehicleCategoryPage';
@@ -26,11 +26,15 @@ import VariantsSpecificationsPage from './Pages/Admin/VariantsSpecifications/Var
 import VehiclesEditPage from './Pages/Admin/Vehicles/VehiclesEditPage';
 import VariantsUploadPhotoPage from './Pages/Admin/Variants/VariantsUploadPhotoPage';
 import InquiryPage from './Pages/Admin/inquiry/InquiryPage';
+import UsersCreatePage from './Pages/Admin/Users/UsersCreatePage';
+import UserModulesPage from './Pages/Admin/Users/UsersModulePage';
 
 const page = document.body.dataset.page;
 
 const routes: Record<string, () => void> = {
   'users': UsersPage,
+  'users-create': UsersCreatePage,
+  'users-module': UserModulesPage,
 
   'vehicles': VehiclesPage,
   'vehicles-create': VehiclesCreatePage,
@@ -54,7 +58,7 @@ const routes: Record<string, () => void> = {
 
   'specifications-type': SpecificationsTypePage,
 
-  'inquiry': InquiryPage
+  'inquiry': InquiryPage,
 };
 
 if (page && routes[page]) {

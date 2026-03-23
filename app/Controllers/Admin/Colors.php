@@ -2,10 +2,9 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Colors extends BaseController
+class Colors extends AdminBaseController
 {
     public function getIndex()
     {

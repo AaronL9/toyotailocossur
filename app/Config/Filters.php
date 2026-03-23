@@ -128,7 +128,13 @@ class Filters extends BaseFilters
                 'admin/vehicles/*',
 
                 'admin/vehicles-category',
-                'admin/vehicles-category/*'
+                'admin/vehicles-category/*',
+
+                'admin/inquiry',
+                'admin/inquiry/*',
+
+                'admin/colors',
+                'admin/colors/*',
             ],
         ],
 

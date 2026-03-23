@@ -7,7 +7,7 @@ use App\Models\CategoryModel;
 use App\Models\VehiclesCategoryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class VehiclesCategory extends BaseController
+class VehiclesCategory extends AdminBaseController
 {
     protected $data = [];
 

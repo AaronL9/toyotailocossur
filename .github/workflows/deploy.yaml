@@ -42,7 +42,7 @@ jobs:
           rm -rf resources
           rm -rf Dockerfile
           rm -rf .dockerignore
-          rm -rf .compose.yml
+          rm -rf compose.yml
           rm -rf package.json
           rm -rf package-lock.json
           rm -rf vite.config.js
