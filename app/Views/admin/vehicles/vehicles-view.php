@@ -6,7 +6,7 @@
 
 <?= $this->section("page") ?>
 <div class="w-full mx-auto">
-  <div x-data="vehiclesData" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
+  <div x-data="vehiclesData('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
     <!-- Header -->
     <div class="mb-5 flex justify-between">
       <div class="relative max-w-xs">
@@ -60,7 +60,7 @@
                         <a :href="`/admin/vehicles/edit/${vehicle.id}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-orange-400 focus:outline-hidden">
                           <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <button type="button" data-action="delete" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
+                        <button @click="deleteRow(vehicle.id)" type="button" data-action="delete" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
                           <i class="fa-solid fa-trash"></i>
                         </button>
                       </div>
