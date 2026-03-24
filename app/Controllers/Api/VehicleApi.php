@@ -35,6 +35,7 @@ class VehicleApi extends ResourceController
         $vehicles = $this->model
             ->select('vehicle_title, vehicle_no, vehicle_tagline')
             ->like("vehicle_title", $search, "both")
+            ->where('vehicle_delete', 0)
             ->paginate(10, "default", $page);
 
         $data = [];
@@ -233,6 +234,20 @@ class VehicleApi extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+         if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => 'Not found',
+            ], 404);
+        }
+
+        $this->model->update($id, ['vehicle_delete' => 1]);
+
+        return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "You have successfully delete a vehicle",
+                "errors" => null,
+            ]);
     }
 }
