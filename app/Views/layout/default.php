@@ -12,6 +12,8 @@
 </head>
 
 <body class=" flex flex-col min-h-screen">
+    <?= $this->include('data-privacy') ?>
+    
     <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-black text-sm py-3 sticky top-0 z-50">
         <nav class="max-w-340 w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between">
             <a href="/" class="flex-none text-xl font-semibold dark:text-white focus:outline-hidden focus:opacity-80"

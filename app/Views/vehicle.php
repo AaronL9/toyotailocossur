@@ -82,10 +82,10 @@
         <!-- Header -->
         <div class="text-center max-w-2xl mx-auto mb-16">
             <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">
-                Choose your Fortuner variant
+                Choose your <?= $cc->vehicle_title ?> variant
             </h2>
-            <p class="text-gray-600 mt-4">
-                Browse full specifications per variant and find the Fortuner that fits
+            <p class="text-gray-600 mt-4">         
+                Browse full specifications per variant and find the <?= $cc->vehicle_title ?> that fits
                 your lifestyle.
             </p>
         </div>
