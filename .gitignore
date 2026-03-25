@@ -155,5 +155,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-!dist
+public/img!dist
 !dist/**

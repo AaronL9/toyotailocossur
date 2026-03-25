@@ -20,10 +20,10 @@
                         EXPLORE COLORS*
                     </p>
                     <div class="flex justify-center lg:justify-start gap-3">
-                        <?php foreach ($colors as $color): ?>
+                        <?php foreach ($cc->assets as $asset): ?>
                             <button
-                                @click="activeImage = '/img/variants/<?= $color['variant_filename'] ?>';"
-                                style="background-color: <?= $color['color_hex_value'] ?>;"
+                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>';"
+                                style="background-color: <?= $asset['color_hex_value'] ?>;"
                                 class="w-8 h-8 rounded-full border"></button>
                         <?php endforeach; ?>
                     </div>
@@ -84,7 +84,7 @@
             <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">
                 Choose your <?= $cc->vehicle_title ?> variant
             </h2>
-            <p class="text-gray-600 mt-4">         
+            <p class="text-gray-600 mt-4">
                 Browse full specifications per variant and find the <?= $cc->vehicle_title ?> that fits
                 your lifestyle.
             </p>
@@ -94,9 +94,18 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             <!-- Card -->
             <?php foreach ($variants as $row): ?>
-                <div class="space-y-4">
+                <div x-data="{ activeImage: '/img/variants/<?= $row->variant_filename ?>'}" class="space-y-4">
                     <div class="min-w-full h-[120px]">
-                        <img src="/img/variants/<?= $row->variant_filename ?>" class="w-full" alt="" />
+                        <img :src="activeImage" class="w-full" alt="" />
+                    </div>
+
+                    <div class="flex justify-center lg:justify-start gap-3">
+                        <?php foreach ($row->assets as $asset): ?>
+                            <button
+                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>';"
+                                style="background-color: <?= $asset['color_hex_value'] ?>;"
+                                class="w-4 h-4 rounded-full border"></button>
+                        <?php endforeach; ?>
                     </div>
 
                     <div>
