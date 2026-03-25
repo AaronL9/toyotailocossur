@@ -38,10 +38,13 @@ class VariantsModel extends Model
                 'variants.variant_isdefault',
                 'variants.variant_isshowprice',
                 'vehicles.vehicle_title',
-                'photos.variant_filename'
+                'photos.variant_filename',
+                'colors.color_title',
+                'colors.color_hex_value'
             ])
             ->join('vehicles', 'vehicles.vehicle_no = variants.vehicle_no', 'left')
             ->join('photos', 'photos.variant_no = variants.variant_no', 'left')
+            ->join('colors', 'colors.color_no = photos.color_no', 'left')
             ->where('variants.vehicle_no', $vehicleNo)
             ->where('photos.variant_isprimary', 1)
             ->groupBy('variants.variant_no')

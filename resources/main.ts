@@ -6,7 +6,6 @@ window.Alpine = Alpine;
 
 import Swal from 'sweetalert2';
 
-import Showroom from './Pages/showroom';
 import VehiclePage from './Pages/vehicle';
 import Contact from './Pages/Contact';
 import Schedule from './Pages/schedule';
@@ -16,7 +15,6 @@ import DataPrivacyPage from './Pages/DataPrivacy';
 const page = document.documentElement.dataset.page;
 
 const routes: Record<string, () => void> = {
-  'showroom': Showroom,
   'vehicle': VehiclePage,
   'contact': Contact,
   'schedule': Schedule

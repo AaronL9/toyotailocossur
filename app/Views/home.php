@@ -6,7 +6,7 @@
     "loadingClasses": "opacity-0",
     "isAutoPlay": true
   }' class="relative">
-    <div class="hs-carousel relative overflow-hidden w-full h-75 sm:h-100 md:h-125 lg:h-150 rounded-xl shadow-lg">
+    <div class="hs-carousel relative overflow-hidden w-full h-75 sm:h-100 md:h-125 lg:h-150 shadow-lg">
         <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
             <?php foreach ($banners as $row): ?>
                 <div class="hs-carousel-slide relative">
