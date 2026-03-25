@@ -156,3 +156,4 @@ dist-ssr
 *.sln
 *.sw?
 public/img
+backup

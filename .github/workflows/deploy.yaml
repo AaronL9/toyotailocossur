@@ -13,46 +13,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout main branch
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      # 2. Setup Node
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version: 24.14.0
+          cache: "npm"
 
-      # 3. Install deps
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # 4. Build Vite
       - name: Build assets
         run: npm run build
 
-      # 5. Prepare deploy folder
+      # Use an allow-list: only copy what production actually needs
       - name: Prepare deploy files
         run: |
           mkdir deploy
-          rsync -av --exclude='.git' ./ deploy
-          cd deploy
-          rm -rf node_modules
-          rm -rf .github
-          rm -rf resources
-          rm -rf Dockerfile
-          rm -rf .dockerignore
-          rm -rf compose.yml
-          rm -rf package.json
-          rm -rf package-lock.json
-          rm -rf vite.config.js
-          rm -rf tsconfig.json
+          rsync -av \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='.github' \
+            --exclude='resources' \
+            --exclude='Dockerfile' \
+            --exclude='.dockerignore' \
+            --exclude='compose.yml' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='vite.config.js' \
+            --exclude='tsconfig.json' \
+            ./ deploy/
 
-          # Force include dist even if in .gitignore
-          echo '!dist' >> .gitignore
-          echo '!dist/**' >> .gitignore
+          # Ensure dist is tracked even if listed in .gitignore
+          printf '\n!dist\n!dist/**\n' >> deploy/.gitignore
 
-      # 6. Push to production branch
       - name: Push to production branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,11 +59,21 @@ jobs:
           git config user.email "actions@github.com"
           git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
 
-          # Fetch existing production so histories are compatible
-          git fetch origin production || true
-          git reset --soft origin/production || true
+          # Fetch production if it already exists (ignore error on first run)
+          git fetch origin production 2>/dev/null || true
+
+          # If production exists remotely, reset to it so the histories align;
+          # on first run this is a no-op (the || true handles the missing ref)
+          git reset --soft origin/production 2>/dev/null || true
 
           git checkout -b production
           git add .
-          git commit -m "Deploy from main - ${{ github.sha }}"
+
+          # Skip the push if there's nothing new to deploy
+          if git diff --cached --quiet; then
+            echo "No changes to deploy."
+            exit 0
+          fi
+
+          git commit -m "Deploy from main @ ${{ github.sha }}"
           git push --force origin production
