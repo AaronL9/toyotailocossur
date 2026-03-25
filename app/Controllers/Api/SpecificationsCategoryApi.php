@@ -67,7 +67,7 @@ class SpecificationsCategoryApi extends ResourceController
         $json = json_decode($this->request->getBody(), true);
 
         $rules = [
-            'specification' => 'required',
+            'category' => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -79,14 +79,14 @@ class SpecificationsCategoryApi extends ResourceController
         }
 
         $entry = [
-            'scat_title' => $json['specification']
+            'scat_title' => $json['category']
         ];
 
         $this->model->insert($entry);
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add specification",
+            "message" => "You have successfully add category",
             "errors" => null,
         ]);
     }
@@ -123,7 +123,7 @@ class SpecificationsCategoryApi extends ResourceController
         $json = json_decode($this->request->getBody(), true);
 
         $rules = [
-            'specification' => 'required',
+            'category' => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -135,14 +135,14 @@ class SpecificationsCategoryApi extends ResourceController
         }
 
         $entry = [
-            'scat_title' => $json['specification']
+            'scat_title' => $json['category']
         ];
 
         $this->model->update($id, $entry);
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully update specification",
+            "message" => "You have successfully update category",
             "errors" => null,
         ]);
     }
@@ -164,11 +164,11 @@ class SpecificationsCategoryApi extends ResourceController
             ]);
         }
 
-        $this->model->update($id, ["spec_delete" => 1]);
+        $this->model->update($id, ["scat_delete" => 1]);
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "Deleted Successfully",
+            "message" => "You have successfully deleted category",
             "errors" => null,
         ]);
     }

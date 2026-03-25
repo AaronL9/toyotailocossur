@@ -84,7 +84,7 @@ export default function VariantAddSpecPage() {
 
         Swal.fire({
           title: "Added!",
-          text: "Vehicle specification has been deleted.",
+          text: result.data.message,
           icon: "success"
         });
       } catch (error) {
@@ -154,7 +154,7 @@ export default function VariantAddSpecPage() {
 
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: result.data.message,
           icon: "success"
         });
         // const response = await axios.delete(uri)

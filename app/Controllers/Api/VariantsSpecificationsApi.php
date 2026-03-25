@@ -135,7 +135,7 @@ class VariantsSpecificationsApi extends ResourceController
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add Specification",
+            "message" => "You have successfully add specification",
             "errors" => null,
         ]);
     }
