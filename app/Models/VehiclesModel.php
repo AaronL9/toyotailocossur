@@ -23,15 +23,17 @@ class VehiclesModel extends Model
     {
         $data = $this
             ->select(
-            [
-                'vehicles.vehicle_title', 
-                'vehicles.vehicle_tagline', 
-                'photos.*, variants.*',
-            ])
+                [
+                    'vehicles.vehicle_title',
+                    'vehicles.vehicle_tagline',
+                    'photos.*, variants.*',
+                ]
+            )
             ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
             ->join("photos", "photos.variant_no = variants.variant_no", "left")
             ->where('vehicles.vehicle_delete', 0)
             ->groupBy('vehicles.vehicle_no')
+            ->orderBy('RAND()')
             ->findAll(4);
 
         return $data;

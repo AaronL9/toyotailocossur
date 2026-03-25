@@ -16,6 +16,20 @@
       <p class="text-sm text-gray-500 mt-1">Manage your specification type list below.</p>
     </div>
 
+    <!-- Search Bar (outside the card) -->
+    <div class="mb-4">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
+        </div>
+        <input
+          x-model="search"
+          type="text"
+          class="py-2.5 pl-9 pr-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none bg-white"
+          placeholder="Search specifications..." />
+      </div>
+    </div>
+
     <!-- Card -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
 
@@ -48,14 +62,14 @@
       <!-- List Header -->
       <h2 class="text-xs font-semibold uppercase text-gray-400 tracking-wider mb-3">Specification List</h2>
 
-      <!-- List -->
-      <ul id="spec-list" class="flex flex-col gap-y-2">
+      <!-- Scrollable List -->
+      <ul id="spec-list" class="flex flex-col gap-y-2 max-h-72 overflow-y-auto pr-1">
         <!-- Empty State -->
         <!-- <li id="empty-state" class="text-center py-8 text-gray-400 text-sm">
           <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
           No specifications added yet.
         </li> -->
-        <template x-for="row in data" :key="row.spec_no">
+        <template x-for="row in filteredData" :key="row.spec_no">
           <li class="flex items-center justify-between px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg group hover:border-gray-300 hover:bg-gray-100 transition-colors duration-150">
             <div class="flex items-center gap-x-3">
               <span class="flex-shrink-0 w-2 h-2 rounded-full bg-primary-950"></span>
@@ -69,6 +83,14 @@
                 <i class="fa-solid fa-trash text-xs"></i>
               </button>
             </div>
+          </li>
+        </template>
+
+        <!-- No results state -->
+        <template x-if="filteredData.length === 0">
+          <li class="text-center py-8 text-gray-400 text-sm">
+            <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
+            <span x-text="search ? 'No results found for &quot;' + search + '&quot;.' : 'No specifications added yet.'"></span>
           </li>
         </template>
       </ul>
@@ -88,7 +110,7 @@
       <div class="mb-4">
         <label class="block text-sm text-left font-medium text-gray-700 mb-1">Specification Name</label>
         <input
-          x-model="$store.spec.editInput"
+          x-model="$store.specType.editInput"
           type="text"
           id="edit-input"
           value="Water Resistance"

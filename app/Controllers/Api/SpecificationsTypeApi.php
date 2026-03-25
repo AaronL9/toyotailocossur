@@ -112,7 +112,41 @@ class SpecificationsTypeApi extends ResourceController
      */
     public function update($id = null)
     {
-        //
+
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => null
+            ], 422);
+        }
+
+        $json = json_decode($this->request->getBody(), true);
+
+        $rules = [
+            'spec_type' => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $entry = [
+            'spec_title' => $json['spec_type'],
+            'spec_encode_date' => date('Y-m-d H:i:s')
+        ];
+
+        $this->model->update($id, $entry);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully updated specification type",
+            "errors" => null,
+        ]);
     }
 
     /**
@@ -124,6 +158,20 @@ class SpecificationsTypeApi extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => null
+            ], 422);
+        }
+
+        $this->model->update($id, ['spec_delete' => 1]);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully deleted specification type",
+            "errors" => null,
+        ]);
     }
 }

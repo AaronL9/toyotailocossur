@@ -10,5 +10,8 @@ declare module 'alpinejs' {
       editInput: string;
       editSpecNo: string;
     }
+    specType: {
+      editInput: string;
+    }
   }
 }
