@@ -37,6 +37,7 @@ class VariantsModel extends Model
                 'variants.variant_price_month',
                 'variants.variant_isdefault',
                 'variants.variant_isshowprice',
+                'vehicles.vehicle_no',
                 'vehicles.vehicle_title',
                 'photos.variant_filename',
                 'colors.color_title',

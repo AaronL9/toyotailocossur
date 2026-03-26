@@ -237,7 +237,7 @@
         </h3>
         <form @submit.prevent="onSubmitContact($event)" class="space-y-5" action="#" method="post">
             <?= csrf_field('csrf_field') ?>
-            <input type="hidden" name="vehicle" value="<?= $cc->variant_no ?>">
+            <input type="hidden" name="vehicle" value="<?= $cc->vehicle_no ?>">
             <div class="grid sm:grid-cols-2 gap-5">
                 <div>
                     <label for="contact-name" class="block text-sm font-medium text-slate-700 mb-1.5">Name</label>

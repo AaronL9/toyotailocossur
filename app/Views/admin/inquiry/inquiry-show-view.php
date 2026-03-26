@@ -160,10 +160,9 @@
           </div>
 
           <div class="flex flex-col gap-y-0.5">
-            <span class="text-xs text-gray-400">Vehicle No.</span>
-            <span class="text-sm font-medium text-gray-800 font-mono"><?= esc($cc->vehicle_no ?? '—') ?></span>
+            <span class="text-xs text-gray-400">Vehicle Name</span>
+            <span class="text-sm font-medium text-gray-800 font-mono"><?= esc($vehicle->vehicle_title ?? '—') ?></span>
           </div>
-
         </div>
       </div>
 
