@@ -27,7 +27,7 @@
                             <button
                                 @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading: true;"
                                 style="background-color: <?= $asset['color_hex_value'] ?>;"
-                                class="w-8 h-8 rounded-full border"></button>
+                                class="w-8 h-8 rounded-full border hover:scale-95"></button>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -105,7 +105,8 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-center lg:justify-start gap-3">
+                    <div class="flex justify-center items-center lg:justify-start gap-3">
+                        <span class="text-xs text-primary-700">Available in</span>
                         <?php foreach ($row->assets as $asset): ?>
                             <button
                                 @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading = true"

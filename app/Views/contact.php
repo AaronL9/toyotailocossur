@@ -35,9 +35,10 @@
                                 </svg>
                             </span>
                             <div>
-                                <p class="font-medium text-slate-800">Showroom address</p>
+                                <p class="font-medium text-slate-800">Address</p>
                                 <p>
-                                    123 Automotive Drive, Suite 100<br />City, State 12345
+                                    Langlangca Segundo, Candon City, 2710 Ilocos Sur
+                                    <!-- 123 Automotive Drive, Suite 100<br />City, State 12345 -->
                                 </p>
                             </div>
                         </li>
@@ -53,8 +54,9 @@
                             <div>
                                 <p class="font-medium text-slate-800">Phone</p>
                                 <p>
-                                    <a href="tel:+15551234567" class="hover:text-red-600 transition-colors">+1
-                                        (555) 123-4567</a>
+                                    077-644-0112 / 077-644-0154 <br />
+                                    077-644-0251 / 0995-631-0512 <br />
+                                    0920-966-2715 <br />
                                 </p>
                             </div>
                         </li>
@@ -70,8 +72,8 @@
                             <div>
                                 <p class="font-medium text-slate-800">Email</p>
                                 <p>
-                                    <a href="mailto:hello@example.com"
-                                        class="hover:text-red-600 transition-colors">hello@example.com</a>
+                                    <a href="mailto:customercare@toyotailocossur.com"
+                                        class="hover:text-red-600 transition-colors">customercare@toyotailocossur.com</a>
                                 </p>
                             </div>
                         </li>
@@ -85,9 +87,10 @@
                                 </svg>
                             </span>
                             <div>
-                                <p class="font-medium text-slate-800">Hours</p>
+                                <p class="font-medium text-slate-800">Office Hours</p>
                                 <p>
-                                    Mon – Fri: 9:00 AM – 7:00 PM<br />Sat: 9:00 AM – 5:00 PM
+                                    Monday - Saturday |
+                                    8:00 AM - 5:00 PM
                                 </p>
                             </div>
                         </li>
