@@ -35,6 +35,7 @@ class VariantsApi extends ResourceController
             ->like("vehicle_title", $search, "both")
             ->orlike('variant_model', $search, 'both')
             ->where('variant_delete', 0)
+            ->where('vehicle_delete', 0)
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();

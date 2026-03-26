@@ -93,8 +93,9 @@ class VehicleApi extends ResourceController
             ->select(['variants.*, vehicles.*'])
             ->join("variants", "variants.vehicle_no = vehicles.vehicle_no", 'inner')
             ->like('variant_model', $search, 'both')
-            ->where('vehicles.vehicle_no', $id)
+            ->where('variants.vehicle_no', $id)
             ->where('variant_delete', 0)
+            ->where('vehicle_delete', 0)
             ->paginate(10, "default", $page);
 
         $data = [];

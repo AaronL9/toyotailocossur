@@ -27,7 +27,11 @@ $routes->get('admin/vehicles/edit/(:segment)', "Admin\Vehicles::getEdit/$1");
 
 try {
   $db = \Config\Database::connect();
-  $dynamicRoutes = $db->table('vehicles')->get()->getResultArray();
+  $dynamicRoutes = $db->table('vehicles')
+    ->where('vehicle_delete', 0)
+    ->where('vehicle_inactive', 0)
+    ->get()
+    ->getResultArray();
 
   foreach ($dynamicRoutes as $row) {
     $uri = url_title($row['vehicle_title'], '-', true);
