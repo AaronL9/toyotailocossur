@@ -32,6 +32,8 @@ import InquiryPage from './Pages/Admin/inquiry/InquiryPage';
 import UsersCreatePage from './Pages/Admin/Users/UsersCreatePage';
 import UserModulesPage from './Pages/Admin/Users/UsersModulePage';
 import VariantAddSpecPage from './Pages/Admin/VariantsSpecifications/VariantAddSpecPage';
+import VehiclesVariantsPage from './Pages/Admin/Vehicles/VehiclesVariantsPage';
+import VehiclesVariantsCreatePage from './Pages/Admin/Vehicles/VehiclesVariantsCreatePage';
 
 const page = document.body.dataset.page;
 
@@ -43,6 +45,8 @@ const routes: Record<string, () => void> = {
   'vehicles': VehiclesPage,
   'vehicles-create': VehiclesCreatePage,
   'vehicles-edit': VehiclesEditPage,
+  'vehicles-variants': VehiclesVariantsPage,
+  'vehicles-variants-create': VehiclesVariantsCreatePage,
 
   'vehicles-category': VehicleCategoryPage,
   'vehicles-category-create': VehiclesCategoryCreatePage,

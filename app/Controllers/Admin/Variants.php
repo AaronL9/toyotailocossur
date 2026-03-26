@@ -152,7 +152,7 @@ class Variants extends AdminBaseController
     public function getPhoto($id = null)
     {
         if (!$id) {
-            return redirect()->to('admin/variants');
+            return redirect()->to('admin/vehicles');
         }
 
         $data['page'] = 'variants-upload-photo';
@@ -225,9 +225,7 @@ class Variants extends AdminBaseController
         if (!$this->validateData([], $validationRule)) {
             $msg = $this->validator->getError('userfile');
 
-            return redirect()
-                ->to("/admin/variants/photo/{$id}")
-                ->with("userfile_error", $msg);
+            return redirect()->back()->with("userfile_error", $msg);
         }
 
         $img = $this->request->getFile('userfile');
@@ -268,21 +266,19 @@ class Variants extends AdminBaseController
 
                 db_connect()->transComplete();
             } catch (DatabaseException $e) {
-                return redirect()->to("/admin/variants/photo/{$id}")->with('error', 'Something went wrong');
+                return redirect()->back()->with('error', 'Something went wrong');
             }
 
-            return redirect()->to("/admin/variants/photo/{$id}")->with('success', 'Image has been uploaded successfully');
+            return redirect()->back()->with('success', 'Image has been uploaded successfully');
         }
 
-        return redirect()
-            ->to("/admin/variants/photo/{$id}")
-            ->with("userfile_error", "The file has already been moved.");
+        return redirect()->back()->with("userfile_error", "The file has already been moved.");
     }
 
     public function postUploadGallery($id = null)
     {
         if (!$id) {
-            return redirect()->to("/admin/variants");
+            return redirect()->back();
         }
 
         $validationRule = [
@@ -301,7 +297,7 @@ class Variants extends AdminBaseController
             $msg = $this->validator->getError('userfile');
 
             return redirect()
-                ->to("/admin/variants/gallery/{$id}")
+                ->back()
                 ->with("userfile_error", $msg);
         }
 
@@ -329,11 +325,11 @@ class Variants extends AdminBaseController
                 'variant_type' => $filetype
             ]);
 
-            return redirect()->to("/admin/variants/gallery/{$id}")->with('success', 'Image has been uploaded successfully');
+            return redirect()->back()->with('success', 'Image has been uploaded successfully');
         }
 
         return redirect()
-            ->to("/admin/variants/photo/{$id}")
+            ->back()
             ->with("userfile_error", "The file has already been moved.");
     }
 
@@ -358,7 +354,7 @@ class Variants extends AdminBaseController
     public function deleteGalleryPhoto($id, $variant_no)
     {
         if (!$id | !$variant_no) {
-            return redirect()->to("/admin/variants");
+            return redirect()->back();
         }
 
         $photo = $this->photoModel->find($id);
@@ -370,13 +366,13 @@ class Variants extends AdminBaseController
 
         $this->photoModel->delete($id);
 
-        return redirect()->to("/admin/variants/gallery/{$variant_no}")->with('success', 'Image has been deleted successfully');
+        return redirect()->back()->with('success', 'Image has been deleted successfully');
     }
 
     public function deleteVariantPhoto($id = null)
     {
         if (!$id) {
-            return redirect()->to("/admin/variants");
+            return redirect()->back();
         }
 
         $photo = $this->photoModel->find($id);

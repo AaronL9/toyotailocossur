@@ -3,6 +3,25 @@
 <?= $this->section("page") ?>
 
 <div class="w-full max-w-3xl px-2 flex flex-col gap-6">
+  <nav class="mb-5" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-1.5 text-sm text-gray-500">
+      <li><a href="/admin/vehicles" class="hover:text-gray-800 transition-colors">Vehicles</a></li>
+      <li>
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </li>
+      <li>
+        <a href="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>" class="hover:text-gray-800 transition-colors"><?= $cc->vehicle_title ?></a>
+      </li>
+      <li>
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </li>
+      <li class="font-medium text-gray-800">Gallery</li>
+    </ol>
+  </nav>
 
   <!-- Page Header -->
   <div>
@@ -27,7 +46,7 @@
     <h2 class="text-xs font-semibold uppercase text-gray-400 tracking-wider mb-4">Upload New Photo</h2>
 
     <form
-      action="<?= site_url('admin/variants/upload-gallery/' . esc($cc->variant_no)) ?>"
+      action="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>/variant/gallery/<?= $cc->variant_no ?>"
       method="post"
       enctype="multipart/form-data"
       class="flex flex-col gap-5"
@@ -88,6 +107,19 @@
           <i class="fa-solid fa-xmark mr-1"></i>Clear
         </button>
       </div>
+
+      <!-- Flash: success -->
+      <?php if (session()->getFlashdata('success')): ?>
+        <div class="bg-green-50 border border-green-200 text-sm text-green-800 rounded-lg p-4" role="alert">
+          <div class="flex gap-x-3">
+            <svg class="shrink-0 size-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <p class="font-medium"><?= session()->getFlashdata('success') ?></p>
+          </div>
+        </div>
+      <?php endif; ?>
 
       <!-- Error Alert -->
       <?php if (session()->getFlashdata('userfile_error')): ?>
@@ -160,7 +192,7 @@
 
             <!-- Delete -->
             <form
-              action="admin/variants/gallery-photo/<?= $photo->photo_no ?>/<?= $photo->variant_no ?>"
+              action="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>/variant/gallery/<?= $photo->photo_no ?>/<?= $photo->variant_no ?>"
               method="post"
               onsubmit="return confirm('Delete this photo? This cannot be undone.')">
               <input type="hidden" name="_method" value="DELETE">

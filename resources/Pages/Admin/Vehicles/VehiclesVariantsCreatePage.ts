@@ -8,13 +8,24 @@ const VariantsPostApiSchema = z.object({
   errors: z.nullable(z.record(z.string(), z.string()))
 })
 
+// interface SpecData {
+//   vs_id: string
+//   vs: string
+//   scat_id: string
+//   scat: string
+//   spec_type_id: string
+//   spec_type: string
+// }
+
 type VariantsValidation = z.infer<typeof VariantsPostApiSchema>["errors"];
 
-export default function VariantsUpdatePage() {
-  Alpine.data("VariantsUpdate", (csrf_token: string = "") => ({
+export default function VehiclesVariantsCreatePage() {
+  Alpine.data("VariantsCreate", (csrf_token: string = "") => ({
     csrf_token,
     validation: null as VariantsValidation,
     loading: false,
+    isValid: true,
+    validationMessage: 'Something went wrong',
 
     async onDefaultToggle(e: Event) {
       const input = e.currentTarget;
@@ -30,6 +41,7 @@ export default function VariantsUpdatePage() {
         showCancelButton: true,
         confirmButtonText: "Yes, set as default",
         cancelButtonText: "Cancel",
+        confirmButtonColor: "#b91c1c",
       });
 
       if (!result.isConfirmed) {
@@ -37,17 +49,15 @@ export default function VariantsUpdatePage() {
       }
     },
 
-    async update(e: Event) {
+    async add(e: Event) {
       this.loading = true;
 
       const form = e.currentTarget;
 
       if (!(form instanceof HTMLFormElement)) return;
 
-      const uri = form.getAttribute("action") as string;
-
       try {
-        const { data } = await axios.put(uri, form, {
+        const { data } = await axios.post("/api/variants", form, {
           headers: { "Content-Type": "application/json" }
         });
 
@@ -56,13 +66,14 @@ export default function VariantsUpdatePage() {
         if (!result.success) return console.log(result.error);
 
         Swal.fire({
-          title: 'Updated',
+          title: 'Added',
           text: result.data.message,
           icon: 'success'
         });
 
         this.csrf_token = result.data.csrf_token;
         this.validation = null;
+        form.reset();
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {
           const data = error.response.data;

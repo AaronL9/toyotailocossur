@@ -15,9 +15,16 @@ const VehiclesApi = z.object({
     id: z.string(),
     name: z.string(),
     categories: z.array(z.string()),
-    tagline: z.nullable(z.string())
+    tagline: z.nullable(z.string()),
+    uri: z.string(),
+    inactive: z.boolean(),
   }))
 })
+
+const ToggleResponseSchema = z.object({
+  csrf_token: z.string(),
+  message: z.string(),
+});
 
 type VehiclesArray = z.infer<typeof VehiclesApi>["vehicles"];
 type pageDetails = z.infer<typeof VehiclesApi>["pageDetails"];
@@ -78,6 +85,34 @@ export default function VehiclesPage() {
       uri.searchParams.append("search", target.value);
 
       this.init(uri.toString());
+    },
+
+    async toggleActive(id: string, active: boolean) {
+      console.log(+!active)
+      try {
+        const { data } = await axios.patch(
+          `/api/vehicle/${id}`,
+          { inactive: +!active, csrf_token: this.csrf_token }
+        );
+
+        const result = ToggleResponseSchema.safeParse(data);
+        if (!result.success) throw result.error;
+
+        this.csrf_token = result.data.csrf_token;
+        Swal.fire({
+          title: "Success",
+          text: result.data.message,
+          icon: "success",
+        });
+      } catch (error) {
+        console.error(error);
+
+        await Swal.fire({
+          title: "Error",
+          text: "Failed to update variant status.",
+          icon: "error",
+        });
+      }
     },
 
     async deleteRow(id: string) {

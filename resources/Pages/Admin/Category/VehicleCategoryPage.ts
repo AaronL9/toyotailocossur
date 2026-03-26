@@ -13,7 +13,8 @@ const VehiclesCategoryApi = z.object({
   vehicle_categories: z.array(z.object({
     cat_no: z.string(),
     cat_title: z.string(),
-    cat_order: z.string()
+    cat_order: z.string(),
+    cat_inactive: z.string()
   }))
 })
 
@@ -22,6 +23,11 @@ const VehicleCategoryDeleteApi = z.object({
   csrf_token: z.string(),
   errors: z.nullable(z.record(z.string(), z.string()))
 })
+
+const ToggleResponseSchema = z.object({
+  csrf_token: z.string(),
+  message: z.string(),
+});
 
 type VehiclesCategory = z.infer<typeof VehiclesCategoryApi>["vehicle_categories"];
 type Pagination = z.infer<typeof VehiclesCategoryApi>["pagination"];
@@ -55,6 +61,33 @@ export default function VehicleCategoryPage() {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    async toggleActive(id: string, active: boolean) {
+      try {
+        const { data } = await axios.patch(
+          `/api/vehicles-category/${id}`,
+          { inactive: +!active, csrf_token: this.csrf_token }
+        );
+
+        const result = ToggleResponseSchema.safeParse(data);
+        if (!result.success) throw result.error;
+
+        this.csrf_token = result.data.csrf_token;
+        Swal.fire({
+          title: "Success",
+          text: result.data.message,
+          icon: "success",
+        });
+      } catch (error) {
+        console.error(error);
+
+        await Swal.fire({
+          title: "Error",
+          text: "Failed to update status.",
+          icon: "error",
+        });
+      }
     },
 
     async next(e: Event) {

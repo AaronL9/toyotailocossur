@@ -1,141 +1,154 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("breadcrump") ?>
-
 <?= $this->endSection() ?>
 
 <?= $this->section("page") ?>
-<div class="w-full mx-auto">
-  <div x-data="vehiclesData('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
-    <!-- Header -->
-    <div class="mb-5 flex justify-between">
-      <div class="relative max-w-xs">
-        <label for="hs-table-search" class="sr-only">Search</label>
-        <input @keyup.enter="search($event)" type="text" name="hs-table-search" id="hs-table-search" class="py-1.5 sm:py-2 px-3 ps-9 block w-full bg-layer border-layer-line shadow-2xs rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:z-10 focus:border-primary-focus focus:ring-primary-focus disabled:opacity-50 disabled:pointer-events-none" placeholder="Search for vehicles">
-        <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
-          <svg class="size-4 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-          </svg>
-        </div>
-      </div>
+<div class="w-full mx-auto" x-data="vehiclesData('<?= csrf_hash() ?>')">
 
-      <a href="/admin/vehicles/create" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-governance-form-modal">
-        Add
-      </a>
-    </div>
-
-    <!-- End Header -->
-
-    <div class="-m-1.5 overflow-x-auto">
-      <div class="p-1.5 min-w-full min-h-full inline-block align-middle">
-        <div class="rounded-lg border border-gray-200 overflow-hidden mt-1 max-h-[calc(100vh-350px)] overflow-y-auto">
-          <table id="users-table" class="min-w-full h-full divide-y divide-gray-200">
-            <thead class="bg-gray-50 sticky top-0 z-10">
-              <tr>
-                <th scope="col" class="px-2 py-3 text-start text-xs font-medium text-gray-500 uppercase"></th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Category</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Tagline</th>
-                <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 bg-white">
-              <!-- Alpine for directives -->
-              <template x-if="!loading">
-                <template x-for="vehicle in vehicles">
-                  <tr class="odd:bg-white even:bg-gray-100" x-bind:data-id="vehicle.id">
-                    <td class="px-2 py-3 whitespace-nowrap">
-                      <label class="relative inline-block w-11 h-6 cursor-pointer">
-                        <input type="checkbox" class="peer sr-only">
-                        <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary -600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
-                        <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
-                      </label>
-                    </td>
-                    <td x-text="vehicle.name" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"></td>
-                    <td x-text="vehicle.categories.join(', ')" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
-                    <td x-text="vehicle.tagline" class="px-6 py-3 whitespace-nowrap text-sm text-gray-800">100,000</td>
-                    <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
-                      <div class="inline-flex gap-x-2">
-                        <a :href="`/admin/vehicles/edit/${vehicle.id}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-orange-400 focus:outline-hidden">
-                          <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <button @click="deleteRow(vehicle.id)" type="button" data-action="delete" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </template>
-              </template>
-
-              <!-- Alpine if directives  -->
-              <template x-if="loading">
-                <tr>
-                  <td class="text-center py-5" colspan="5">
-                    <div class="animate-spin inline-block size-8 border-3 border-current border-t-transparent rounded-[999px] text-primary-600 m-auto" role="status" aria-label="loading">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
-        </div>
+  <!-- Header -->
+  <div class="flex justify-between items-center gap-3 mb-5">
+    <div class="relative max-w-xs flex-1">
+      <label for="hs-table-search" class="sr-only">Search</label>
+      <input @keyup="search($event)" type="text" id="hs-table-search"
+        class="py-2 px-3 ps-9 block w-full bg-layer border-layer-line shadow-2xs rounded-lg sm:text-sm text-foreground placeholder:text-muted-foreground-1 focus:border-primary-focus focus:ring-primary-focus"
+        placeholder="Search vehicles…">
+      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
+        <svg class="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
       </div>
     </div>
 
-    <div class="flex justify-between items-center mt-auto">
-      <p class="h-0">
-        <span x-text="pageDetails.total" class="font-medium"></span>
-        <span class="font-light">results</span>
-      </p>
-      <!-- Pagination -->
-      <nav class="flex items-center gap-x-1 mt-5" aria-label="Pagination">
-        <button @click="prev($event)" x-bind:data-uri="pageDetails.previous" type="button" class="min-h-9.5 min-w-9.5 py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none" aria-label="Previous">
-          <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6" />
-          </svg>
-          <span class="sr-only">Previous</span>
-        </button>
-
-        <div class="flex items-center gap-x-1">
-          <span x-text="pageDetails.currentPage" class="min-h-9.5 min-w-9.5 flex justify-center items-center border border-gray-200 text-gray-800 py-2 px-3 text-sm rounded-lg focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none">1</span>
-          <span class="min-h-9.5 flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm">of</span>
-          <span x-text="pageDetails.pageCount" id="total-page" class="min-h-9.5 flex justify-center items-center text-gray-500 py-2 px-1.5 text-sm">1</span>
-        </div>
-
-        <button @click="next($event)" x-bind:data-uri="pageDetails.next" type="button" class="min-h-9.5 min-w-9.5 py-2 px-2.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none" aria-label="Next">
-          <span class="sr-only">Next</span>
-          <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </button>
-      </nav>
-      <!-- End Pagination -->
-    </div>
+    <a href="/admin/vehicles/create"
+      class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary-950 border border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden">
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      Add vehicle
+    </a>
   </div>
 
-  <div id="hs-vertically-centered-scrollable-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-80 overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="hs-vertically-centered-scrollable-modal-label">
-    <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto h-[calc(100%-56px)] min-h-[calc(100%-56px)] flex items-center">
-      <div class="w-full max-h-full overflow-hidden flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto">
-        <div class="flex justify-between items-center py-3 px-4 border-b border-gray-200">
-          <h3 id="inquiry-modal-title" class="font-bold text-gray-800">
-            Modal title
-          </h3>
-        </div>
-        <div class="p-4 overflow-y-auto">
-          <div id="inquiry-modal-body" class="space-y-4">
-            <!-- Content -->
-          </div>
-        </div>
-        <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200">
-          <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" data-hs-overlay="#hs-vertically-centered-scrollable-modal">
-            Close
-          </button>
-        </div>
+  <!-- Loading state -->
+  <template x-if="loading">
+    <div class="flex justify-center py-16">
+      <div class="animate-spin inline-block size-8 border-3 border-current border-t-transparent rounded-full text-primary-600" role="status">
+        <span class="sr-only">Loading…</span>
       </div>
     </div>
+  </template>
+
+  <!-- Card grid -->
+  <template x-if="!loading">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <!-- Empty state -->
+      <template x-if="vehicles.length === 0">
+        <div class="col-span-full text-center py-16 text-gray-400 text-sm">
+          No vehicles found.
+        </div>
+      </template>
+
+      <!-- Vehicle cards -->
+      <template x-for="vehicle in vehicles" :key="vehicle.id">
+        <div class="flex flex-col gap-3 bg-white border border-gray-200 rounded-xl p-4 hover:border-accent-800 transition-colors">
+
+          <!-- Card top: icon + toggle -->
+          <div class="flex items-start justify-between">
+            <div class="size-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500">
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1m15 10h2a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1M8 17h8M7 9l1-4h8l1 4" />
+                <circle cx="7.5" cy="17.5" r="1.5" />
+                <circle cx="16.5" cy="17.5" r="1.5" />
+              </svg>
+            </div>
+
+            <!-- Active toggle -->
+            <label class="relative inline-block w-11 h-6 cursor-pointer">
+              <input type="checkbox" class="peer sr-only" :checked="!vehicle.inactive" @change="toggleActive(vehicle.id, $event.target.checked)">
+              <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors peer-checked:bg-primary-600"></span>
+              <span class="absolute top-0.5 start-0.5 size-5 bg-white rounded-full shadow-xs transition-transform peer-checked:translate-x-5"></span>
+            </label>
+          </div>
+
+          <!-- Name & tagline -->
+          <div>
+            <p x-text="vehicle.name" class="text-sm font-medium text-gray-900 leading-snug"></p>
+            <p x-text="vehicle.tagline" class="text-xs text-gray-500 mt-0.5 truncate"></p>
+          </div>
+
+          <!-- Category badges -->
+          <div class="flex flex-wrap gap-1.5">
+            <template x-for="cat in vehicle.categories" :key="cat">
+              <span x-text="cat" class="text-[11px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200"></span>
+            </template>
+          </div>
+
+          <hr class="border-gray-100">
+
+          <!-- Actions -->
+          <div class="flex gap-2 mt-auto">
+            <!-- Variants -->
+            <a :href="`/admin/vehicles/${vehicle.uri}`"
+              class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium py-1.5 px-2.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+              <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 6h16M4 12h16M4 18h7" />
+                <path d="m15 15 3 3 3-3m-3-3v6" />
+              </svg>
+              Variants
+            </a>
+
+            <!-- Edit -->
+            <a :href="`/admin/vehicles/edit/${vehicle.id}`"
+              class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium py-1.5 px-2.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+              <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z" />
+              </svg>
+              Edit
+            </a>
+
+            <!-- Delete -->
+            <button @click="deleteRow(vehicle.id)" type="button"
+              class="inline-flex items-center justify-center p-1.5 rounded-lg border border-gray-200 text-gray-400 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors">
+              <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6 18 20H6L5 6m5 0V4h4v2" />
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <!-- Footer: count + pagination -->
+  <div class="flex justify-between items-center mt-5">
+    <p class="text-sm text-gray-500">
+      <span x-text="pageDetails.total" class="font-medium text-gray-800"></span> results
+    </p>
+
+    <nav class="flex items-center gap-x-1" aria-label="Pagination">
+      <button @click="prev($event)" x-bind:data-uri="pageDetails.previous" type="button"
+        class="size-9 inline-flex justify-center items-center rounded-lg text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:pointer-events-none" aria-label="Previous">
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
+      <div class="flex items-center gap-x-1 text-sm text-gray-500">
+        <span x-text="pageDetails.currentPage" class="min-w-8 text-center border border-gray-200 text-gray-800 py-1.5 px-2 rounded-lg"></span>
+        <span>of</span>
+        <span x-text="pageDetails.pageCount"></span>
+      </div>
+      <button @click="next($event)" x-bind:data-uri="pageDetails.next" type="button"
+        class="size-9 inline-flex justify-center items-center rounded-lg text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:pointer-events-none" aria-label="Next">
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+    </nav>
   </div>
 </div>
 

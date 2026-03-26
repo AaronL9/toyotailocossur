@@ -46,7 +46,7 @@
                   <tr class="odd:bg-white even:bg-gray-100">
                     <td class="px-2 py-3 whitespace-nowrap">
                       <label class="relative inline-block w-11 h-6 cursor-pointer">
-                        <input type="checkbox" class="peer sr-only">
+                        <input @change="toggleActive(row.cat_no, $event.target.checked)" :checked="!Boolean(parseInt(row.cat_inactive))" type="checkbox" class="peer sr-only">
                         <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary -600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
                         <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
                       </label>
@@ -58,7 +58,7 @@
                         <a x-bind:href="`/admin/vehicles-category/${row.cat_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden">
                           <i class="fa-solid fa-pen-to-square"></i>
                         </a>
-                        <button @click="deleteRow(row.vcat_no)" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
+                        <button @click="deleteRow(row.cat_no)" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-neutral-600 hover:text-red-500 focus:outline-hidden del-btn">
                           <i class="fa-solid fa-trash"></i>
                         </button>
                       </div>

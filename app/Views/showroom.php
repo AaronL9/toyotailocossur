@@ -21,12 +21,14 @@
                         <ul class="space-y-0.5">
                             <!-- <a class="block py-2.5 px-3 text-black font-medium text-sm border-l-2 border-red-500 bg-red-100/80 -ml-px pl-3 rounded-r">
                             </a> -->
+                            <?php $haveDefaultActive = false ?>
                             <?php foreach ($vehicles_category as $row): ?>
                                 <li>
-                                    <a type="button" class="hs-tab-active:border-l-2 hs-tab-active:border-red-500 hs-tab-active:bg-red-100/80 hs-tab-active:font-medium block py-2.5 px-3 text-black hover:text-slate-800 hover:bg-slate-50 text-sm border-l-2 border-transparent rounded-r transition-colors <?= $row->cat_no == 1 ? "active" : "" ?>" id="vertical-tab-item-<?= $row->cat_no ?>" aria-selected="<?= $row->cat_no == 1 ? "true" : "false" ?>" data-hs-tab="#vertical-tab-<?= $row->cat_no ?>" aria-controls="vertical-tab-<?= $row->cat_no ?>" role=" tab">
+                                    <a type="button" class="hs-tab-active:border-l-2 hs-tab-active:border-red-500 hs-tab-active:bg-red-100/80 hs-tab-active:font-medium block py-2.5 px-3 text-black hover:text-slate-800 hover:bg-slate-50 text-sm border-l-2 border-transparent rounded-r transition-colors <?= $haveDefaultActive ? "" : "active" ?>" id="vertical-tab-item-<?= $row->cat_no ?>" aria-selected="<?= $row->cat_no == 1 ? "true" : "false" ?>" data-hs-tab="#vertical-tab-<?= $row->cat_no ?>" aria-controls="vertical-tab-<?= $row->cat_no ?>" role=" tab">
                                         <?= $row->cat_title ?>
                                     </a>
                                 </li>
+                                <?php $haveDefaultActive = true ?>
                             <?php endforeach; ?>
                         </ul>
                     </nav>
