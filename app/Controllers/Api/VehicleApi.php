@@ -220,7 +220,7 @@ class VehicleApi extends ResourceController
 
             return $this->respond([
                 "csrf_token" => csrf_hash(),
-                "message" => "Vehicle status change",
+                "message" => "Agent status change",
                 "errors" => null,
             ]);
         }

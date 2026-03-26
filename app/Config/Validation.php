@@ -49,12 +49,12 @@ class Validation extends BaseConfig
                 'required' => 'First Name field is required'
             ]
         ],
-        'mname' => [
-            'rules' => 'required',
-            'errors' => [
-                'required' => 'Middle Name field is required'
-            ]
-        ],
+        // 'mname' => [
+        //     'rules' => 'required',
+        //     'errors' => [
+        //         'required' => 'Middle Name field is required'
+        //     ]
+        // ],
         'lname' => [
             'rules' => 'required',
             'errors' => [

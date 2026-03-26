@@ -19,7 +19,13 @@ class Home extends BaseController
         $db = db_connect();
         $data["banners"] = $db->table("banners")->select()->get()->getResult();
         $data["vehicles"] = $this->vehicleModel->getVehiclePhotos();
-        $data["agents"] = $db->table("agents")->select()->get("4")->getResult();
+        $data["agents"] = $db
+            ->table("agents")
+            ->where('agent_inactive', 0)
+            ->where('agent_delete', 0)
+            ->select()
+            ->get("4")
+            ->getResult();
 
         return view('home', $data);
     }
