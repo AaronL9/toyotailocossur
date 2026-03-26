@@ -4,11 +4,14 @@
 <div x-data="vehiclePage()">
     <!-- Main Layout -->
     <main class="flex-1 max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
-        <div x-data="{ activeImage: '/img/variants/<?= $cc->variant_filename ?>'}" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
+        <div x-data="{ activeImage: '/img/variants/<?= $cc->variant_filename ?>', isLoading: true}" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
             <!-- Left: Vehicle Image -->
             <div class="w-full flex justify-center">
-                <div class="w-full max-w-4xl aspect-21/9 lg:aspect-video">
-                    <img :src="activeImage" class="w-full h-full object-contain" alt="" />
+                <div class="w-full max-w-4xl aspect-21/9 lg:aspect-video flex justify-center items-center">
+                    <img @load="isLoading = false" x-cloak x-show="!isLoading" :src="activeImage" class="w-full h-full object-contain" alt="" />
+                    <div x-show="isLoading" class="m-auto animate-spin inline-block size-8 border-3 border-current border-t-transparent rounded-[999px] text-primary" role="status" aria-label="loading">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
             </div>
 
@@ -22,7 +25,7 @@
                     <div class="flex justify-center lg:justify-start gap-3">
                         <?php foreach ($cc->assets as $asset): ?>
                             <button
-                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>';"
+                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading: true;"
                                 style="background-color: <?= $asset['color_hex_value'] ?>;"
                                 class="w-8 h-8 rounded-full border"></button>
                         <?php endforeach; ?>
@@ -94,15 +97,18 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             <!-- Card -->
             <?php foreach ($variants as $row): ?>
-                <div x-data="{ activeImage: '/img/variants/<?= $row->variant_filename ?>'}" class="space-y-4">
-                    <div class="min-w-full h-[120px]">
-                        <img :src="activeImage" class="w-full" alt="" />
+                <div x-data="{ activeImage: '/img/variants/<?= $row->variant_filename ?>', isLoading: true}" class="space-y-4">
+                    <div class="w-full max-w-4xl aspect-21/9 lg:aspect-video flex justify-center items-center">
+                        <img @load="isLoading = false" x-cloak x-show="!isLoading" :src="activeImage" class="w-full h-full object-contain" alt="" />
+                        <div x-show="isLoading" class="m-auto animate-spin inline-block size-8 border-3 border-current border-t-transparent rounded-[999px] text-primary" role="status" aria-label="loading">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </div>
 
                     <div class="flex justify-center lg:justify-start gap-3">
                         <?php foreach ($row->assets as $asset): ?>
                             <button
-                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>';"
+                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading = true"
                                 style="background-color: <?= $asset['color_hex_value'] ?>;"
                                 class="w-4 h-4 rounded-full border"></button>
                         <?php endforeach; ?>
@@ -306,18 +312,18 @@
 
 <!-- At the bottom before </body> -->
 <script>
-    function changeColor(btn) {
-        // Swap image
-        document.getElementById('variant-image').src = btn.dataset.image;
+    // function changeColor(btn) {
+    //     // Swap image
+    //     document.getElementById('variant-image').src = btn.dataset.image;
 
-        // Reset all buttons
-        document.querySelectorAll('[data-image]').forEach(b => {
-            b.classList.remove('ring-2', 'ring-offset-2', 'ring-gray-400');
-        });
+    //     // Reset all buttons
+    //     document.querySelectorAll('[data-image]').forEach(b => {
+    //         b.classList.remove('ring-2', 'ring-offset-2', 'ring-gray-400');
+    //     });
 
-        // Highlight selected
-        btn.classList.add('ring-2', 'ring-offset-2', 'ring-gray-400');
-    }
+    //     // Highlight selected
+    //     btn.classList.add('ring-2', 'ring-offset-2', 'ring-gray-400');
+    // }
 </script>
 
 <?= $this->endSection() ?>
