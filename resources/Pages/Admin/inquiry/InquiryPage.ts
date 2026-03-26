@@ -11,6 +11,7 @@ const PaginationSchema = z.object({
 
 const InquirySchema = z.object({
   inquiry_no: z.string(),
+  vehicle_no: z.nullable(z.string()),
   inquiry_milage: z.nullable(z.string()),
   inquiry_plateno: z.nullable(z.string()),
   inquiry_name: z.nullable(z.string()),

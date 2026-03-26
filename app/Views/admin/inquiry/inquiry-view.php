@@ -82,7 +82,7 @@
                     </td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <div class="inline-flex gap-x-2">
-                        <a x-bind:href="`/admin/inquiry/${row.inquiry_no}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden" title="View">
+                        <a x-bind:href="`/admin/inquiry/${row.inquiry_no}${row.vehicle_no ? '/' + row.vehicle_no : ''}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden" title="View">
                           <i class="fa-solid fa-eye"></i>
                         </a>
                       </div>
