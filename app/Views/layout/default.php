@@ -13,7 +13,7 @@
 
 <body class=" flex flex-col min-h-screen">
     <?= $this->include('data-privacy') ?>
-    
+
     <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-black text-sm py-3 sticky top-0 z-50">
         <nav class="max-w-340 w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between">
             <a href="/" class="flex-none text-xl font-semibold dark:text-white focus:outline-hidden focus:opacity-80"
@@ -76,7 +76,7 @@
                 <div>
                     <img src="/img/ilocos-sur-white-DHIjoD-c.png" class="h-10 bg-center w-auto" />
                     <p class="text-gray-300 text-sm pt-8">
-                        Langlangca 2nd, Candon City, Ilocos sur
+                        Langlangca Segundo, Candon City, 2710
                     </p>
                 </div>
                 <div>
@@ -85,16 +85,16 @@
                     </h6>
                     <ul class="space-y-1 text-sm">
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-white">Home</a>
+                            <a href="/" class="text-gray-300 hover:text-white">Home</a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-white">Showroom</a>
+                            <a href="showroom" class="text-gray-300 hover:text-white">Showroom</a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-300 hover:text-white">About Us</a>
+                            <a href="#team" class="text-gray-300 hover:text-white">About Us</a>
                         </li>
                         <li>
-                            <a href="#news" class="text-gray-300 hover:text-white">Contact Us</a>
+                            <a href="contact" class="text-gray-300 hover:text-white">Contact Us</a>
                         </li>
                     </ul>
                 </div>
@@ -103,8 +103,7 @@
                         Office Hours
                     </h6>
                     <div class="text-sm text-gray-300 space-y-1">
-                        <p>Mon – Fri: 8:00 AM – 5:00 PM</p>
-                        <p>Saturday: 8:00 AM – 12:00 PM</p>
+                        <p>Mon – Saturday: 8:00 AM – 5:00 PM</p>
                         <p>Sunday: Closed</p>
                     </div>
                 </div>

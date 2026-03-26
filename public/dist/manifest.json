@@ -16,7 +16,7 @@
     "name": "sweetalert2.esm.all"
   },
   "admin.ts": {
-    "file": "assets/admin-D08wrM_l.js",
+    "file": "assets/admin-Bb8UNUcA.js",
     "name": "admin",
     "src": "admin.ts",
     "isEntry": true,
@@ -24,7 +24,7 @@
       "_sweetalert2.esm.all-EY4O3mLn.js"
     ],
     "css": [
-      "assets/admin-CdlUXTWN.css"
+      "assets/admin-BJZbx1qp.css"
     ],
     "assets": [
       "assets/fa-brands-400-BP5tdqmh.woff2",
@@ -33,7 +33,7 @@
     ]
   },
   "main.ts": {
-    "file": "assets/main-pHjrQ-ls.js",
+    "file": "assets/main-DQO5uTek.js",
     "name": "main",
     "src": "main.ts",
     "isEntry": true,
@@ -41,7 +41,7 @@
       "_sweetalert2.esm.all-EY4O3mLn.js"
     ],
     "css": [
-      "assets/main-Bjq3fvak.css"
+      "assets/main-sR3wuZCx.css"
     ]
   }
 }
