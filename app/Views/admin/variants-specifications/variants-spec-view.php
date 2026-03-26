@@ -2,6 +2,19 @@
 <?= $this->section("page") ?>
 
 <div x-data="VariantAddSpec('<?= csrf_hash() ?>', '<?= $id ?>')" class="w-full max-w-3xl space-y-3">
+  <nav class="mb-5" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-1.5 text-sm text-gray-500">
+      <li><a href="/admin/vehicles" class="hover:text-gray-800 transition-colors">Vehicles</a></li>
+      <li><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg></li>
+      <li><a href="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>" class="hover:text-gray-800 transition-colors"><?= $cc->vehicle_title ?></a></li>
+      <li><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg></li>
+      <li class="font-medium text-gray-800">Specifications</li>
+    </ol>
+  </nav>
 
   <!-- Page Header -->
   <div class="flex items-center justify-between mb-5">

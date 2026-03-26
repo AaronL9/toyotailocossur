@@ -33,7 +33,7 @@ class VehicleApi extends ResourceController
         $this->model->db->transStart();
 
         $vehicles = $this->model
-            ->select('vehicle_title, vehicle_no, vehicle_tagline')
+            ->select('*')
             ->like("vehicle_title", $search, "both")
             ->where('vehicle_delete', 0)
             ->paginate(10, "default", $page);
@@ -52,7 +52,10 @@ class VehicleApi extends ResourceController
                 'id' => $row->vehicle_no,
                 'name' => $row->vehicle_title,
                 'tagline' => $row->vehicle_tagline,
-                'categories' => array_map(fn($val) => $val['cat_title'], $categories)
+                'categories' => array_map(fn($val) => $val['cat_title'], $categories),
+                'uri' => url_title($row->vehicle_title, '-', true),
+                'inactive' => (bool) $row->vehicle_inactive
+
             ];
         }
 
@@ -75,7 +78,41 @@ class VehicleApi extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => 'Not found',
+            ], 404);
+        }
+
+        $page = $this->request->getGet("page") ?? 1;
+        $search = $this->request->getGet("search") ?? "";
+
+        $variants = $this->model
+            ->select(['variants.*, vehicles.*'])
+            ->join("variants", "variants.vehicle_no = vehicles.vehicle_no", 'inner')
+            ->like('variant_model', $search, 'both')
+            ->where('vehicles.vehicle_no', $id)
+            ->where('variant_delete', 0)
+            ->paginate(10, "default", $page);
+
+        $data = [];
+        foreach ($variants as $row) {
+            $data[] = [
+                'id' => $row->variant_no,
+                'model' => $row->variant_model,
+                'isdefault' => (bool) $row->variant_isdefault,
+                'inactive' => (bool) $row->variant_inactive
+            ];
+        }
+
+        $pageDetails = $this->model->pager->getDetails();
+
+        return $this->respond([
+            "pagination" => $pageDetails,
+            "variants" => $data
+        ]);
     }
 
     /**
@@ -178,6 +215,17 @@ class VehicleApi extends ResourceController
 
         // return $this->respond(["data from server" => $json]);
 
+        if (isset($json['inactive'])) {
+            $this->model->update($id, ['vehicle_inactive' => $json['inactive']]);
+
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Agent status change",
+                "errors" => null,
+            ]);
+        }
+
+
         if (!$this->validate('vehicle')) {
             return $this->respond([
                 "csrf_token" => csrf_hash(),
@@ -234,7 +282,7 @@ class VehicleApi extends ResourceController
      */
     public function delete($id = null)
     {
-         if (!$id) {
+        if (!$id) {
             return $this->respond([
                 "csrf_token" => csrf_hash(),
                 "message" => "No resources found",
@@ -245,9 +293,9 @@ class VehicleApi extends ResourceController
         $this->model->update($id, ['vehicle_delete' => 1]);
 
         return $this->respond([
-                "csrf_token" => csrf_hash(),
-                "message" => "You have successfully delete a vehicle",
-                "errors" => null,
-            ]);
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully delete a vehicle",
+            "errors" => null,
+        ]);
     }
 }

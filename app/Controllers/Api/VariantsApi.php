@@ -34,6 +34,7 @@ class VariantsApi extends ResourceController
             ->join("vehicles", "variants.vehicle_no = vehicles.vehicle_no", 'inner')
             ->like("vehicle_title", $search, "both")
             ->orlike('variant_model', $search, 'both')
+            ->where('variant_delete', 0)
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();
@@ -120,7 +121,7 @@ class VariantsApi extends ResourceController
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add vehicle category",
+            "message" => "You have successfully add variants",
             "errors" => null,
         ]);
     }
@@ -154,7 +155,18 @@ class VariantsApi extends ResourceController
             ], 400);
         }
 
+
         $json = json_decode($this->request->getBody(), true);
+
+        if (isset($json['inactive'])) {
+            $this->model->update($id, ['variant_inactive' => $json['inactive']]);
+
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Variant status change",
+                "errors" => null,
+            ]);
+        }
 
         $rules = [
             'vehicle' => 'required',
@@ -188,7 +200,7 @@ class VariantsApi extends ResourceController
             }
         }
 
-        $isInserted = $this->model->update($id, $data, false);
+        $isInserted = $this->model->update($id, $data);
 
         if (!$isInserted) {
             return $this->respond([
@@ -200,7 +212,7 @@ class VariantsApi extends ResourceController
 
         return $this->respond([
             "csrf_token" => csrf_hash(),
-            "message" => "You have successfully add vehicle category",
+            "message" => "You have successfully updated variant",
             "errors" => null,
         ]);
     }
@@ -214,6 +226,20 @@ class VariantsApi extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => null,
+            ]);
+        }
+
+        $this->model->update($id, ['variant_delete' => 1]);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully deleted a variant",
+            "errors" => null,
+        ]);
     }
 }

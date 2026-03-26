@@ -131,6 +131,16 @@ class AgentsApi extends ResourceController
 
         $json = json_decode($this->request->getBody(), true);
 
+        if (isset($json['inactive'])) {
+            $this->model->update($id, ['agent_inactive' => $json['inactive']]);
+
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Agent status change",
+                "errors" => null,
+            ]);
+        }
+
         if (!$this->validate('agents')) {
             return $this->respond([
                 "csrf_token" => csrf_hash(),

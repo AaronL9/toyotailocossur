@@ -7,6 +7,26 @@
 <?= $this->section("page") ?>
 <div class="w-full max-w-3xl px-2">
 
+  <nav class="mb-5" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-1.5 text-sm text-gray-500">
+      <li><a href="/admin/vehicles" class="hover:text-gray-800 transition-colors">Vehicles</a></li>
+      <li>
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </li>
+      <li>
+        <a href="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>" class="hover:text-gray-800 transition-colors"><?= $cc->vehicle_title ?></a>
+      </li>
+      <li>
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </li>
+      <li class="font-medium text-gray-800">Add photo</li>
+    </ol>
+  </nav>
+
   <!-- Page Header -->
   <div class="mb-6">
     <h1 class="text-2xl font-bold text-gray-800">Variant Photo</h1>
@@ -30,7 +50,7 @@
     <h2 class="text-xs font-semibold uppercase text-gray-400 tracking-wider mb-4">Upload New Photo</h2>
 
     <form
-      action="<?= site_url('admin/variants/upload-photo/' . esc($cc->variant_no)) ?>"
+      action="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>/variant/photo/<?= $cc->variant_no ?>"
       method="post"
       enctype="multipart/form-data"
       class="flex flex-col gap-5"
@@ -240,7 +260,8 @@
 
               <!-- Delete form (standard POST) -->
               <form
-                action="<?= site_url('admin/variants/variant-photo/' . esc($photo->photo_no)) ?>"
+                action="/admin/vehicles/<?= url_title($cc->vehicle_title, '-', true) ?>/variant/photo/<?= $photo->photo_no ?>"
+
                 method="post"
                 onsubmit="return confirm('Delete this photo? This cannot be undone.')">
                 <?= csrf_field() ?>

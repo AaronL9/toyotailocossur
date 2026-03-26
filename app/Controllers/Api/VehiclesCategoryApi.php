@@ -140,6 +140,16 @@ class VehiclesCategoryApi extends ResourceController
 
         $json = json_decode($this->request->getBody(), true);
 
+        if (isset($json['inactive'])) {
+            $this->model->update($id, ['cat_inactive' => $json['inactive']]);
+
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Category status change",
+                "errors" => null,
+            ]);
+        }
+
         $rules = [
             'category_name' => 'required',
             'order' => 'required'

@@ -22,7 +22,7 @@ class Showroom extends BaseController
 
     public function getIndex()
     {
-        $data["vehicles_category"] = $this->categoryModel->findAll();
+        $data["vehicles_category"] = $this->categoryModel->where('cat_delete', 0)->where('cat_inactive', 0)->findAll();
 
         $subQuery = $this->vehicleModel->builder('photos p')
             ->select('p.photo_no, p.variant_filename, p.variant_no')
