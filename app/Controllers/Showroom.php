@@ -42,8 +42,12 @@ class Showroom extends BaseController
             ->join('vehicles', 'vehicles.vehicle_no = vehicles_category.vehicle_no', 'left')
             ->join('categories', 'categories.cat_no = vehicles_category.cat_no')
             ->join('variants', 'variants.vehicle_no = vehicles.vehicle_no', 'inner')
-            ->join("({$subQuery}) picture", "picture.variant_no = variants.variant_no", "left")
+            ->join("({$subQuery}) picture", "picture.variant_no = variants.variant_no", "inner")
+            ->where('vehicles.vehicle_inactive', 0)
             ->where('vehicles.vehicle_delete', 0)
+            ->where('variants.variant_inactive', 0)
+            ->where('variants.variant_delete', 0)
+            ->where('variants.variant_isdefault', 1)
             ->groupBy(['vehicles.vehicle_no', 'vehicles_category.cat_no'])
             ->get()
             ->getResultObject();
