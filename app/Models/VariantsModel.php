@@ -48,6 +48,8 @@ class VariantsModel extends Model
             ->join('colors', 'colors.color_no = photos.color_no', 'left')
             ->where('variants.vehicle_no', $vehicleNo)
             ->where('photos.variant_isprimary', 1)
+            ->where('variants.variant_delete', 0)
+            ->where('variants.variant_inactive', 0)
             ->groupBy('variants.variant_no')
             ->get()
             ->getResultArray();
