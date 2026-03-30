@@ -55,7 +55,8 @@
                         "home" => "/",
                         "showroom" => "/showroom",
                         "about us" => "#team",
-                        "contact us" => "/contact"
+                        "contact us" => "/contact",
+                        "csr" => "/csr"
                     ] ?>
 
                     <?php foreach ($links as $key => $value): ?>
@@ -89,6 +90,9 @@
                         </li>
                         <li>
                             <a href="showroom" class="text-gray-300 hover:text-white">Showroom</a>
+                        </li>
+                        <li>
+                            <a href="csr" class="text-gray-300 hover:text-white"> CSR </a>
                         </li>
                         <li>
                             <a href="#team" class="text-gray-300 hover:text-white">About Us</a>
