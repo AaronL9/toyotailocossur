@@ -36,6 +36,7 @@ class VehicleApi extends ResourceController
             ->select('*')
             ->like("vehicle_title", $search, "both")
             ->where('vehicle_delete', 0)
+            ->orderBy('vehicle_title')
             ->paginate(10, "default", $page);
 
         $data = [];
@@ -55,7 +56,6 @@ class VehicleApi extends ResourceController
                 'categories' => array_map(fn($val) => $val['cat_title'], $categories),
                 'uri' => url_title($row->vehicle_title, '-', true),
                 'inactive' => (bool) $row->vehicle_inactive
-
             ];
         }
 

@@ -35,6 +35,7 @@ class VehiclesCategoryApi extends ResourceController
             ->select()
             ->like("cat_title", $search, "both")
             ->where("cat_delete", 0)
+            ->orderBy('cat_title')
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();

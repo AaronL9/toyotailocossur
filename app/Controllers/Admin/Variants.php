@@ -142,8 +142,8 @@ class Variants extends AdminBaseController
         $model = new VehiclesModel();
 
         $data['vehicles'] = $model->findAll();
-        $data['spec_categories'] = $this->specificationsCategoryModel->where('scat_delete', 0)->findAll();
-        $data['spec_type'] = $this->specTypeModel->where('spec_delete', 0)->findAll();
+        $data['spec_categories'] = $this->specificationsCategoryModel->where('scat_delete', 0)->orderBy('scat_title')->findAll();
+        $data['spec_type'] = $this->specTypeModel->where('spec_delete', 0)->orderBy('spec_title')->findAll();
         $data['id'] = $id;
 
         return view('admin/variants-specifications/variants-spec-view', $data);

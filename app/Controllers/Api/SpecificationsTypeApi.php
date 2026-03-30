@@ -27,7 +27,7 @@ class SpecificationsTypeApi extends ResourceController
      */
     public function index()
     {
-        $data = $this->model->where('spec_delete', 0)->findAll();
+        $data = $this->model->where('spec_delete', 0)->orderBy('spec_title')->findAll();
 
         return $this->respond([
             'specifications_type' => $data,

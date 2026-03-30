@@ -54,9 +54,10 @@
                             <div>
                                 <p class="font-medium text-slate-800">Phone</p>
                                 <p>
-                                    077-644-0112 / 077-644-0154 <br />
-                                    077-644-0251 / 0995-631-0512 <br />
-                                    0920-966-2715 <br />
+                                    0995-631-0512 / 0920-966-2715 <br />
+                                    077-644-0112 - Vehicle Sales Department <br>
+                                    077-644-0154 - Customer Relations Department <br>
+                                    077-644-0251 - Service Department
                                 </p>
                             </div>
                         </li>

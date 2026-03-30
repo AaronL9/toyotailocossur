@@ -68,7 +68,7 @@
 
       <!-- Variant Model -->
       <div>
-        <label for="model" class="block text-sm font-medium mb-2">Variant Model</label>
+        <label for="model" class="block text-sm font-medium mb-2">Variant Model <span class="text-red-600">*</span></label>
         <input
           type="text"
           id="model"
