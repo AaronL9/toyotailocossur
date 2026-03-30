@@ -28,7 +28,7 @@ class SpecificationsCategoryApi extends ResourceController
      */
     public function index()
     {
-        $data = $this->model->where('scat_delete', 0)->findAll();
+        $data = $this->model->where('scat_delete', 0)->orderBy('scat_title')->findAll();
 
         return $this->respond([
             'specifications' => $data,

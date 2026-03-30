@@ -276,24 +276,55 @@
     <!-- SweetAlert2 template: Preline accordion (popup uses customClass for container style) -->
     <template id="swal-vehicles-accordion">
         <swal-html>
-            <div class="hs-accordion-group">
+            <div class="hs-accordion-group space-y-2" data-hs-accordion-always-open>
                 <template x-for="(value, index) in $store.fullSpec">
-                    <div class="hs-accordion" :id="`hs-basic-heading-${index}`">
-                        <button class="hs-accordion-toggle hs-accordion-active:text-accent-600 px-6 py-3 inline-flex items-center gap-x-3 text-sm w-full font-semibold text-start text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none" aria-expanded="false" :aria-controls="`hs-basic-collapse-${index}`">
-                            <svg class="hs-accordion-active:hidden hs-accordion-active:text-accent-600 hs-accordion-active:group-hover:text-accent-600 block size-4 text-gray-600 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14"></path>
-                                <path d="M12 5v14"></path>
+                    <div class="hs-accordion active overflow-hidden rounded-xl border border-gray-200 bg-white"
+                        :id="`hs-spec-heading-${index}`">
+
+                        <button
+                            class="hs-accordion-toggle w-full flex items-center gap-2.5 px-[18px] py-[14px]
+                       text-left hover:bg-gray-50 focus:outline-none transition-colors duration-150"
+                            aria-expanded="true"
+                            :aria-controls="`hs-spec-collapse-${index}`">
+
+                            <!-- Grid icon -->
+                            <span class="flex-shrink-0 flex items-center justify-center w-[18px] h-[18px]
+                             rounded bg-gray-100 border border-accent-200">
+                                <svg class="w-2.5 h-2.5 text-accent-400" viewBox="0 0 10 10" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                    <rect x="1" y="1" width="3.5" height="3.5" rx="0.5" />
+                                    <rect x="5.5" y="1" width="3.5" height="3.5" rx="0.5" />
+                                    <rect x="1" y="5.5" width="3.5" height="3.5" rx="0.5" />
+                                    <rect x="5.5" y="5.5" width="3.5" height="3.5" rx="0.5" />
+                                </svg>
+                            </span>
+
+                            <!-- Section label -->
+                            <span x-text="index"
+                                class="uppercase tracking-wide text-[11px] font-medium text-gray-500">
+                            </span>
+
+                            <!-- Chevron -->
+                            <svg class="hs-accordion-active:rotate-180 ml-auto w-3.5 h-3.5 text-gray-400
+                            transition-transform duration-200"
+                                viewBox="0 0 14 14" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 5l4 4 4-4" />
                             </svg>
-                            <svg class="hs-accordion-active:block hs-accordion-active:text-accent-600 hs-accordion-active:group-hover:text-accent-600 hidden size-4 text-gray-600 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14"></path>
-                            </svg>
-                            <span x-text="index"></span>
                         </button>
-                        <div :id="`hs-basic-collapse-${index}`" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region" :aria-labelledby="`hs-basic-heading-${index}`">
-                            <template x-for="row in value">
-                                <div class="pb-4 px-6 flex justify-between">
-                                    <p x-text="row.spec_title" class="text-sm capitalize text-gray-600"></p>
-                                    <p x-text="row.vs_value" class="w-44 text-right text-sm text-gray-600"></p>
+
+                        <div :id="`hs-spec-collapse-${index}`"
+                            class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 border-t border-gray-100"
+                            role="region"
+                            :aria-labelledby="`hs-spec-heading-${index}`">
+
+                            <template x-for="(row, rowIndex) in value">
+                                <div class="flex items-center justify-between gap-4 px-[18px] py-2.5"
+                                    :class="rowIndex < value.length - 1 ? 'border-b border-gray-100' : ''">
+                                    <p x-text="row.spec_title"
+                                        class="text-[13px] capitalize text-gray-500"></p>
+                                    <p x-text="row.vs_value"
+                                        class="text-[13px] font-medium text-gray-800 text-right max-w-[180px]"></p>
                                 </div>
                             </template>
                         </div>

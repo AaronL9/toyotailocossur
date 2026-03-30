@@ -36,7 +36,7 @@
 
       <!-- Vehicle Title -->
       <div>
-        <label for="title" class="block text-sm font-medium mb-2">Vehicle Name</label>
+        <label for="title" class="block text-sm font-medium mb-2">Vehicle Name <span class="text-red-600">*</span></label>
         <input
           type="text"
           id="title"
@@ -48,7 +48,7 @@
 
       <!-- Tagline -->
       <div>
-        <label for="tagline" class="block text-sm font-medium mb-2">Tagline</label>
+        <label for="tagline" class="block text-sm font-medium mb-2">Tagline <span class="text-red-600">*</span></label>
         <input
           type="text"
           id="tagline"
@@ -60,7 +60,7 @@
 
       <!-- Select -->
       <div>
-        <label for="hs-multiple-with-option-template" class="block text-sm font-medium mb-2">Vehicle Category</label>
+        <label for="hs-multiple-with-option-template" class="block text-sm font-medium mb-2">Vehicle Category <span class="text-red-600">*</span></label>
         <select id="hs-multiple-with-option-template" name="categories[]" multiple data-hs-select='{
           "placeholder": "Select multiple options...",
           "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
