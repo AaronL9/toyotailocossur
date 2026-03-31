@@ -2,7 +2,21 @@
 
 <?= $this->section("page") ?>
 <div class="w-full mx-auto">
-  <div x-data="InquiryVehicleTable('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
+  <!-- Page Header -->
+  <div class="flex items-center gap-x-3 mb-5">
+    <a href="/admin/inquiry" class="inline-flex items-center justify-center size-9 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-800 focus:outline-none">
+      <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6" />
+      </svg>
+    </a>
+    <div>
+      <h1 class="text-lg font-semibold text-gray-800">Service Appointment Scheduling</h1>
+      <p class="text-sm text-gray-500">Manage and view all service appointment requests.</p>
+    </div>
+  </div>
+  <!-- End Page Header -->
+
+  <div x-data="InquiryAppointmentTable('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
     <!-- Header -->
     <div class="mb-5 flex justify-between">
       <div class="relative max-w-xs">
@@ -26,9 +40,10 @@
               <tr>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
                 <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Email</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Vehicle</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Phone</th>
-                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Date</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Contact</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Appointment Date</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Appointment Time</th>
+                <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Requested Date</th>
                 <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
               </tr>
             </thead>
@@ -39,8 +54,9 @@
                   <tr class="odd:bg-white even:bg-gray-100">
                     <td x-text="inquiry.inquirer" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
                     <td x-text="inquiry.email" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
-                    <td x-text="inquiry.vehicle" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
                     <td x-text="inquiry.contact" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="$store.helper.formatDate(inquiry.appointment_date)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
+                    <td x-text="$store.helper.formatTime(inquiry.appointment_time)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
                     <td x-text="$store.helper.formatDate(inquiry.date)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"></td>
                     <td class="px-6 py-3 whitespace-nowrap text-end text-sm font-medium">
                       <a x-bind:href="`/admin/inquiry/contact/${inquiry.id}`" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-accent-600 hover:text-accent-400 focus:outline-hidden" title="View">
