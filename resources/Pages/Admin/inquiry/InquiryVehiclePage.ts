@@ -10,16 +10,13 @@ const PaginationSchema = z.object({
 });
 
 const InquirySchema = z.object({
-  inquiry_no: z.string(),
-  vehicle_no: z.nullable(z.string()),
-  inquiry_milage: z.nullable(z.string()),
-  inquiry_plateno: z.nullable(z.string()),
-  inquiry_name: z.nullable(z.string()),
-  inquiry_contact: z.nullable(z.string()),
-  inquiry_email: z.nullable(z.string()),
-  inquiry_date: z.nullable(z.string()),
-  inquiry_appointment_date: z.nullable(z.string()),
-  inquiry_appointment_time: z.nullable(z.string())
+  id: z.string(),
+  inquirer: z.nullable(z.string()),
+  vehicle: z.nullable(z.string()),
+  contact: z.nullable(z.string()),
+  email: z.nullable(z.string()),
+  message: z.nullable(z.string()),
+  date: z.string(),
 });
 
 const InquiryIndexApiSchema = z.object({
@@ -30,9 +27,8 @@ const InquiryIndexApiSchema = z.object({
 type Pagination = z.infer<typeof PaginationSchema>;
 type Inquiry = z.infer<typeof InquirySchema>;
 
-export default function InquiryPage() {
-  
-  Alpine.data('InquiryTable', () => ({
+export default function InquiryVehiclePage() {
+  Alpine.data("InquiryVehicleTable", () => ({
     pagination: {
       total: 0,
       currentPage: 0,
@@ -43,8 +39,7 @@ export default function InquiryPage() {
     data: [] as Inquiry[],
     loading: false,
 
-    async init(uri = '/api/inquiry') {
-
+    async init(uri = "/api/inquiry?type=vehicle") {
       try {
         const response = await axios.get(uri);
 
@@ -55,7 +50,7 @@ export default function InquiryPage() {
         } else {
           this.data = result.data.inquiries;
           this.pagination = result.data.pagination;
-          this.loading = false
+          this.loading = false;
         }
 
         console.log(response);
@@ -89,7 +84,7 @@ export default function InquiryPage() {
 
       if (!(target instanceof HTMLInputElement)) return;
 
-      const uri = new URL("/api/inquiry", location.origin);
+      const uri = new URL("/api/inquiry?type=vehicle", location.origin);
       uri.searchParams.append("search", target.value);
 
       this.init(uri.toString());
