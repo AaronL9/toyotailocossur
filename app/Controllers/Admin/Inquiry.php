@@ -23,6 +23,24 @@ class Inquiry extends AdminBaseController
 
         $data['page'] = 'inquiry';
 
-        return view('admin/inquiry/inquiry-view', $data);
+        return view('admin/inquiry/inquiry-menu-view', $data);
+    }
+
+    public function getContacts()
+    {
+        $data['page'] = 'inquiry-contact';
+        return view('admin/inquiry/inquiry-contact-view', $data);
+    }
+
+    public function getAppointments()
+    {
+        $data['page'] = 'inquiry-appointment';
+        return view('admin/inquiry/inquiry-appointment-view', $data);
+    }
+
+    public function getVehicleInquiries()
+    {
+        $data['page'] = 'inquiry-vehicle';
+        return view('admin/inquiry/inquiry-vehicle-view', $data);
     }
 }

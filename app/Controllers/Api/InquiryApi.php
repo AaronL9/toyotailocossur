@@ -28,12 +28,49 @@ class InquiryApi extends ResourceController
     {
         $page = $this->request->getGet("page") ?? 1;
         $search = $this->request->getGet("search") ?? "";
+        $inquiryType = $this->request->getGet('type') ?? '';
 
-        $data = $this->model
-            ->select()
-            ->like("inquiry_name", $search, "both")
-            ->where("inquiry_delete", 0)
-            ->paginate(10, "default", $page);
+        switch ($inquiryType) {
+            case 'contact':
+                $data = $this->model
+                    ->select([
+                        'inquiry_no as id',
+                        'inquiry_name as inquirer',
+                        'inquiry_contact as contact',
+                        'inquiry_email as email',
+                        'inquiry_content as message',
+                        'inquiry_date as date'
+                    ])
+                    ->like("inquiry_name", $search, "both")
+                    ->where('vehicle_no', null)
+                    ->where('inquiry_appointment_date', null)
+                    ->where('inquiry_appointment_time', null)
+                    ->where("inquiry_delete", 0)
+                    ->orderBy('inquiry_date', 'DESC')
+                    ->paginate(10, "default", $page);
+                break;
+
+            case 'vehicle':
+                $data = $this->model
+                    ->select([
+                        'inquiry_no as id',
+                        'inquiry_name as inquirer',
+                        'inquiry_contact as contact',
+                        'inquiry_email as email',
+                        'inquiry_content as message',
+                        'inquiry_date as date',
+                        'vehicle_title as vehicle'
+                    ])
+                    ->join('vehicles', 'vehicles.vehicle_no = inquiry.inquiry_no', 'left')
+                    ->like("inquiry_name", $search, "both")
+                    ->where('inquiry.vehicle_no IS NOT NULL')
+                    ->where('inquiry_appointment_date', null)
+                    ->where('inquiry_appointment_time', null)
+                    ->where("inquiry_delete", 0)
+                    ->orderBy('inquiry_date', 'DESC')
+                    ->paginate(10, "default", $page);
+                break;
+        }
 
         $pageDetails = $this->model->pager->getDetails();
 
