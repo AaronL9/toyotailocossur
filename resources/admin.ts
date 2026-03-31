@@ -35,6 +35,7 @@ import VehiclesVariantsPage from "./Pages/Admin/Vehicles/VehiclesVariantsPage";
 import VehiclesVariantsCreatePage from "./Pages/Admin/Vehicles/VehiclesVariantsCreatePage";
 import InquiryContactPage from "./Pages/Admin/inquiry/InquiryContactPage";
 import InquiryVehiclePage from "./Pages/Admin/inquiry/InquiryVehiclePage";
+import InquiryAppointmentPage from "./Pages/Admin/inquiry/InquiryAppointmentPage";
 
 const page = document.body.dataset.page;
 
@@ -71,6 +72,7 @@ const routes: Record<string, () => void> = {
   inquiry: InquiryPage,
   "inquiry-contact": InquiryContactPage,
   "inquiry-vehicle": InquiryVehiclePage,
+  "inquiry-appointment": InquiryAppointmentPage,
 };
 
 if (page && routes[page]) {
@@ -111,6 +113,23 @@ Alpine.store("helper", {
     });
 
     return formatted;
+  },
+
+  formatTime(value: string) {
+    const [h, m, s] = value.split(":");
+
+    const hours = Number(h);
+    const minutes = Number(m);
+    const seconds = Number(s);
+
+    const date = new Date();
+    date.setHours(hours, minutes, seconds);
+
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
   },
 });
 

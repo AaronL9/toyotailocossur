@@ -4,18 +4,23 @@
 
 <?= $this->section("sidebar"); ?>
 <!-- Navigation Toggle -->
-<div class="lg:hidden">
+<div class="lg:hidden sticky top-0 z-10">
   <nav class="w-full bg-white border-b border-gray-200 px-4 py-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
         <button type="button" class="inline-flex justify-center items-center size-9 text-gray-800 hover:bg-gray-100 rounded-lg" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-sidebar-footer" aria-label="Toggle navigation" data-hs-overlay="#hs-sidebar-footer">
-          <!-- <i class="fa-solid fa-bars fa-lg"></i> -->
-          <img src="/img/toyota-logo.png" alt="">
+          <i class="fa-solid fa-bars fa-lg"></i>
         </button>
-        <span class="font-semibold text-lg text-gray-900">Control Panel</span>
+        <div class="flex items-center gap-4">
+          <div class="leading-tight">
+            <p class="text-sm font-semibold text-gray-800 tracking-wide">Toyota Ilocos Sur</p>
+            <p class="text-[10px] text-gray-400 tracking-widest uppercase">Dealer Management System</p>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
+  <div class="h-[3px] bg-[#CC0000] w-full"></div>
 </div>
 <!-- End Navigation Toggle -->
 
@@ -24,13 +29,14 @@
   <div class="relative flex flex-col h-full">
 
     <!-- Header -->
-    <header class="p-4 border-b border-gray-200">
+    <header class="h-16 p-4">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-3">
           <!-- Logo/Icon -->
           <div class="flex items-center justify-center size-10 rounded-lg">
-            <!-- <i class="fa-solid fa-gears text-white"></i> -->
-            <img src="/img/toyota-logo.png" alt="">
+            <div class="w-9 h-9 rounded-lg bg-[#CC0000] flex items-center justify-center flex-shrink-0">
+              <img src="/img/toyota-logo.png" alt="Toyota" class="w-5 h-5 object-contain brightness-0 invert">
+            </div>
           </div>
           <div>
             <h2 class="font-semibold text-gray-900">Control Panel</h2>
@@ -126,14 +132,52 @@
 <?= $this->section('adminContent') ?>
 
 <main class="lg:ml-[255px] flex flex-col items-center">
-  <div class="w-full py-4 px-8 bg-white border-b border-gray-200 flex justify-between">
-    <?= $this->renderSection("breadcrump"); ?>
-    <img src="img/black-toyotailocossur-logo.png" alt="Logo" width="150" height="150">
-  </div>
+  <!-- Navbar -->
+  <header class="lg:block hidden w-full bg-white border-b border-gray-100 sticky top-0 z-50">
+
+    <!-- Main bar -->
+    <div class="px-8 h-16 flex items-center justify-between">
+
+      <!-- Logo + Brand Identity -->
+      <div class="flex items-center gap-4">
+        <!-- <img src="img/black-toyotailocossur-logo.png" alt="Toyota Ilocos Sur" class="h-8 w-auto object-contain"> -->
+        <!-- <span class="block w-px h-7 bg-gray-200"></span> -->
+        <div class="leading-tight">
+          <p class="text-sm font-semibold text-gray-800 tracking-wide">Toyota Ilocos Sur</p>
+          <p class="text-[10px] text-gray-400 tracking-widest uppercase">Dealer Management System</p>
+        </div>
+      </div>
+
+      <!-- Right: Status + Date -->
+      <div class="flex items-center gap-5">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs text-gray-400">System Online</span>
+        </div>
+        <span class="w-px h-4 bg-gray-200"></span>
+        <span class="text-xs text-gray-400 tabular-nums" id="navbar-date"></span>
+      </div>
+
+    </div>
+
+    <!-- Toyota Red accent line -->
+    <div class="h-[3px] bg-[#CC0000] w-full"></div>
+
+  </header>
 
   <section class="w-full px-6 py-6">
     <?= $this->renderSection("page"); ?>
   </section>
 </main>
+
+<script>
+  const el = document.getElementById('navbar-date');
+  if (el) el.textContent = new Date().toLocaleDateString('en-PH', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+</script>
 
 <?= $this->endSection() ?>

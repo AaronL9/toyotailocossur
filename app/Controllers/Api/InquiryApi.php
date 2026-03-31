@@ -70,6 +70,30 @@ class InquiryApi extends ResourceController
                     ->orderBy('inquiry_date', 'DESC')
                     ->paginate(10, "default", $page);
                 break;
+
+            case 'appointment':
+                $data = $this->model
+                    ->select([
+                        'inquiry_no as id',
+                        'inquiry_name as inquirer',
+                        'inquiry_contact as contact',
+                        'inquiry_email as email',
+                        'inquiry_content as message',
+                        'inquiry_year as vehicle_model_year',
+                        'inquiry_plateno as vehicle_plateno',
+                        'inquiry_milage as vehicle_mileage',
+                        'inquiry_appointment_date as appointment_date',
+                        'inquiry_appointment_time as appointment_time',
+                        'inquiry_date as date',
+                    ])
+                    ->like("inquiry_name", $search, "both")
+                    ->where('inquiry.vehicle_no IS NULL')
+                    ->where('inquiry_appointment_date IS NOT NULL')
+                    ->where('inquiry_appointment_time IS NOT NULL')
+                    ->where("inquiry_delete", 0)
+                    ->orderBy('inquiry_date', 'DESC')
+                    ->paginate(10, "default", $page);
+                break;
         }
 
         $pageDetails = $this->model->pager->getDetails();

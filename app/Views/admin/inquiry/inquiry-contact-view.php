@@ -2,6 +2,20 @@
 
 <?= $this->section("page") ?>
 <div class="w-full mx-auto">
+  <!-- Page Header -->
+  <div class="flex items-center gap-x-3 mb-5">
+    <a href="/admin/inquiry" class="inline-flex items-center justify-center size-9 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-800 focus:outline-none">
+      <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6" />
+      </svg>
+    </a>
+    <div>
+      <h1 class="text-lg font-semibold text-gray-800">Contact Form Submissions</h1>
+      <p class="text-sm text-gray-500">Manage and view all users who filled up the contact us form.</p>
+    </div>
+  </div>
+  <!-- End Page Header -->
+
   <div x-data="InquiryContactTable('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
     <!-- Header -->
     <div class="mb-5 flex justify-between">
