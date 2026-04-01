@@ -18,8 +18,8 @@
             <!-- ── Card 1 ── -->
             <article
                 class="csr-card rounded-2xl overflow-hidden border border-gray-100 bg-white shadow-sm flex flex-col">
-                <div class="card-img-wrap h-auto bg-gray-100">
-                    <img src="/img/CSR1.png" alt="Hearty Giving" class="w-full h-full object-cover" />
+                <div class="card-img-wrap h-56.25 bg-gray-100">
+                    <img src="/img/CSR.png" alt="Hearty Giving" class="w-full h-full object-cover" />
                 </div>
 
                 <div class="p-6 flex flex-col flex-1">

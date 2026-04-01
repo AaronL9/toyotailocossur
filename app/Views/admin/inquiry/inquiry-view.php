@@ -1,9 +1,5 @@
 <?= $this->extend("admin/layout/control-panel"); ?>
 
-<?= $this->section("breadcrump") ?>
-
-<?= $this->endSection() ?>
-
 <?= $this->section("page") ?>
 <div class="w-full mx-auto">
   <div x-data="InquiryTable('<?= csrf_hash() ?>')" class="flex flex-col border min-w-full border-gray-200 rounded-lg px-5 py-5 mx-auto">
