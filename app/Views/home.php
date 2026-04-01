@@ -7,10 +7,12 @@
     "isAutoPlay": true
   }' class="relative">
     <div class="hs-carousel relative overflow-hidden w-full h-75 sm:h-100 md:h-125 lg:h-150 shadow-lg">
-        <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+        <div
+            class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
             <?php foreach ($banners as $row): ?>
                 <div class="hs-carousel-slide relative">
-                    <img src="/img/banners/<?= $row->banner_photo ?>" class="w-full h-full object-cover" alt="Toyota Service" />
+                    <img src="/img/banners/<?= $row->banner_photo ?>" class="w-full h-full object-cover"
+                        alt="Toyota Service" />
                 </div>
             <?php endforeach; ?>
         </div>
@@ -57,7 +59,8 @@
                 <div class="group flex flex-col overflow-hidden bg-gray-100 shadow-lg">
                     <div class="relative overflow-hidden bg-gray-100">
                         <img src="/img/variants/<?= $row->variant_filename ?>" class="w-full h-64 object-contain" />
-                        <div class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white min-h-[250px]">
+                        <div
+                            class="flex flex-col flex-1 p-5 bg-linear-to-br from-gray-900 to-black text-white min-h-[250px]">
                             <h3 class="text-2xl font-semibold mb-2"><?= $row->vehicle_title ?></h3>
                             <?php if ($row->variant_isshowprice): ?>
                                 <div class="space-y-1 mb-4">
@@ -66,10 +69,11 @@
                                         PHP <?= number_format($row->variant_price, 2) ?><span class="text-sm">*</span>
                                     </p>
                                     <p class="text-gray-300">
-                                        PHP <?= number_format($row->variant_price_month, 2) ?><span class="text-sm">*</span> / month
+                                        PHP <?= number_format($row->variant_price_month, 2) ?><span class="text-sm">*</span> /
+                                        month
                                     </p>
                                 </div>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <p><?= $row->vehicle_tagline ?> </p>
                             <?php endif ?>
                             <a href="/<?= url_title($row->vehicle_title, '-', true) ?>"

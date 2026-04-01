@@ -2,14 +2,14 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\CategoryModel;
+use App\Models\CsrModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
-class CategoryApi extends ResourceController
+class CsrApi extends ResourceController
 {
 
-    protected $modelName = CategoryModel::class;
+    protected $modelName = CsrModel::class;
     protected $format = 'json';
 
     /**
@@ -17,7 +17,7 @@ class CategoryApi extends ResourceController
      */
     protected $request;
 
-    /** @var CategoryModel */
+    /** @var CsrModel */
     protected $model;
 
     /**
@@ -32,7 +32,7 @@ class CategoryApi extends ResourceController
 
         $data = $this->model
             ->select()
-            ->like("cat_title", $search, "both")
+            ->like("csr_title", $search, "both")
             ->paginate(10, "default", $page);
 
         $pageDetails = $this->model->pager->getDetails();

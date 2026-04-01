@@ -55,7 +55,8 @@
                         "home" => "/",
                         "showroom" => "/showroom",
                         "about us" => "#team",
-                        "contact us" => "/contact"
+                        "contact us" => "/contact",
+                        "csr" => "/csr"
                     ] ?>
 
                     <?php foreach ($links as $key => $value): ?>
@@ -70,7 +71,7 @@
 
     <?= $this->renderSection("mainContent") ?>
     <!-- FOOTER -->
-    <footer class="py-8 bg-black text-white">
+    <footer class="py-8 bg-black text-white mt-auto">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 items-start gap-6">
                 <div>
@@ -90,11 +91,15 @@
                         <li>
                             <a href="showroom" class="text-gray-300 hover:text-white">Showroom</a>
                         </li>
+
                         <li>
                             <a href="#team" class="text-gray-300 hover:text-white">About Us</a>
                         </li>
                         <li>
                             <a href="contact" class="text-gray-300 hover:text-white">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="csr" class="text-gray-300 hover:text-white"> CSR </a>
                         </li>
                     </ul>
                 </div>
