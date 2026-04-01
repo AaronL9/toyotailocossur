@@ -36,6 +36,7 @@ import VehiclesVariantsCreatePage from "./Pages/Admin/Vehicles/VehiclesVariantsC
 import InquiryContactPage from "./Pages/Admin/inquiry/InquiryContactPage";
 import InquiryVehiclePage from "./Pages/Admin/inquiry/InquiryVehiclePage";
 import InquiryAppointmentPage from "./Pages/Admin/inquiry/InquiryAppointmentPage";
+import CsrPage from "./Pages/Admin/Csr/CsrPage";
 
 const page = document.body.dataset.page;
 
@@ -73,6 +74,7 @@ const routes: Record<string, () => void> = {
   "inquiry-contact": InquiryContactPage,
   "inquiry-vehicle": InquiryVehiclePage,
   "inquiry-appointment": InquiryAppointmentPage,
+  csr: CsrPage,
 };
 
 if (page && routes[page]) {

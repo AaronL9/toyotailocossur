@@ -33,7 +33,7 @@ services:
       --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
       # Custom SQL mode settings for strict behavior
     ports:
-      - 3306:3306 # Map host port 3306 to container port 3306
+      - 3307:3306 # Map host port 3306 to container port 3306
     environment: # Environment variables for MySQL
       - MYSQL_ROOT_PASSWORD=market # Root password
     volumes:
