@@ -4,7 +4,7 @@ import * as z from "zod";
 import { PostResponseSchema } from "../../../schemas/api";
 
 const CsrApi = z.object({
-  pageDetails: z.object({
+  pagination: z.object({
     total: z.number(),
     currentPage: z.number(),
     pageCount: z.number(),
@@ -13,14 +13,14 @@ const CsrApi = z.object({
   }),
   data: z.array(
     z.object({
-      csr_no: z.number(),
+      csr_no: z.string(),
       csr_title: z.string(),
       csr_content: z.string(),
       csr_image: z.nullable(z.string()),
       csr_date: z.string(),
-      csr_encode: z.number(),
+      csr_encode: z.string(),
       csr_encode_date: z.string(),
-      csr_inactive: z.number(),
+      csr_inactive: z.string(),
     }),
   ),
 });
@@ -31,31 +31,33 @@ const ToggleResponseSchema = z.object({
 });
 
 type CsrArray = z.infer<typeof CsrApi>["data"];
-type PageDetails = z.infer<typeof CsrApi>["pageDetails"];
+type pagination = z.infer<typeof CsrApi>["pagination"];
 
 export default function CsrPage() {
   Alpine.data("csrData", (csrf_token: string) => ({
     csrf_token,
 
     csrList: [] as CsrArray,
-    pageDetails: {
+    pagination: {
       total: 0,
       currentPage: 0,
       pageCount: 0,
       next: null,
       previous: null,
-    } as PageDetails,
+    } as pagination,
     loading: true,
 
     async init(uri = "/api/csr") {
       const response = await fetch(uri);
-      const result = await CsrApi.safeParseAsync(await response.json());
+      const json = await response.json();
+      console.log(json);
+      const result = await CsrApi.safeParseAsync(json);
 
       if (!result.success) {
         console.error(result.error);
       } else {
         this.csrList = result.data.data;
-        this.pageDetails = result.data.pageDetails;
+        this.pagination = result.data.pagination;
         this.loading = false;
       }
     },

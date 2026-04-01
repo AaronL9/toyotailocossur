@@ -157,11 +157,11 @@
     <!-- Footer: count + pagination -->
     <div class="flex justify-between items-center mt-5">
         <p class="text-sm text-gray-500">
-            <span x-text="pageDetails.total" class="font-medium text-gray-800"></span> results
+            <span x-text="pagination.total" class="font-medium text-gray-800"></span> results
         </p>
 
         <nav class="flex items-center gap-x-1" aria-label="Pagination">
-            <button @click="prev($event)" x-bind:data-uri="pageDetails.previous" type="button"
+            <button @click="prev($event)" x-bind:data-uri="pagination.previous" type="button"
                 class="size-9 inline-flex justify-center items-center rounded-lg text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:pointer-events-none"
                 aria-label="Previous">
                 <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -169,12 +169,12 @@
                 </svg>
             </button>
             <div class="flex items-center gap-x-1 text-sm text-gray-500">
-                <span x-text="pageDetails.currentPage"
+                <span x-text="pagination.currentPage"
                     class="min-w-8 text-center border border-gray-200 text-gray-800 py-1.5 px-2 rounded-lg"></span>
                 <span>of</span>
-                <span x-text="pageDetails.pageCount"></span>
+                <span x-text="pagination.pageCount"></span>
             </div>
-            <button @click="next($event)" x-bind:data-uri="pageDetails.next" type="button"
+            <button @click="next($event)" x-bind:data-uri="pagination.next" type="button"
                 class="size-9 inline-flex justify-center items-center rounded-lg text-gray-600 hover:bg-gray-100 disabled:opacity-40 disabled:pointer-events-none"
                 aria-label="Next">
                 <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -184,98 +184,4 @@
         </nav>
     </div>
 </div>
-
-<script>
-    window.APP = {
-        flash: <?= json_encode(session()->getFlashdata()) ?>
-    }
-
-    function csrData(csrfHash) {
-        return {
-            loading: true,
-            csrList: [],
-            pageDetails: {
-                total: 0,
-                currentPage: 1,
-                pageCount: 1,
-                previous: null,
-                next: null,
-            },
-            csrfHash,
-
-            async init() {
-                await this.fetchData('/admin/csr/list');
-            },
-
-            async fetchData(uri) {
-                if (!uri) return;
-                this.loading = true;
-                try {
-                    const res = await fetch(uri, {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    });
-                    const json = await res.json();
-                    this.csrList = json.data ?? [];
-                    this.pageDetails = json.pageDetails ?? this.pageDetails;
-                } catch (e) {
-                    console.error('CSR fetch error:', e);
-                } finally {
-                    this.loading = false;
-                }
-            },
-
-            async search(e) {
-                const q = e.target.value.trim();
-                await this.fetchData(`/admin/csr/list?search=${encodeURIComponent(q)}`);
-            },
-
-            async toggleActive(id, isChecked) {
-                await fetch(`/admin/csr/toggle/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    body: JSON.stringify({
-                        inactive: isChecked ? 0 : 1,
-                        _token: this.csrfHash
-                    }),
-                });
-            },
-
-            async deleteRow(id) {
-                if (!confirm('Delete this CSR activity? This cannot be undone.')) return;
-                await fetch(`/admin/csr/delete/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    body: JSON.stringify({
-                        _token: this.csrfHash
-                    }),
-                });
-                await this.fetchData('/admin/csr/list');
-            },
-
-            prev(e) {
-                this.fetchData(e.currentTarget.dataset.uri);
-            },
-            next(e) {
-                this.fetchData(e.currentTarget.dataset.uri);
-            },
-
-            formatDate(dateStr) {
-                if (!dateStr) return '—';
-                return new Date(dateStr).toLocaleDateString('en-PH', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                });
-            },
-        };
-    }
-</script>
 <?= $this->endSection() ?>

@@ -9,6 +9,12 @@ class Csr extends AdminBaseController
 {
     public function getIndex()
     {
-        return view('admin/csr/csr-view');
+        $data['page'] = 'csr';
+        return view('admin/csr/csr-view', $data);
+    }
+
+    public function getCreate()
+    {
+        return view('admin/csr/csr-create-view');
     }
 }
