@@ -17,6 +17,7 @@ class CsrModel extends Model
         'csr_title',
         'csr_content',
         'csr_image',
+        'csr_date',
         'csr_encode',
         'csr_encode_date',
         'csr_inactive',

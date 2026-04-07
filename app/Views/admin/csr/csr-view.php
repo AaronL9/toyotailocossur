@@ -54,7 +54,7 @@
                     <!-- Cover image -->
                     <div class="relative h-36 bg-gray-100 overflow-hidden shrink-0">
                         <template x-if="csr.csr_image">
-                            <img :src="'/uploads/csr/' + csr.csr_image" :alt="csr.csr_title"
+                            <img :src="'/img/csr/' + csr.csr_image" :alt="csr.csr_title"
                                 class="w-full h-full object-cover">
                         </template>
                         <template x-if="!csr.csr_image">
@@ -71,7 +71,7 @@
                         <div class="absolute top-2 end-2">
                             <label class="relative inline-block w-11 h-6 cursor-pointer">
                                 <input type="checkbox" class="peer sr-only"
-                                    :checked="!csr.csr_inactive"
+                                    :checked="!Boolean(parseInt(csr.csr_inactive))"
                                     @change="toggleActive(csr.csr_no, $event.target.checked)">
                                 <span class="absolute inset-0 bg-gray-400/60 rounded-full transition-colors peer-checked:bg-primary-600"></span>
                                 <span class="absolute top-0.5 start-0.5 size-5 bg-white rounded-full shadow-xs transition-transform peer-checked:translate-x-5"></span>
@@ -97,35 +97,22 @@
                         <div>
                             <p x-text="csr.csr_title"
                                 class="text-sm font-medium text-gray-900 leading-snug line-clamp-2"></p>
-                            <p x-text="csr.csr_content"
+                            <p x-html="csr.csr_content"
                                 class="text-xs text-gray-500 mt-1 line-clamp-3"></p>
-                        </div>
-
-                        <!-- Encoded by -->
-                        <div class="flex items-center gap-1.5 text-[11px] text-gray-400 mt-auto">
-                            <svg class="size-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                <circle cx="12" cy="7" r="4" />
-                            </svg>
-                            <span>Encoded by&nbsp;
-                                <span x-text="'#' + csr.csr_encode" class="font-medium text-gray-500"></span>
-                            </span>
-                            <span class="mx-0.5">·</span>
-                            <span x-text="formatDate(csr.csr_encode_date)"></span>
                         </div>
 
                         <hr class="border-gray-100">
 
                         <!-- Actions -->
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 mt-auto">
                             <!-- View -->
-                            <a :href="`/admin/csr/view/${csr.csr_no}`"
+                            <a :href="`/admin/csr/photo/${csr.csr_no}`"
                                 class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium py-1.5 px-2.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors">
                                 <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                    <circle cx="12" cy="12" r="3" />
+                                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                                    <circle cx="12" cy="13" r="3" />
                                 </svg>
-                                View
+                                Photo
                             </a>
 
                             <!-- Edit -->

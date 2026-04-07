@@ -52,7 +52,17 @@ class CsrApi extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => $this->validator->getErrors()
+            ], 400);
+        }
+
+        $data = $this->model->find($id);
+
+        return $this->respond(['data' => $data]);
     }
 
     /**
@@ -72,7 +82,30 @@ class CsrApi extends ResourceController
      */
     public function create()
     {
-        //
+        $json = json_decode($this->request->getBody(), true);
+
+        $rules = [
+            'csr_title' => 'required',
+            'csr_content' => 'required',
+            'csr_date' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $json['csr_encode_date'] = date('Y-m-d H:i:s');
+        $this->model->insert($json);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "You have successfully add csr",
+            "errors" => null,
+        ]);
     }
 
     /**
@@ -96,7 +129,47 @@ class CsrApi extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        if (!$id) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "No resources found",
+                "errors" => $this->validator->getErrors()
+            ], 400);
+        }
+
+        $json = json_decode($this->request->getBody(), true);
+
+        if (isset($json['inactive'])) {
+            $this->model->update($id, ['csr_inactive' => $json['inactive']]);
+
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Csr status change",
+                "errors" => null,
+            ]);
+        }
+
+        $rules = [
+            'csr_title' => 'required',
+            'csr_content' => 'required',
+            'csr_date' => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return $this->respond([
+                "csrf_token" => csrf_hash(),
+                "message" => "Validation Error",
+                "errors" => $this->validator->getErrors()
+            ], 422);
+        }
+
+        $this->model->update($id, $json);
+
+        return $this->respond([
+            "csrf_token" => csrf_hash(),
+            "message" => "Updated csr content",
+            "errors" => null,
+        ]);
     }
 
     /**
