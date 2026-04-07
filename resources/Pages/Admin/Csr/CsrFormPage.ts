@@ -51,10 +51,13 @@ function initEditor(content: string): Editor {
     });
 
     // Sync editor content into Alpine's form.csr_content on every update
+    let tiptapContent = content;
     editor.on("update", () => {
         const alpineEl = document.querySelector("[x-data]") as any;
         if (alpineEl) {
-            content = editor.getHTML();
+            tiptapContent = editor.getHTML();
+        } else {
+            tiptapContent = tiptapContent;
         }
     });
 
