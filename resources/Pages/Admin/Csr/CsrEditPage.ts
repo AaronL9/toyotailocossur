@@ -21,7 +21,7 @@ function initEditor(content: string): Editor {
             },
         },
         extensions: [
-            StarterKit.configure({ history: false }),
+            StarterKit.configure(),
             Placeholder.configure({
                 placeholder: "Describe the CSR activity in detail…",
                 emptyNodeClass: "before:text-muted-foreground-1",
@@ -55,7 +55,6 @@ function initEditor(content: string): Editor {
     editor.on("update", () => {
         const alpineEl = document.querySelector("[x-data]") as any;
         if (alpineEl) {
-            const data = Alpine.$data(alpineEl);
             content = editor.getHTML();
         }
     });

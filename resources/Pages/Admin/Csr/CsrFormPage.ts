@@ -20,7 +20,7 @@ function initEditor(content: string): Editor {
             },
         },
         extensions: [
-            StarterKit.configure({ history: false }),
+            StarterKit.configure(),
             Placeholder.configure({
                 placeholder: "Describe the CSR activity in detail…",
                 emptyNodeClass: "before:text-muted-foreground-1",
@@ -52,10 +52,8 @@ function initEditor(content: string): Editor {
 
     // Sync editor content into Alpine's form.csr_content on every update
     editor.on("update", () => {
-        console.log('h')
         const alpineEl = document.querySelector("[x-data]") as any;
         if (alpineEl) {
-            const data = Alpine.$data(alpineEl);
             content = editor.getHTML();
         }
     });
@@ -91,6 +89,7 @@ function initEditor(content: string): Editor {
 export default function CsrFormPage() {
     Alpine.data("csrForm", (csrf_token: string) => ({
         csrf_token,
+        editor: null as Editor | null,
         submitting: false,
         imagePreview: null as string | null,
         imageFile: null as File | null,
@@ -110,7 +109,7 @@ export default function CsrFormPage() {
         },
 
         init() {
-            initEditor(this.form.csr_content);
+            this.editor = initEditor(this.form.csr_content);
         },
 
         validate(): boolean {
@@ -150,8 +149,6 @@ export default function CsrFormPage() {
 
             this.submitting = true;
 
-            console.log(this.form.csr_date);
-
             try {
                 const { data } = await axios.post("/api/csr", {
                     csrf_token: this.csrf_token,
@@ -161,6 +158,11 @@ export default function CsrFormPage() {
                 });
 
                 if (data.csrf_token) this.csrf_token = data.csrf_token;
+
+                this.form.csr_date = '';
+                this.form.csr_title = '';
+                this.editor?.destroy()
+                this.init();
 
                 Swal.fire({
                     title: 'Successful',
