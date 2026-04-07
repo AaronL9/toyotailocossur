@@ -3,7 +3,7 @@
 ###################################################
 
 # Use official PHP CLI image
-FROM php:8.4-cli AS backend-dev
+FROM php:8.3.6-cli AS backend-dev
 
 WORKDIR /var/www/html
 
@@ -18,11 +18,12 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY ./composer.json ./composer.lock ./
 
 # Install PHP dependencies
-RUN composer install
+RUN composer install --no-interaction
 
 # Copy codebase on container working directory
 COPY ./ /var/www/html
 
+EXPOSE 8080
 ###################################################
 # Stage: final
 #
@@ -34,4 +35,3 @@ WORKDIR /var/www/html
 RUN composer install --no-dev
  
 # CMD ["php", "spark", "serve", "--host", "0.0.0.0", "--port", "8080"]
-# EXPOSE 8080

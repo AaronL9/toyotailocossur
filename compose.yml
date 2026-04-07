@@ -41,5 +41,4 @@ services:
 
 volumes:
   mysql-8.0.16: # Declare named volume for MySQL persistence
-    external: true
   vendor:

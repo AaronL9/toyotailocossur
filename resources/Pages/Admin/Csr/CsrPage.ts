@@ -17,7 +17,7 @@ const CsrApi = z.object({
       csr_title: z.string(),
       csr_content: z.string(),
       csr_image: z.nullable(z.string()),
-      csr_date: z.string(),
+      csr_date: z.nullable(z.string()),
       csr_encode: z.string(),
       csr_encode_date: z.string(),
       csr_inactive: z.string(),

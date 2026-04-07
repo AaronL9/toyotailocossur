@@ -1,7 +1,8 @@
 import "preline";
 
 import "./admin.css";
-import "@fortawesome/fontawesome-free/css/all.css";
+// import "../../fortawesome/fontawesome-free/css/all.css";
+import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
 import Alpine from "alpinejs";
 import collapse from "@alpinejs/collapse";
@@ -37,6 +38,8 @@ import InquiryContactPage from "./Pages/Admin/inquiry/InquiryContactPage";
 import InquiryVehiclePage from "./Pages/Admin/inquiry/InquiryVehiclePage";
 import InquiryAppointmentPage from "./Pages/Admin/inquiry/InquiryAppointmentPage";
 import CsrPage from "./Pages/Admin/Csr/CsrPage";
+import CsrFormPage from "./Pages/Admin/Csr/CsrFormPage";
+import CsrEditPage from "./Pages/Admin/Csr/CsrEditPage";
 
 const page = document.body.dataset.page;
 
@@ -75,6 +78,8 @@ const routes: Record<string, () => void> = {
   "inquiry-vehicle": InquiryVehiclePage,
   "inquiry-appointment": InquiryAppointmentPage,
   csr: CsrPage,
+  'csr-create': CsrFormPage,
+  'csr-edit': CsrEditPage
 };
 
 if (page && routes[page]) {

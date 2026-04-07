@@ -156,7 +156,6 @@ class VariantsApi extends ResourceController
             ], 400);
         }
 
-
         $json = json_decode($this->request->getBody(), true);
 
         if (isset($json['inactive'])) {

@@ -22,8 +22,7 @@
     }
 </style>
 
-<div class="w-full max-w-3xl" x-data="csrForm('<?= csrf_hash() ?>')">
-
+<div class="w-full max-w-3xl" x-data="csrForm('<?= csrf_hash() ?>', '<?= $csr->csr_no ?>')">
     <!-- Page heading -->
     <div class="flex gap-3 mb-6">
         <a href="/admin/csr"
@@ -33,7 +32,7 @@
             </svg>
         </a>
         <div>
-            <h1 class="text-base font-semibold text-gray-900 leading-none">Add CSR Activity</h1>
+            <h1 class="text-base font-semibold text-gray-900 leading-none">Edit CSR Activity</h1>
             <p class="text-xs text-gray-400 mt-0.5">Fill in the details below and publish when ready.</p>
         </div>
     </div>
