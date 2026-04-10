@@ -9,6 +9,13 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Inquiry extends AdminBaseController
 {
+    protected $model;
+
+    public function __construct()
+    {
+        $this->model = model(InquiryModel::class);
+    }
+
     public function getIndex($id = null, $vehicle_no = null)
     {
         if ($id) {
@@ -29,7 +36,25 @@ class Inquiry extends AdminBaseController
     public function getContacts()
     {
         $data['page'] = 'inquiry-contact';
+
         return view('admin/inquiry/inquiry-contact-view', $data);
+    }
+
+    public function getContact($id = null)
+    {
+
+        $data['inquiry'] = $this->model
+            ->select([
+                'inquiry_no as id',
+                'inquiry_name as inquirer',
+                'inquiry_contact as contact',
+                'inquiry_email as email',
+                'inquiry_content as message',
+                'inquiry_date as date'
+            ])
+            ->find($id);
+
+        return view('admin/inquiry/inquiry-contact-show-view', $data);
     }
 
     public function getAppointments()
@@ -42,5 +67,23 @@ class Inquiry extends AdminBaseController
     {
         $data['page'] = 'inquiry-vehicle';
         return view('admin/inquiry/inquiry-vehicle-view', $data);
+    }
+
+    public function getVehicle($id = null)
+    {
+        $data['inquiry'] = $this->model
+            ->select([
+                'inquiry_no as id',
+                'inquiry_name as inquirer',
+                'inquiry_contact as contact',
+                'inquiry_email as email',
+                'inquiry_content as message',
+                'inquiry_date as date',
+                'vehicle_title as vehicle'
+            ])
+            ->join('vehicles', 'vehicles.vehicle_no = inquiry.inquiry_no', 'left')
+            ->find($id);
+
+        return view('admin/inquiry/inquiry-vehicle-show-view', $data);
     }
 }
