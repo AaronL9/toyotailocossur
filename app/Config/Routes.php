@@ -26,6 +26,8 @@ $routes->get('admin/vehicles', "Admin\Vehicles::getIndex");
 $routes->get('admin/vehicles/create', "Admin\Vehicles::getCreate");
 $routes->get('admin/vehicles/edit/(:segment)', "Admin\Vehicles::getEdit/$1");
 
+service('auth')->routes($routes);
+
 try {
   $db = \Config\Database::connect();
   $dynamicRoutes = $db->table('vehicles')

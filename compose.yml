@@ -1,30 +1,23 @@
 services:
   backend:
-    user: "${UID}:${GID}"
     container_name: ci4
     build:
       context: ./ # The directory to use as build context (current folder)
       target: backend-dev # Dockerfile build stage to target (multi-stage build)
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     volumes:
-      # - ./:/var/www/html/ 
       - ./app:/var/www/html/app 
       - ./public:/var/www/html/public 
-      - ./tests:/var/www/html/tests 
-      - ./writable:/var/www/html/writable 
       - ./.env:/var/www/html/.env 
-      - ./builds:/var/www/html/builds 
-      - ./composer.json:/var/www/html/composer.json 
-      - ./composer.lock:/var/www/html/composer.lock 
-      - ./phpunit.xml.dist:/var/www/html/phpunit.xml.dist 
-      - ./preload.php:/var/www/html/preload.php 
-      - ./spark:/var/www/html/spark 
-      - vendor:/var/www/html/vendor
+      - ./composer.json:/var/www/html/composer.json
+      - ./composer.lock:/var/www/html/composer.lock
     ports:
       - 8080:8080 # Map host port 8080 to container port 8080
     command:
       ["php", "spark", "serve", "--host", "0.0.0.0", "--port", "8080"]
       # Run CodeIgniter 4 dev server, accessible from any host
-
   db:
     platform: linux/x86_64 # Ensure architecture compatibility on MacBook Pro
     image: mysql:8.0.16 # Use MySQL 8.0.16 official image
@@ -38,7 +31,6 @@ services:
       - MYSQL_ROOT_PASSWORD=market # Root password
     volumes:
       - mysql-8.0.16:/var/lib/mysql # Named volume for persistent DB data
-
 volumes:
   mysql-8.0.16: # Declare named volume for MySQL persistence
   vendor:
