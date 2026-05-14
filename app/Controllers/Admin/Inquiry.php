@@ -86,4 +86,25 @@ class Inquiry extends AdminBaseController
 
         return view('admin/inquiry/inquiry-vehicle-show-view', $data);
     }
+
+    public function getAppointment($id = null)
+    {
+        $data['inquiry'] = $this->model
+            ->select([
+                'inquiry_no as id',
+                'inquiry_name as inquirer',
+                'inquiry_contact as contact',
+                'inquiry_email as email',
+                'inquiry_content as message',
+                'inquiry_year as vehicle_model_year',
+                'inquiry_plateno as vehicle_plateno',
+                'inquiry_milage as vehicle_mileage',
+                'inquiry_appointment_date as appointment_date',
+                'inquiry_appointment_time as appointment_time',
+                'inquiry_date as date',
+            ])
+            ->find($id);
+
+        return view('admin/inquiry/inquiry-appointment-show-view', $data);
+    }
 }

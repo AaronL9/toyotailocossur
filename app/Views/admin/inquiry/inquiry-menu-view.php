@@ -18,7 +18,7 @@
         </div>
         <h3 class="font-semibold text-gray-800">Contact Form Submissions</h3>
         <p class="mt-1 text-sm text-gray-500">View all users who filled up the contact us form.</p>
-        <div class="mt-4 flex items-center gap-x-1 text-sm text-blue-600">
+        <div class="mt-auto flex items-center gap-x-1 text-sm text-blue-600">
             View table
             <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -40,7 +40,7 @@
         </div>
         <h3 class="font-semibold text-gray-800">Vehicle Inquiry Submissions</h3>
         <p class="mt-1 text-sm text-gray-500">View all users who inquired about a specific vehicle.</p>
-        <div class="mt-4 flex items-center gap-x-1 text-sm text-green-600">
+        <div class="mt-auto flex items-center gap-x-1 text-sm text-green-600">
             View table
             <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -61,9 +61,9 @@
             </div>
         </div>
         <h3 class="font-semibold text-gray-800">Service Appointment Scheduling</h3>
-        <p class="mt-1 text-sm text-gray-500">Schedule a Toyota service appointment for your vehicle.</p>
-        <div class="mt-4 flex items-center gap-x-1 text-sm text-yellow-600">
-            Schedule now
+        <p class="mt-1 text-sm text-gray-500">Manage and view all users who scheduled a service appointment for their vehicle.</p>
+        <div class="mt-auto flex items-center gap-x-1 text-sm text-yellow-600">
+            View table
             <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
             </svg>
