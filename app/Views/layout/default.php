@@ -18,7 +18,7 @@
         <nav class="max-w-340 w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between">
             <a href="/" class="flex-none text-xl font-semibold dark:text-white focus:outline-hidden focus:opacity-80"
                 aria-label="Brand">
-                <img class="w-40 h-auto" src="/img/ilocos-sur-white-DHIjoD-c.png" alt="Logo" />
+                <img class="w-40 h-auto object-fit-cover" src="/toyota-banner.png" alt="Logo" />
             </a>
             <div class="sm:order-3 flex items-center gap-x-2">
                 <button type="button"
