@@ -11,17 +11,17 @@
     "file": "assets/fa-solid-900-DRAAbZTg.woff2",
     "src": "../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
-  "_sweetalert2.esm.all-EY4O3mLn.js": {
-    "file": "assets/sweetalert2.esm.all-EY4O3mLn.js",
+  "_sweetalert2.esm.all-BRDazbO9.js": {
+    "file": "assets/sweetalert2.esm.all-BRDazbO9.js",
     "name": "sweetalert2.esm.all"
   },
   "admin.ts": {
-    "file": "assets/admin-O_7LS9ZN.js",
+    "file": "assets/admin-CNnqUJlm.js",
     "name": "admin",
     "src": "admin.ts",
     "isEntry": true,
     "imports": [
-      "_sweetalert2.esm.all-EY4O3mLn.js"
+      "_sweetalert2.esm.all-BRDazbO9.js"
     ],
     "css": [
       "assets/admin-C_CYgqz_.css"
@@ -33,12 +33,12 @@
     ]
   },
   "main.ts": {
-    "file": "assets/main-n3e4fF7F.js",
+    "file": "assets/main-e3jOx8xn.js",
     "name": "main",
     "src": "main.ts",
     "isEntry": true,
     "imports": [
-      "_sweetalert2.esm.all-EY4O3mLn.js"
+      "_sweetalert2.esm.all-BRDazbO9.js"
     ],
     "css": [
       "assets/main-BB0Jj740.css"
