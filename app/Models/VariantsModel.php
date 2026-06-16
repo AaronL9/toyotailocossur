@@ -77,4 +77,28 @@ class VariantsModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function getOverallColors(string $id)
+    {
+        return $this
+            ->builder('vehicles')
+            ->select([
+                // 'vehicles.vehicle_no',
+                // 'vehicles.vehicle_title',
+                'photos.photo_no',
+                'photos.variant_filename',
+
+                'colors.color_no',
+                'colors.color_hex_value',
+                'colors.color_title'
+            ])
+            ->join('variants', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
+            ->join('photos', 'photos.variant_no = variants.variant_no', 'inner')
+            ->join('colors', 'colors.color_no = photos.color_no', 'inner')
+            ->where('variants.vehicle_no', $id)
+            ->groupBy('color_title')
+            // ->where('photos.variant_isprimary', 1)
+            ->get()
+            ->getResultArray();
+    }
 }
