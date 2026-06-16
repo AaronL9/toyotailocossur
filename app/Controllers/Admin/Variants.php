@@ -174,6 +174,13 @@ class Variants extends AdminBaseController
             ->where('photos.variant_isprimary', 1)
             ->findAll();
 
+        $data['colors'] = $this->colorModel
+            ->orderBy('color_title', 'ASC')
+            ->where('color_delete', 0)
+            ->where('color_title IS NOT NULL')
+            ->where('color_title !=', '')
+            ->findAll();
+
         // echo "<pre>";
         // print_r($data['cc']);
         // echo "</pre>";
@@ -225,7 +232,54 @@ class Variants extends AdminBaseController
         if (!$this->validateData([], $validationRule)) {
             $msg = $this->validator->getError('userfile');
 
+            if (empty($msg)) {
+                $msg = $this->validator->getError('color_no');
+            }
+
             return redirect()->back()->with("userfile_error", $msg);
+        }
+
+        $color_no = $this->request->getPost('color_no');
+        $color_title = $this->request->getPost('color_title');
+        $color_hex_value = $this->request->getPost('color_hex_value');
+
+
+        $validationRule = [
+            'color_no' => [
+                'label' => 'Color',
+                'rules' => 'required',
+            ]
+        ];
+
+        if (isset($color_no)) {
+            if (!$this->validateData(['color_no' => $color_no], $validationRule)) {
+                $msg = $this->validator->getError('color_no');
+
+                return redirect()->back()->with("userfile_error", 'Please Select a color');
+            }
+        }
+
+        $validationRule = [
+            'color_title' => [
+                'label' => 'Color Title',
+                'rules' => 'required'
+            ],
+            'color_hex_value' => [
+                'label' => 'Hex Color',
+                'rules' => 'required'
+            ]
+        ];
+
+        if (isset($color_title) && isset($color_hex_value)) {
+            if (!$this->validateData(['color_title' => $color_title, 'color_hex_value' => $color_hex_value], $validationRule)) {
+                $msg = $this->validator->getError('color_title');
+
+                if (empty($msg)) {
+                    $msg = $this->validator->getError('color_hex_value');
+                }
+
+                return redirect()->back()->with("userfile_error", $msg);
+            }
         }
 
         $img = $this->request->getFile('userfile');
@@ -247,14 +301,18 @@ class Variants extends AdminBaseController
             try {
                 db_connect()->transException(true)->transStart();
 
-                $colorId = $this->colorModel->insert([
-                    'color_title' => $this->request->getPost('color_title'),
-                    'color_hex_value' => $this->request->getPost('color_hex_value'),
-                ], true);
+                $colorNo = $this->request->getPost('color_no');
+
+                if (empty($colorNo)) {
+                    $colorNo = $this->colorModel->insert([
+                        'color_title' => $this->request->getPost('color_title'),
+                        'color_hex_value' => $this->request->getPost('color_hex_value'),
+                    ], true);
+                }
 
                 $this->photoModel->insert([
                     'variant_no' => $id,
-                    'color_no' => $colorId,
+                    'color_no' => $colorNo,
                     'variant_filename' => $filename,
                     'variant_filenameRaw' => $filename,
                     'variant_path' => 'img/variants',

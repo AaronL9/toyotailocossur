@@ -20,6 +20,7 @@ $routes->group("api", function ($routes) {
   $routes->resource('users', ['controller' => '\App\Controllers\Api\UsersApi']);
   $routes->resource('user-module', ['controller' => '\App\Controllers\Api\UserModuleApi']);
   $routes->resource('csr', ['controller' => '\App\Controllers\Api\CsrApi']);
+  $routes->resource('colors', ['controller' => '\App\Controllers\Api\ColorApi']);
 });
 
 $routes->get('admin/vehicles', "Admin\Vehicles::getIndex");

@@ -67,6 +67,7 @@ class VariantsModel extends Model
 
                 'colors.color_no',
                 'colors.color_hex_value',
+                'colors.color_title'
             ])
             ->join('variants', 'variants.vehicle_no = vehicles.vehicle_no', 'left')
             ->join('photos', 'photos.variant_no = variants.variant_no', 'inner')

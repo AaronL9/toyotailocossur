@@ -16,12 +16,24 @@
       <p class="text-sm text-gray-500 mt-1">Manage your color list below.</p>
     </div>
 
+    <!-- Search Bar (outside the card) -->
+    <div class="mb-4">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
+        </div>
+        <input
+          x-model="search"
+          type="text"
+          class="py-2.5 pl-9 pr-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none bg-white"
+          placeholder="Search color..." />
+      </div>
+    </div>
+
     <!-- Card -->
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
 
-      <!-- Input + Add Button -->
-      <div class="flex flex-wrap gap-3 mb-6">
-        <!-- Color Name -->
+      <!-- <div class="flex flex-wrap gap-3 mb-6">
         <div class="flex-1 min-w-[180px]">
           <label for="color-title-input" class="block text-sm font-medium text-gray-700 mb-1">Color Name</label>
           <input
@@ -33,7 +45,6 @@
             placeholder="e.g. Midnight Black" />
         </div>
 
-        <!-- Hex Value -->
         <div class="w-40">
           <label for="color-hex-input" class="block text-sm font-medium text-gray-700 mb-1">Hex Value</label>
           <div class="flex items-center gap-x-2">
@@ -54,7 +65,6 @@
           </div>
         </div>
 
-        <!-- Add Button -->
         <div class="flex mt-auto">
           <button
             @click="add()"
@@ -64,7 +74,7 @@
             Add
           </button>
         </div>
-      </div>
+      </div> -->
 
       <!-- Divider -->
       <hr class="border-t border-gray-100 mb-4" />
@@ -73,14 +83,14 @@
       <h2 class="text-xs font-semibold uppercase text-gray-400 tracking-wider mb-3">Color List</h2>
 
       <!-- List -->
-      <ul class="flex flex-col gap-y-2">
+      <ul class="flex flex-col gap-y-2 max-h-72 overflow-y-auto">
         <template x-if="data.length === 0">
           <li class="text-center py-8 text-gray-400 text-sm">
             <i class="fa-regular fa-palette text-3xl mb-2 block"></i>
             No colors added yet.
           </li>
         </template>
-        <template x-for="row in data" :key="row.color_no">
+        <template x-for="row in filteredData" :key="row.color_no">
           <li class="flex items-center justify-between px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg group hover:border-gray-300 hover:bg-gray-100 transition-colors duration-150">
             <div class="flex items-center gap-x-3">
               <!-- Color swatch -->
@@ -127,7 +137,7 @@
       <div class="mb-4">
         <label class="block text-sm text-left font-medium text-gray-700 mb-1">Color Name</label>
         <input
-          x-model="$store.color.editTitle"
+          x-model="$store.colorType.editInput"
           type="text"
           id="edit-color-title"
           class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
@@ -139,24 +149,24 @@
         <label class="block text-sm text-left font-medium text-gray-700 mb-1">Hex Value</label>
         <div class="flex items-center gap-x-2">
           <input
-            x-model="$store.color.editHex"
+            x-model="$store.colorType.editHexVal"
             @input="document.getElementById('edit-color-picker').value = $store.color.editHex"
             type="text"
             id="edit-color-hex"
             class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
             placeholder="#000000"
             maxlength="7" />
-          <input
+          <!-- <input
             id="edit-color-picker"
             @input="$store.color.editHex = $event.target.value"
             type="color"
             class="w-9 h-9 rounded-md border border-gray-200 cursor-pointer p-0.5 flex-shrink-0"
-            :value="$store.color.editHex" />
+            :value="$store.color.editHex" /> -->
         </div>
       </div>
 
       <!-- Live Preview -->
-      <div class="flex items-center gap-x-3 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg">
+      <!-- <div class="flex items-center gap-x-3 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg">
         <span
           id="edit-preview-swatch"
           class="flex-shrink-0 w-8 h-8 rounded-md border border-gray-300 shadow-sm"
@@ -167,7 +177,7 @@
           <p x-text="$store.color.editTitle || 'Color Name'" class="text-sm font-medium text-gray-700"></p>
           <p x-text="$store.color.editHex" class="text-xs text-gray-400 font-mono uppercase"></p>
         </div>
-      </div>
+      </div> -->
     </swal-html>
 
     <swal-footer>

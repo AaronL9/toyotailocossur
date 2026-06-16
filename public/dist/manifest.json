@@ -11,20 +11,20 @@
     "file": "assets/fa-solid-900-DRAAbZTg.woff2",
     "src": "../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
-  "_sweetalert2.esm.all-BRDazbO9.js": {
-    "file": "assets/sweetalert2.esm.all-BRDazbO9.js",
+  "_sweetalert2.esm.all-DQ-2Tq_j.js": {
+    "file": "assets/sweetalert2.esm.all-DQ-2Tq_j.js",
     "name": "sweetalert2.esm.all"
   },
   "admin.ts": {
-    "file": "assets/admin-CNnqUJlm.js",
+    "file": "assets/admin-BiNUwcKR.js",
     "name": "admin",
     "src": "admin.ts",
     "isEntry": true,
     "imports": [
-      "_sweetalert2.esm.all-BRDazbO9.js"
+      "_sweetalert2.esm.all-DQ-2Tq_j.js"
     ],
     "css": [
-      "assets/admin-C_CYgqz_.css"
+      "assets/admin-D3w4MnPT.css"
     ],
     "assets": [
       "assets/fa-brands-400-BP5tdqmh.woff2",
@@ -32,16 +32,23 @@
       "assets/fa-solid-900-DRAAbZTg.woff2"
     ]
   },
+  "fonts/Toyota-Type.ttf": {
+    "file": "assets/Toyota-Type-zYKDirkm.ttf",
+    "src": "fonts/Toyota-Type.ttf"
+  },
   "main.ts": {
-    "file": "assets/main-e3jOx8xn.js",
+    "file": "assets/main-uxzj4GbC.js",
     "name": "main",
     "src": "main.ts",
     "isEntry": true,
     "imports": [
-      "_sweetalert2.esm.all-BRDazbO9.js"
+      "_sweetalert2.esm.all-DQ-2Tq_j.js"
     ],
     "css": [
-      "assets/main-BB0Jj740.css"
+      "assets/main-Z4egxJQn.css"
+    ],
+    "assets": [
+      "assets/Toyota-Type-zYKDirkm.ttf"
     ]
   }
 }

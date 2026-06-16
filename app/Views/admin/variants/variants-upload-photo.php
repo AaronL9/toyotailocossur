@@ -1,3 +1,11 @@
+<?php
+
+/**
+ * @var object $cc
+ * @var array $colors
+ */
+?>
+
 <?= $this->extend("admin/layout/control-panel"); ?>
 
 <?= $this->section("breadcrump") ?>
@@ -118,13 +126,44 @@
         </button>
       </div>
 
+      <div>
+        <label for="hs-multiple-with-option-template" class="block text-sm font-medium mb-2">Select Color <span class="text-red-600">*</span></label>
+        <select id="hs-multiple-with-option-template" name="color_no" :disabled="isNotAvailable" data-hs-select='{
+          "placeholder": "Select option...",
+          "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+          "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-layer border border-layer-line text-layer-foreground rounded-lg text-start text-sm hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus",
+          "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-select border border-select-line rounded-lg shadow-xl overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-track]:bg-scrollbar-track [&::-webkit-scrollbar-thumb]:bg-scrollbar-thumb",
+          "optionClasses": "py-2 px-4 w-full text-sm text-select-item-foreground cursor-pointer hover:bg-select-item-hover rounded-lg focus:outline-hidden focus:bg-select-item-focus",
+          "optionTemplate": "<div class=\"flex items-center\"><div class=\"me-2\" data-icon></div><div><div class=\"hs-selected:font-semibold text-sm text-foreground\" data-title></div></div><div class=\"ms-auto\"><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-4 text-primary\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z\"/></svg></span></div></div>",
+          "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-muted-foreground-1\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+              }' class="hidden">
+          <option value="">Choose</option>
+          <?php foreach ($colors as $color): ?>
+            <option value="<?= $color['color_no'] ?>" data-hs-select-option='{ 
+                "icon": "<div class=\"w-4 h-4 rounded-full border border-gray-300\" style=\"background-color: <?= $color['color_hex_value'] ?>\"></div>"
+                }'>
+              <?= $color['color_title'] ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <div class="flex flex-wrap gap-3 items-center">
+        <label for="color-toggle" class="relative inline-block w-11 h-6 cursor-pointer">
+          <input x-model="isNotAvailable" type="checkbox" id="color-toggle" class="peer sr-only">
+          <span class="absolute inset-0 bg-surface-1 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-primary-checked peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+          <span class="absolute top-1/2 inset-s-0.5 -translate-y-1/2 size-5 bg-switch rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+        </label>
+        <span class="text-gray-400 font-normal text-[10px]">Enable if color is not availabe in selection</span>
+      </div>
+
       <!-- Color Picker Row -->
       <div class="flex flex-wrap gap-3">
 
         <!-- Color Name -->
         <div class="flex-1 min-w-[160px]">
           <label for="photo-color-name" class="block text-sm font-medium text-gray-700 mb-1">
-            Color Name <span class="text-gray-400 font-normal">(optional)</span>
+            Color Name
           </label>
           <input
             x-model="colorTitle"
@@ -132,8 +171,9 @@
             name="color_title"
             id="photo-color-name"
             value="<?= old('color_title') ?>"
-            class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
-            placeholder="e.g. Midnight Black" />
+            class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+            placeholder="e.g. Midnight Black"
+            :disabled="!isNotAvailable" />
         </div>
 
         <!-- Hex Picker -->
@@ -148,14 +188,16 @@
               id="photo-color-hex"
               maxlength="7"
               value="<?= old('color_hex_value', '#000000') ?>"
-              class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm font-mono focus:border-primary-500 focus:ring-primary-500 focus:outline-none"
-              placeholder="#000000" />
+              class="py-2.5 px-4 block w-full border border-gray-200 rounded-lg text-sm font-mono focus:border-primary-500 focus:ring-primary-500 focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+              placeholder="#000000"
+              :disabled="!isNotAvailable" />
             <input
               x-ref="colorPicker"
               @input="colorHex = $event.target.value"
               type="color"
-              class="w-9 h-9 rounded-md border border-gray-200 cursor-pointer p-0.5 flex-shrink-0"
-              :value="colorHex" />
+              class="w-9 h-9 rounded-md border border-gray-200 cursor-pointer p-0.5 flex-shrink-0 disabled:opacity-50 disabled:pointer-events-none"
+              :value="colorHex"
+              :disabled="!isNotAvailable" />
           </div>
         </div>
 
@@ -230,7 +272,7 @@
         No photos uploaded yet.
       </div>
     <?php else: ?>
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div x-data class="grid grid-cols-2 sm:grid-cols-3 gap-4">
         <?php foreach ($photos as $photo): ?>
           <div class="group relative rounded-xl overflow-hidden border border-gray-200 bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-150">
 
@@ -293,6 +335,8 @@
       dragOver: false,
       colorTitle: '<?= old('color_title') ?>',
       colorHex: '<?= old('color_hex_value', '#000000') ?>',
+      isNotAvailable: false,
+      color: '',
 
       onFileChange(event) {
         const file = event.target.files[0];
