@@ -11,7 +11,6 @@ import Contact from './Pages/Contact';
 import Schedule from './Pages/schedule';
 import DataPrivacyPage from './Pages/DataPrivacy';
 
-
 const page = document.documentElement.dataset.page;
 
 const routes: Record<string, () => void> = {

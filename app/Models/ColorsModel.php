@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ColorsModel extends Model
 {
     protected $table            = 'colors';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'color_no';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

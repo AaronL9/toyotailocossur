@@ -1,10 +1,17 @@
+<?php
+
+/** @var object $cc */
+/** @var array $variants */
+/** @var array $gallery */
+?>
+
 <?= $this->extend("layout/default"); ?>
 <?= $this->section("mainContent"); ?>
 
 <div x-data="vehiclePage()">
     <!-- Main Layout -->
     <main class="flex-1 max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
-        <div x-data="{ activeImage: '/img/variants/<?= $cc->variant_filename ?>', isLoading: true}" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
+        <div x-data="{ activeImage: '/img/variants/<?= $cc->variant_filename ?>', isLoading: true, activeName:  '<?= $cc->color_title ?>'}" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start lg:items-center">
             <!-- Left: Vehicle Image -->
             <div class="w-full flex justify-center">
                 <div class="w-full max-w-4xl aspect-21/9 lg:aspect-video flex justify-center items-center">
@@ -22,14 +29,15 @@
                     <p class="text-xs tracking-widest text-gray-500 mb-3">
                         EXPLORE COLORS*
                     </p>
-                    <div class="flex justify-center lg:justify-start gap-3">
+                    <div class="flex justify-center lg:justify-start gap-3 mb-2">
                         <?php foreach ($cc->assets as $asset): ?>
                             <button
-                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading: true;"
+                                @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading: true; activeName = '<?= $asset['color_title'] ?>'"
                                 style="background-color: <?= $asset['color_hex_value'] ?>;"
                                 class="w-8 h-8 rounded-full border hover:scale-95"></button>
                         <?php endforeach; ?>
                     </div>
+                    <span x-text="activeName" class="text-black mt-2"></span>
                 </div>
 
                 <!-- Vehicle Name -->

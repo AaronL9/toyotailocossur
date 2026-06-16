@@ -89,11 +89,13 @@ export default function SpecificationsTypePage() {
         if (!result.success) throw result.error;
 
         this.csrf_token = result.data.csrf_token;
+
         Swal.fire({
           title: 'Updated',
           text: result.data.message,
           icon: 'success'
         })
+
         this.init();
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 422) {

@@ -1,5 +1,6 @@
 // types/alpine.d.ts
 import 'alpinejs' // ← this import is REQUIRED, without it the module augmentation breaks
+import type { string } from 'zod';
 
 declare module 'alpinejs' {
   interface Stores {
@@ -12,6 +13,11 @@ declare module 'alpinejs' {
     }
     specType: {
       editInput: string;
+    }
+
+    colorType: {
+      editInput: string,
+      editHexVal: string
     }
   }
 }

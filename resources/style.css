@@ -1,4 +1,13 @@
+@font-face {
+  font-family: 'ToyotaType';
+  src: url('/fonts/Toyota-Type.ttf') format('truetype');
+}
+
 @import "tailwindcss";
+
+@theme {
+  --font-sans: 'ToyotaType', sans-serif;
+}
 
 /* Preline UI */
 @source "../node_modules/preline/dist/*.js";

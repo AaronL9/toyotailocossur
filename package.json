@@ -19,9 +19,10 @@
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.15.8",
+    "@floating-ui/dom": "^1.7.6",
     "@fortawesome/fontawesome-free": "^7.2.0",
     "@preline/accordion": "^4.1.2",
-    "@preline/select": "^4.1.0",
+    "@preline/select": "^4.2.0",
     "@preline/tabs": "^4.1.3",
     "@tailwindcss/vite": "^4.1.18",
     "@tiptap/core": "^3.22.0",

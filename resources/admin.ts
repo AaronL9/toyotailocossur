@@ -40,6 +40,7 @@ import InquiryAppointmentPage from "./Pages/Admin/inquiry/InquiryAppointmentPage
 import CsrPage from "./Pages/Admin/Csr/CsrPage";
 import CsrFormPage from "./Pages/Admin/Csr/CsrFormPage";
 import CsrEditPage from "./Pages/Admin/Csr/CsrEditPage";
+import ColorsPage from "./Pages/Admin/Colors/ColorsPage";
 
 const page = document.body.dataset.page;
 
@@ -77,9 +78,12 @@ const routes: Record<string, () => void> = {
   "inquiry-contact": InquiryContactPage,
   "inquiry-vehicle": InquiryVehiclePage,
   "inquiry-appointment": InquiryAppointmentPage,
+
   csr: CsrPage,
   'csr-create': CsrFormPage,
-  'csr-edit': CsrEditPage
+  'csr-edit': CsrEditPage,
+
+  'colors': ColorsPage
 };
 
 if (page && routes[page]) {

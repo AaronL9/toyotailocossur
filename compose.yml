@@ -1,5 +1,5 @@
 services:
-  backend:
+  server:
     container_name: ci4
     build:
       context: ./ # The directory to use as build context (current folder)
