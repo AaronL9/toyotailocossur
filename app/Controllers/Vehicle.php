@@ -68,6 +68,7 @@ class Vehicle extends BaseController
             $variants[$i]['fullSpecifications'] = $this->variantsSpecificationsModel->getFullSpecificationsByVariant($variant_no);
             $variants[$i]['fullSpecifications'] = $this->variantsSpecificationsModel->getFullSpecificationsByVariant($variant_no);
             $variants[$i]['assets'] = $this->variantsModel->getBaseVariantInfo($variant_no);
+            $variants[$i]['overall_colors'] = $this->variantsModel->getOverallColors($id);
         }
 
         // Convert variant rows to objects (PHP 5.6+ compatible syntax)

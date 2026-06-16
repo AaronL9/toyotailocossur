@@ -29,8 +29,8 @@
                     <p class="text-xs tracking-widest text-gray-500 mb-3">
                         EXPLORE COLORS*
                     </p>
-                    <div class="flex justify-center lg:justify-start gap-3 mb-2">
-                        <?php foreach ($cc->assets as $asset): ?>
+                    <div class="flex justify-center flex-wrap lg:justify-start gap-3 mb-2">
+                        <?php foreach ($cc->overall_colors as $asset): ?>
                             <button
                                 @click="activeImage = '/img/variants/<?= $asset['variant_filename'] ?>'; isLoading: true; activeName = '<?= $asset['color_title'] ?>'"
                                 style="background-color: <?= $asset['color_hex_value'] ?>;"
