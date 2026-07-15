@@ -73,10 +73,10 @@
     <!-- FOOTER -->
     <footer class="py-8 bg-black text-white mt-auto">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 items-start gap-6">
-                <div>
-                    <img src="/img/ilocos-sur-white-DHIjoD-c.png" class="h-10 bg-center w-auto" />
-                    <p class="text-gray-300 text-sm pt-8">
+            <div class="grid grid-cols-5 md:grid-cols-5 items-start gap-6">
+                <div class="col-span-2">
+                    <img src="toyota-banner.png" class="h-14 bg-center w-auto" />
+                    <p class="text-gray-300 text-sm pt-2">
                         Langlangca Segundo, Candon City, 2710
                     </p>
                 </div>
@@ -88,6 +88,7 @@
                         <li>
                             <a href="/" class="text-gray-300 hover:text-white">Home</a>
                         </li>
+
                         <li>
                             <a href="showroom" class="text-gray-300 hover:text-white">Showroom</a>
                         </li>
@@ -103,7 +104,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="md:text-right">
+                <div class="md:text-left">
                     <h6 class="font-semibold text-sm mb-3 uppercase tracking-wide text-gray-400">
                         Office Hours
                     </h6>
@@ -111,6 +112,11 @@
                         <p>Mon – Saturday: 8:00 AM – 5:00 PM</p>
                         <p>Sunday: Closed</p>
                     </div>
+                </div>
+
+                <div style="width: fit-content" class="w-25 text-gray-300 mt-5 flex flex-col justify-self-end items-end">
+                    <img class="h-30 m-auto" src="dop-2.png">
+                    <a class="text-center w-full text-[10px]" href="privacy-policy">Privacy Policy</a>
                 </div>
             </div>
             <hr class="my-6 border-red-600" />
@@ -122,8 +128,8 @@
     </footer>
 
     <?php if (getenv("CI_ENVIRONMENT") === 'development'): ?>
-        <script type="module" src="http://localhost:5173/@vite/client"></script>
-        <script type="module" src="http://localhost:5173/main.ts"></script>
+        <script type="module" src="http://localhost:5173/dist/@vite/client"></script>
+        <script type="module" src="http://localhost:5173/dist/main.ts"></script>
 
         <!-- Vite HMR + JS -->
     <?php else: ?>

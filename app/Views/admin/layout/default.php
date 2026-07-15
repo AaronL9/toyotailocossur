@@ -23,8 +23,8 @@
   <?= $this->renderSection("adminContent") ?>
 
   <?php if (getenv("CI_ENVIRONMENT") === 'development'): ?>
-    <script type="module" src="http://localhost:5173/@vite/client"></script>
-    <script type="module" src="http://localhost:5173/admin.ts"></script>
+    <script type="module" src="http://localhost:5173/dist/@vite/client"></script>
+    <script type="module" src="http://localhost:5173/dist/admin.ts"></script>
 
     <!-- Vite HMR + JS -->
   <?php else: ?>

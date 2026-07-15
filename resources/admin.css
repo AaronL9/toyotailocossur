@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'ToyotaType';
+  src: url('/fonts/Toyota-Type.ttf') format('truetype');
+}
+
 @import "tailwindcss";
 
 /* Preline UI */
