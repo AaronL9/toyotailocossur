@@ -55,3 +55,5 @@ try {
   // Silently fail if DB isn't ready (e.g. during migrations)
   log_message('error', 'Dynamic routes failed: ' . $e->getMessage());
 }
+
+$routes->set404Override('App\Controllers\Error::show404');

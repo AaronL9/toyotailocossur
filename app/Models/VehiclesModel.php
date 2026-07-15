@@ -31,7 +31,10 @@ class VehiclesModel extends Model
             )
             ->join("variants", "vehicles.vehicle_no = variants.vehicle_no", "left")
             ->join("photos", "photos.variant_no = variants.variant_no", "left")
-            ->where('vehicles.vehicle_delete', 0)
+            ->where([
+                'vehicles.vehicle_delete' => 0,
+                'vehicles.vehicle_inactive' => 0
+            ])
             ->groupBy('vehicles.vehicle_no')
             ->orderBy('RAND()')
             ->findAll(4);
