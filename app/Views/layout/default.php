@@ -54,7 +54,7 @@
                     <?php $links = [
                         "home" => "/",
                         "showroom" => "/showroom",
-                        "about us" => "#team",
+                        "about us" => "/about-us",
                         "contact us" => "/contact",
                         "csr" => "/csr"
                     ] ?>
@@ -94,7 +94,7 @@
                         </li>
 
                         <li>
-                            <a href="#team" class="text-gray-300 hover:text-white">About Us</a>
+                            <a href="about-us" class="text-gray-300 hover:text-white">About Us</a>
                         </li>
                         <li>
                             <a href="contact" class="text-gray-300 hover:text-white">Contact Us</a>
