@@ -5,20 +5,20 @@
 <section class="relative bg-black text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <h1 class="text-4xl md:text-5xl font-bold mt-4 mb-4">About Us</h1>
-        <p class="text-gray-300 text-base sm:text-lg max-w-2xl">
-            "In line with Toyota Motor Philippines' (TMP) and its Toyota Dealers' commitment to uphold the objectives and principles of the Philippine Competition Act (Republic Act No. 10667), which was signed into law last July 21, 2015, TMP and its Toyota Dealers hereby issue this Statement of Commitment and Customer Welfare Commitment to reaffirm its dedication to fair, open, and competitive business practices."
-        </p>
     </div>
 </section>
 
 
 
-<section class="py-16 md:py-24 bg-white">
+<section class="py-16 md:py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-2 lg:px-2">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 text-justify">
+        <p class="text-black text-base mb-16">
+            "In line with Toyota Motor Philippines' (TMP) and its Toyota Dealers' commitment to uphold the objectives and principles of the Philippine Competition Act (Republic Act No. 10667), which was signed into law last July 21, 2015, TMP and its Toyota Dealers hereby issue this Statement of Commitment and Customer Welfare Commitment to reaffirm its dedication to fair, open, and competitive business practices."
+        </p>
 
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-4 text-justify">
             <!-- Statement of Commitment -->
-            <div id="overview" class="scroll-mt-28 pb-10 lg:pb-0 border-b lg:border-b-0 lg:border-r border-gray-200 lg:pr-16">
+            <div id="overview" class="scroll-mt-28 p-10 border-t-2 border-r-2 border-accent-600">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mt-2 mb-4">Statement of Commitment</h2>
                 <div class="space-y-4 text-gray-600 leading-relaxed">
                     <p>Toyota Motor Philippines Corporation (TMP) and its dealer network recognize the important role of the Philippine Competition Commission (PPC) in fostering fair competitions that benefits both Filipino consumers and the national economy.</p>
@@ -28,7 +28,7 @@
             </div>
 
             <!-- Customer Welfare Commitment -->
-            <div id="collection" class="scroll-mt-28">
+            <div id="collection" class="p-10 border-t-2 border-r-2 border-accent-600">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mt-2 mb-4">Customer Welfare Commitment</h2>
                 <div class="space-y-4 text-gray-600 leading-relaxed">
                     <ul class="space-y-3">
