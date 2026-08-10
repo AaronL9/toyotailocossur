@@ -29,13 +29,14 @@ export default function DataPrivacyPage() {
     accepted: false,
     consentTerms: false,
     consentPrivacy: false,
-    hasScrolledToBottom: false,
+    // hasScrolledToBottom: false,
     scrollProgress: 0,
     isSubmitting: false,
 
     // ── Computed ───────────────────────────────────────────────────────
     get canAccept(): boolean {
-      return this.consentTerms && this.consentPrivacy && this.hasScrolledToBottom;
+      // return this.consentTerms && this.consentPrivacy && this.hasScrolledToBottom;
+      return this.consentTerms && this.consentPrivacy;
     },
 
     // ── Lifecycle ──────────────────────────────────────────────────────
@@ -49,17 +50,17 @@ export default function DataPrivacyPage() {
     },
 
     // ── Handlers ───────────────────────────────────────────────────────
-    onScroll(e: Event) {
-      const el = e.target as HTMLElement;
-      const { scrollTop, scrollHeight, clientHeight } = el;
-      const raw = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    // onScroll(e: Event) {
+    //   const el = e.target as HTMLElement;
+    //   const { scrollTop, scrollHeight, clientHeight } = el;
+    //   const raw = (scrollTop / (scrollHeight - clientHeight)) * 100;
 
-      this.scrollProgress = Math.min(Math.round(raw), 100);
+    //   this.scrollProgress = Math.min(Math.round(raw), 100);
 
-      if (scrollHeight - scrollTop - clientHeight < 40) {
-        this.hasScrolledToBottom = true;
-      }
-    },
+    //   if (scrollHeight - scrollTop - clientHeight < 40) {
+    //     this.hasScrolledToBottom = true;
+    //   }
+    // },
 
     async onAccept() {
       if (!this.canAccept) return;
@@ -98,6 +99,7 @@ export default function DataPrivacyPage() {
         });
       } finally {
         this.isSubmitting = false;
+        document.body.style.overflow = 'visible';
       }
     },
 
