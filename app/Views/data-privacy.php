@@ -107,18 +107,6 @@
       </div>
 
       <div class="px-6 pt-3 pb-5 border-t border-primary-200 space-y-3">
-        <div
-          x-show="!hasScrolledToBottom"
-          x-transition:leave="transition ease-in duration-150"
-          x-transition:leave-start="opacity-100"
-          x-transition:leave-end="opacity-0">
-          <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-[11px] font-medium bg-primary-100 text-primary-500 animate-pulse">
-            <svg class="size-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M8 3V13M8 13L4 9M8 13L12 9" />
-            </svg>
-            Scroll down to read the full notice
-          </span>
-        </div>
 
         <div class="flex items-center justify-between gap-2">
           <p class="text-[11px] text-primary-400 hidden sm:block">Steps: Read → Agree → Submit</p>
