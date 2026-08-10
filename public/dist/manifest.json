@@ -16,7 +16,7 @@
     "name": "sweetalert2.esm.all"
   },
   "admin.ts": {
-    "file": "assets/admin-B3AchYTV.js",
+    "file": "assets/admin-DvuHpkvJ.js",
     "name": "admin",
     "src": "admin.ts",
     "isEntry": true,
@@ -24,7 +24,7 @@
       "_sweetalert2.esm.all-DQ-2Tq_j.js"
     ],
     "css": [
-      "assets/admin-CxNsHi14.css"
+      "assets/admin-BdveIxcw.css"
     ],
     "assets": [
       "assets/Toyota-Type-zYKDirkm.ttf",
@@ -38,7 +38,7 @@
     "src": "fonts/Toyota-Type.ttf"
   },
   "main.ts": {
-    "file": "assets/main-Ddbjq3yV.js",
+    "file": "assets/main-CtlEGO_E.js",
     "name": "main",
     "src": "main.ts",
     "isEntry": true,
@@ -46,7 +46,7 @@
       "_sweetalert2.esm.all-DQ-2Tq_j.js"
     ],
     "css": [
-      "assets/main-BGyBd_me.css"
+      "assets/main-BVMTmBwD.css"
     ],
     "assets": [
       "assets/Toyota-Type-zYKDirkm.ttf"
